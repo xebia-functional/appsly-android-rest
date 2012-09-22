@@ -52,7 +52,7 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", "param1", "param2");
 ```
 
-#### 2.1.2 POST
+#### 2.1.2. POST
 
 *Simple POST*
 
@@ -100,7 +100,7 @@ RestClientFactory.getClient().postAsync(new ContextAwareAPIDelegate<Target>(cont
 }, "http://url/%s/%s", sourceObject, file , "param1", "param2");
 ```
 
-#### 2.1.3 PUT
+#### 2.1.3. PUT
 
 ```java
 //An object that implements JSONSerializable
@@ -122,7 +122,7 @@ RestClientFactory.getClient().putAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", sourceObject , "param1", "param2");
 ```
 
-#### 2.1.4 DELETE
+#### 2.1.4. DELETE
 
 ```java
 RestClientFactory.getClient().deleteAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
