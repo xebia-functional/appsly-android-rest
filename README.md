@@ -7,41 +7,6 @@ Android client library to [RESTful](http://en.wikipedia.org/wiki/Representationa
 Restrung was born out of the need to provide a clear and easy interface for Android apps @ [47 degrees](http://47deg.com) to RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
-- [Restrung](#restrung)
-- [Introduction](#introduction)
-	- [1. Download](#1-download)
-		- [1.1. Maven Dependency](#11-maven-dependency)
-		- [1.2. APKLib and others](#12-apklib-and-others)
-	- [2. Usage](#2-usage)
-		- [2.1. Simple](#21-simple)
-			- [2.1.1. GET](#211-get)
-			- [2.1.2. POST](#212-post)
-			- [2.1.3. PUT](#213-put)
-			- [2.1.4. DELETE](#214-delete)
-		- [2.2. Advanced](#22-advanced)
-			- [2.2.1. Loaders](#221-loaders)
-				- [2.2.1.1 GET](#2211-get)
-				- [2.2.1.2 POST](#2212-post)
-				- [2.2.1.3 PUT](#2213-put)
-				- [2.2.1.4 DELETE](#2214-delete)
-			- [2.2.2. AsyncTasks](#222-asynctasks)
-				- [2.2.2.1 GET](#2221-get)
-				- [2.2.2.2 POST](#2222-post)
-				- [2.2.2.3 PUT](#2223-put)
-				- [2.2.2.4 DELETE](#2224-delete)
-			- [2.2.3. Runnables](#223-runnables)
-				- [2.2.2.1 GET](#2221-get-1)
-				- [2.2.2.2 POST](#2222-post-1)
-				- [2.2.2.3 PUT](#2223-put-1)
-				- [2.2.2.4 DELETE](#2224-delete-1)
-			- [2.2.4. Cache](#224-cache)
-			- [2.2.4.1. Load Policies](#2241-load-policies)
-			- [2.2.4.2. Direct access](#2242-direct-access)
-			- [2.2.5. Serialization](#225-serialization)
-			- [2.2.6. Interceptors](#226-interceptors)
-
 ## 1. Download
 
 ### 1.1. Maven Dependency
@@ -57,7 +22,7 @@ Restrung may be automatically imported in your project if you already use [Maven
 ```
 ### 1.2. APKLib and others
 
-You can get releases, snapshots and other binary forms in which Restrung is distributed in the [Downloads](https://github.com/47deg/restrung/downloads) page.
+You can get releases, snapshots and other forms in which Restrung is distributed in the [Downloads](https://github.com/47deg/restrung/downloads) page.
 
 ## 2. Usage
 
@@ -182,57 +147,30 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.1. Loaders
 
-##### 2.2.1.1 GET
-
-[org.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
-
-##### 2.2.1.2 POST
-
-[org.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
-
-##### 2.2.1.3 PUT
-
-[org.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
-
-##### 2.2.1.4 DELETE
-
-[org.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
+* GET - [org.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
+* POST - [org.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
+* PUT - [org.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
+* DELETE - [org.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
 
 #### 2.2.2. AsyncTasks
 
-##### 2.2.2.1 GET
+* GET - [org.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
 
-[org.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
+* POST - [org.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
 
-##### 2.2.2.2 POST
+* PUT - [org.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
 
-[org.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
-
-##### 2.2.2.3 PUT
-
-[org.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
-
-##### 2.2.2.4 DELETE
-
-[org.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
+* DELETE - [org.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
 
 #### 2.2.3. Runnables
 
-##### 2.2.2.1 GET
+* GET - [org.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java)
 
-[org.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java)
+* POST - [org.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java)
 
-##### 2.2.2.2 POST
+* PUT - [org.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java)
 
-[org.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java)
-
-##### 2.2.2.3 PUT
-
-[org.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java)
-
-##### 2.2.2.4 DELETE
-
-[org.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java)
+* DELETE - [org.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java)
 
 #### 2.2.4. Cache
 
@@ -267,20 +205,20 @@ RestClientFactory.getClient().getAsync(
 
 The cache load policies available are:
 
-* *NEVER* - Never use the cache.
-* *LOAD_IF_OFFLINE* - Load from the cache when the app is offline.
-* *LOAD_ON_ERROR* - Load from cache if there is an error.
-* *ETAG* - Load from the cache if we have data stored and the server returns a 304 (not modified) response.
-* *ENABLED* - Load always from the cache if available.
-* *LOAD_IF_TIMEOUT* - Load from the cache when the request times out.
-* *NETWORK_ENABLED* - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)
+* NEVER - Never use the cache.
+* LOAD_IF_OFFLINE - Load from the cache when the app is offline.
+* LOAD_ON_ERROR - Load from cache if there is an error.
+* ETAG - Load from the cache if we have data stored and the server returns a 304 (not modified) response.
+* ENABLED - Load always from the cache if available.
+* LOAD_IF_TIMEOUT - Load from the cache when the request times out.
+* NETWORK_ENABLED - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)
 
-#### 2.2.4.2. Direct access
+##### 2.2.4.2. Direct access
 
 Access objects in the cache, invalidate, put and perform many other operations directly via the static methods at
 [org.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java) class.
 
-#### 2.2.5. Serialization
+##### 2.2.5. Serialization
 
 Restrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize [javabeans](http://en.wikipedia.org/wiki/JavaBeans) from and to [JSON](http://en.wikipedia.org/wiki/JSON).
 To have your beans autoserialized when being sent as a request body in both POST and PUT request make your class extend from
