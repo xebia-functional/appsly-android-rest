@@ -7,6 +7,41 @@ Restrung is an Android client library for RESTful and HTTP based web services.
 Restrung was born out of the need to provide a clear and easy interface for Android apps @ 47 degrees to RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Restrung](#restrung)
+- [Introduction](#introduction)
+	- [1. Download](#1-download)
+		- [1.1. Maven Dependency](#11-maven-dependency)
+		- [1.2. APKLib and others](#12-apklib-and-others)
+	- [2. Usage](#2-usage)
+		- [2.1. Simple](#21-simple)
+			- [2.1.1. GET](#211-get)
+			- [2.1.2. POST](#212-post)
+			- [2.1.3. PUT](#213-put)
+			- [2.1.4. DELETE](#214-delete)
+		- [2.2. Advanced](#22-advanced)
+			- [2.2.1. Loaders](#221-loaders)
+				- [2.2.1.1 GET](#2211-get)
+				- [2.2.1.2 POST](#2212-post)
+				- [2.2.1.3 PUT](#2213-put)
+				- [2.2.1.4 DELETE](#2214-delete)
+			- [2.2.2. AsyncTasks](#222-asynctasks)
+				- [2.2.2.1 GET](#2221-get)
+				- [2.2.2.2 POST](#2222-post)
+				- [2.2.2.3 PUT](#2223-put)
+				- [2.2.2.4 DELETE](#2224-delete)
+			- [2.2.3. Runnables](#223-runnables)
+				- [2.2.2.1 GET](#2221-get-1)
+				- [2.2.2.2 POST](#2222-post-1)
+				- [2.2.2.3 PUT](#2223-put-1)
+				- [2.2.2.4 DELETE](#2224-delete-1)
+			- [2.2.4. Cache](#224-cache)
+			- [2.2.4.1. Load Policies](#2241-load-policies)
+			- [2.2.4.2. Direct access](#2242-direct-access)
+			- [2.2.5. Serialization](#225-serialization)
+			- [2.2.6. Interceptors](#226-interceptors)
+
 ## 1. Download
 
 ### 1.1. Maven Dependency
