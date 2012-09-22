@@ -32,29 +32,28 @@ public class APIPutLoader<T extends JSONResponse> extends APILoader<T> {
 
 
     /**
-     *
-	 * @param delegate the delegate that will be notified on successful requests
-	 * @param url the service endpoint
-	 * @param body the json body to be sent as post
-	 * @param params the params to be replaced on the url placeholders
-	 */
+     * @param delegate the delegate that will be notified on successful requests
+     * @param url      the service endpoint
+     * @param body     the json body to be sent as post
+     * @param params   the params to be replaced on the url placeholders
+     */
     public APIPutLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, Object... params) {
         super(delegate, apiCredentialsDelegate, url, body, null, null, params);
     }
 
-	@Override
-	public Callable<T> getCallable() {
-		return new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return getOperation().executeWithExceptionHandling(new Callable<T>() {
-					@Override
-					public T call() throws Exception {
-						return RestClientFactory.getClient().put(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
-					}
-				});
-			}
-		};
-	}
+    @Override
+    public Callable<T> getCallable() {
+        return new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return getOperation().executeWithExceptionHandling(new Callable<T>() {
+                    @Override
+                    public T call() throws Exception {
+                        return RestClientFactory.getClient().put(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+                    }
+                });
+            }
+        };
+    }
 
 }

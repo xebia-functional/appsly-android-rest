@@ -33,114 +33,114 @@ import java.util.List;
  */
 public class HttpMessageRequestOperationImpl implements RequestOperation {
 
-	/**
-	 * The message delegate that is receiving the customizations
-	 */
-	private HttpRequestBase delegate;
+    /**
+     * The message delegate that is receiving the customizations
+     */
+    private HttpRequestBase delegate;
 
-	/**
-	 * Default delegate based constructor
-	 *
-	 * @param delegate the HttpMessage delegate
-	 */
-	public HttpMessageRequestOperationImpl(HttpRequestBase delegate) {
-		this.delegate = delegate;
-	}
+    /**
+     * Default delegate based constructor
+     *
+     * @param delegate the HttpMessage delegate
+     */
+    public HttpMessageRequestOperationImpl(HttpRequestBase delegate) {
+        this.delegate = delegate;
+    }
 
-	/**
-	 * Removes headers from this operation
-	 *
-	 * @param header the header name
-	 */
-	@Override
-	public void removeHeaders(String header) {
-		delegate.removeHeaders(header);
-	}
+    /**
+     * Removes headers from this operation
+     *
+     * @param header the header name
+     */
+    @Override
+    public void removeHeaders(String header) {
+        delegate.removeHeaders(header);
+    }
 
-	/**
-	 * Sets a header in this operation, replacing any existing headers with the same name
-	 *
-	 * @param header the header name
-	 * @param value  the header value
-	 */
-	@Override
-	public void setHeader(String header, String value) {
-		delegate.setHeader(header, value);
-	}
+    /**
+     * Sets a header in this operation, replacing any existing headers with the same name
+     *
+     * @param header the header name
+     * @param value  the header value
+     */
+    @Override
+    public void setHeader(String header, String value) {
+        delegate.setHeader(header, value);
+    }
 
-	/**
-	 * Adds a header in this operation, not replacing any existing headers with the same name
-	 *
-	 * @param header the header name
-	 * @param value  the header value
-	 */
-	@Override
-	public void addHeader(String header, String value) {
-		delegate.addHeader(header, value);
-	}
+    /**
+     * Adds a header in this operation, not replacing any existing headers with the same name
+     *
+     * @param header the header name
+     * @param value  the header value
+     */
+    @Override
+    public void addHeader(String header, String value) {
+        delegate.addHeader(header, value);
+    }
 
-	/**
-	 * Gets an unmodifiable list of all present headers for this operation
-	 *
-	 * @return unmodifiable list of all present headers for this operation
-	 */
-	@Override
-	public List<HeaderPair> getAllHeaders() {
-		Header[] headers = delegate.getAllHeaders();
-		List<HeaderPair> headerPairs = new ArrayList<HeaderPair>(headers.length);
-		for (Header header : headers) {
-			headerPairs.add(new HeaderPairImpl(header));
-		}
-		return Collections.unmodifiableList(headerPairs);
-	}
+    /**
+     * Gets an unmodifiable list of all present headers for this operation
+     *
+     * @return unmodifiable list of all present headers for this operation
+     */
+    @Override
+    public List<HeaderPair> getAllHeaders() {
+        Header[] headers = delegate.getAllHeaders();
+        List<HeaderPair> headerPairs = new ArrayList<HeaderPair>(headers.length);
+        for (Header header : headers) {
+            headerPairs.add(new HeaderPairImpl(header));
+        }
+        return Collections.unmodifiableList(headerPairs);
+    }
 
-	/**
-	 * The http method in use
-	 *
-	 * @return http method in use
-	 */
-	@Override
-	public String getMethod() {
-		return delegate.getMethod();
-	}
+    /**
+     * The http method in use
+     *
+     * @return http method in use
+     */
+    @Override
+    public String getMethod() {
+        return delegate.getMethod();
+    }
 
-	/**
-	 * The final URI to which the request will be sent
-	 *
-	 * @return URI to which the request will be sent
-	 */
-	@Override
-	public URI getURI() {
-		return delegate.getURI();
-	}
+    /**
+     * The final URI to which the request will be sent
+     *
+     * @return URI to which the request will be sent
+     */
+    @Override
+    public URI getURI() {
+        return delegate.getURI();
+    }
 
-	/**
-	 * Sets the uri
-	 *
-	 * @param uri The final URI to which the request will be sent
-	 */
-	@Override
-	public void setURI(URI uri) {
-		delegate.setURI(uri);
-	}
+    /**
+     * Sets the uri
+     *
+     * @param uri The final URI to which the request will be sent
+     */
+    @Override
+    public void setURI(URI uri) {
+        delegate.setURI(uri);
+    }
 
-	/**
-	 * Aborts this request
-	 */
-	@Override
-	public void abort() {
-		delegate.abort();
-	}
+    /**
+     * Aborts this request
+     */
+    @Override
+    public void abort() {
+        delegate.abort();
+    }
 
-	/**
-	 * If the request has been aborted
-	 *
-	 * @return true if the request has been aborted, false otherwise
-	 */
-	@Override
-	public boolean isAborted() {
-		return delegate.isAborted();
-	}
+    /**
+     * If the request has been aborted
+     *
+     * @return true if the request has been aborted, false otherwise
+     */
+    @Override
+    public boolean isAborted() {
+        return delegate.isAborted();
+    }
 
 
 }

@@ -32,97 +32,100 @@ import java.nio.charset.Charset;
  */
 public class CountingMultipartEntity extends MultipartEntity {
 
-	/**
-	 * The listener receiving progress updates
-	 */
-	private final APIPostParams listener;
+    /**
+     * The listener receiving progress updates
+     */
+    private final APIPostParams listener;
 
-	/**
-	 * The file's length
-	 */
-	private long fileLength = 0;
+    /**
+     * The file's length
+     */
+    private long fileLength = 0;
 
-	/**
-	 * Constructor that creates a multi part entity for a POST or PUT request
-	 * and accepts a listner for upload progress
-	 *
-	 * @param mode       @see HttpMultipartMode
-	 * @param boundary   the boundary to determine when a part ends and another one starts
-	 * @param charset    the default charset for encoding purposes
-	 * @param fileLength the known file length
-	 * @param listener   a listener to receive upload progress
-	 */
-	public CountingMultipartEntity(HttpMultipartMode mode, final String boundary,
-								   final Charset charset, long fileLength, APIPostParams listener) {
-		super(mode, boundary, charset);
-		this.fileLength = fileLength;
-		this.listener = listener;
-	}
+    /**
+     * Constructor that creates a multi part entity for a POST or PUT request
+     * and accepts a listner for upload progress
+     *
+     * @param mode       @see HttpMultipartMode
+     * @param boundary   the boundary to determine when a part ends and another one starts
+     * @param charset    the default charset for encoding purposes
+     * @param fileLength the known file length
+     * @param listener   a listener to receive upload progress
+     */
+    public CountingMultipartEntity(HttpMultipartMode mode, final String boundary,
+                                   final Charset charset, long fileLength, APIPostParams listener) {
+        super(mode, boundary, charset);
+        this.fileLength = fileLength;
+        this.listener = listener;
+    }
 
-	/**
-	 * @see MultipartEntity#writeTo(java.io.OutputStream)
-	 */
-	@Override
-	public void writeTo(final OutputStream outstream) throws IOException {
-		super.writeTo(new CountingOutputStream(outstream, this.listener, fileLength));
-	}
+    /**
+     * @see MultipartEntity#writeTo(java.io.OutputStream)
+     */
+    @Override
+    public void writeTo(final OutputStream outstream) throws IOException {
+        super.writeTo(new CountingOutputStream(outstream, this.listener, fileLength));
+    }
 
-	/**
-	 * Private subclass of a FilterOutputStream that tracks progress based of bytes transfered
-	 */
-	public static class CountingOutputStream extends FilterOutputStream {
+    /**
+     * Private subclass of a FilterOutputStream that tracks progress based of bytes transfered
+     */
+    public static class CountingOutputStream extends FilterOutputStream {
 
-		/**
-		 * The listener receiving progress
-		 */
-		private APIPostParams listener;
+        /**
+         * The listener receiving progress
+         */
+        private APIPostParams listener;
 
-		/**
-		 * How many bytes have been transfered this far
-		 */
-		private long transferred;
+        /**
+         * How many bytes have been transfered this far
+         */
+        private long transferred;
 
-		/**
-		 * The known file length
-		 */
-		private long fileLength = 0;
+        /**
+         * The known file length
+         */
+        private long fileLength = 0;
 
-		/**
-		 * Constructor that wraps an outputstream and set the listener and known file length
-		 * @param out the output stream
-		 * @param listener the listener
-		 * @param fileLength the file lenght
-		 */
-		public CountingOutputStream(final OutputStream out,
-									APIPostParams listener, long fileLength) {
-			super(out);
-			this.listener = listener;
-			this.transferred = 0;
-			this.fileLength = fileLength;
-		}
+        /**
+         * Constructor that wraps an outputstream and set the listener and known file length
+         *
+         * @param out        the output stream
+         * @param listener   the listener
+         * @param fileLength the file lenght
+         */
+        public CountingOutputStream(final OutputStream out,
+                                    APIPostParams listener, long fileLength) {
+            super(out);
+            this.listener = listener;
+            this.transferred = 0;
+            this.fileLength = fileLength;
+        }
 
-		/**
-		 * Writes bytes and notifies of progress to the listener
-		 * @see FilterOutputStream#write(byte[], int, int)
-		 */
-		@Override
-		public void write(byte[] b, int off, int len) throws IOException {
-			out.write(b, off, len);
-			this.transferred += len;
-			int por = (int) (transferred * 100 / fileLength);
-			if (listener != null) this.listener.onProgress(this.transferred, por);
-		}
+        /**
+         * Writes bytes and notifies of progress to the listener
+         *
+         * @see FilterOutputStream#write(byte[], int, int)
+         */
+        @Override
+        public void write(byte[] b, int off, int len) throws IOException {
+            out.write(b, off, len);
+            this.transferred += len;
+            int por = (int) (transferred * 100 / fileLength);
+            if (listener != null) this.listener.onProgress(this.transferred, por);
+        }
 
-		/**
-		 * Writes bytes and notifies of progress to the listener
-		 * @see FilterOutputStream#write(int)
-		 */
-		@Override
-		public void write(int b) throws IOException {
-			out.write(b);
-			this.transferred++;
-			int por = (int) (transferred * 100 / fileLength);
-			if (listener != null) this.listener.onProgress(this.transferred, por);
-		}
-	}
+        /**
+         * Writes bytes and notifies of progress to the listener
+         *
+         * @see FilterOutputStream#write(int)
+         */
+        @Override
+        public void write(int b) throws IOException {
+            out.write(b);
+            this.transferred++;
+            int por = (int) (transferred * 100 / fileLength);
+            if (listener != null) this.listener.onProgress(this.transferred, por);
+        }
+    }
 }

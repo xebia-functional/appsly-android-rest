@@ -25,32 +25,33 @@ import org.apache.http.Header;
  */
 public class HeaderPairImpl implements HeaderPair {
 
-	/**
-	 * The underlying header delegate
-	 */
-	private Header delegate;
+    /**
+     * The underlying header delegate
+     */
+    private Header delegate;
 
-	/**
-	 * Constructor that constructs a HeaderPairImpl of a Header
-	 * @param delegate
-	 */
-	public HeaderPairImpl(Header delegate) {
-		this.delegate = delegate;
-	}
+    /**
+     * Constructor that constructs a HeaderPairImpl of a Header
+     *
+     * @param delegate
+     */
+    public HeaderPairImpl(Header delegate) {
+        this.delegate = delegate;
+    }
 
-	/**
-	 * @see HeaderPair#getName()
-	 */
-	@Override
-	public String getName() {
-		return delegate.getName();
-	}
+    /**
+     * @see HeaderPair#getName()
+     */
+    @Override
+    public String getName() {
+        return delegate.getName();
+    }
 
-	/**
-	 * @see HeaderPair#getValue()
-	 */
-	@Override
-	public String getValue() {
-		return delegate.getValue();
-	}
+    /**
+     * @see HeaderPair#getValue()
+     */
+    @Override
+    public String getValue() {
+        return delegate.getValue();
+    }
 }

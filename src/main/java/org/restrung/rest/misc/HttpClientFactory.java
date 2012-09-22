@@ -39,10 +39,11 @@ public class HttpClientFactory {
 
     private static DefaultHttpClient instance = initializeClient();
 
-	/**
-	 * Private helper to initialize an http client
-	 * @return the initialize http client
-	 */
+    /**
+     * Private helper to initialize an http client
+     *
+     * @return the initialize http client
+     */
     private static synchronized DefaultHttpClient initializeClient() {
         //prepare for the https connection
         //call this in the constructor of the class that does the connection if
@@ -71,10 +72,11 @@ public class HttpClientFactory {
         return instance;
     }
 
-	/**
-	 * Factory method that gets the singleton thread safe instance of the http client
-	 * @return the http client instance
-	 */
+    /**
+     * Factory method that gets the singleton thread safe instance of the http client
+     *
+     * @return the http client instance
+     */
     public static DefaultHttpClient getClient() {
         return instance;
     }

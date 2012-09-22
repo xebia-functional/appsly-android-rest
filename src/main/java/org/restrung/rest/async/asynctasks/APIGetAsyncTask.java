@@ -28,33 +28,33 @@ import java.util.concurrent.Callable;
 
 /**
  * AsyncTask for GET requests
+ *
  * @param <T> an implementer of JSONResponse
  */
 public class APIGetAsyncTask<T extends JSONResponse> extends APIAsyncTask<T> {
 
 
-	/**
-     *
-     * @param url the service endpoint
-     * @param delegate the delegate that will be notified on successful requests
+    /**
+     * @param url                    the service endpoint
+     * @param delegate               the delegate that will be notified on successful requests
      * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
-     * @param params the params to be replaced on the url placeholders
+     * @param params                 the params to be replaced on the url placeholders
      */
     public APIGetAsyncTask(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-		super(url, delegate, apiCredentialsDelegate, params);
+        super(url, delegate, apiCredentialsDelegate, params);
     }
 
-	/**
-	 * @see android.os.AsyncTask#doInBackground(Object[])
-	 */
+    /**
+     * @see android.os.AsyncTask#doInBackground(Object[])
+     */
     @Override
     protected T doInBackground(String... args) {
-		return getOperation().executeWithExceptionHandling(new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return RestClientFactory.getClient().get(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
-			}
-		});
+        return getOperation().executeWithExceptionHandling(new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return RestClientFactory.getClient().get(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+            }
+        });
     }
 
 }

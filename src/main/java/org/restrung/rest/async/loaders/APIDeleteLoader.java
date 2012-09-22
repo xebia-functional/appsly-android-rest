@@ -28,34 +28,34 @@ import java.util.concurrent.Callable;
 
 /**
  * Loader for DELETE requests
+ *
  * @param <T> an implementer of JSONResponse
  */
 public class APIDeleteLoader<T extends JSONResponse> extends APILoader<T> {
 
     /**
-     *
-     * @param url the service endpoint
-     * @param delegate the delegate that will be notified on successful requests
+     * @param url                    the service endpoint
+     * @param delegate               the delegate that will be notified on successful requests
      * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
-     * @param params the params to be replaced on the url placeholders
+     * @param params                 the params to be replaced on the url placeholders
      */
     public APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
         super(delegate, apiCredentialsDelegate, url, params);
     }
 
-	@Override
-	public Callable<T> getCallable() {
-		return new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return getOperation().executeWithExceptionHandling(new Callable<T>() {
-					@Override
-					public T call() throws Exception {
-						return RestClientFactory.getClient().delete(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
-					}
-				});
-			}
-		};
-	}
+    @Override
+    public Callable<T> getCallable() {
+        return new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return getOperation().executeWithExceptionHandling(new Callable<T>() {
+                    @Override
+                    public T call() throws Exception {
+                        return RestClientFactory.getClient().delete(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+                    }
+                });
+            }
+        };
+    }
 
 }

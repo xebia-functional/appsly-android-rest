@@ -28,67 +28,67 @@ import java.util.List;
  */
 public interface RequestOperation {
 
-	/**
-	 * Removes headers from this operation
-	 *
-	 * @param header the header name
-	 */
-	void removeHeaders(String header);
+    /**
+     * Removes headers from this operation
+     *
+     * @param header the header name
+     */
+    void removeHeaders(String header);
 
-	/**
-	 * Sets a header in this operation, replacing any existing headers with the same name
-	 *
-	 * @param header the header name
-	 * @param value  the header value
-	 */
-	void setHeader(String header, String value);
+    /**
+     * Sets a header in this operation, replacing any existing headers with the same name
+     *
+     * @param header the header name
+     * @param value  the header value
+     */
+    void setHeader(String header, String value);
 
-	/**
-	 * Adds a header in this operation, not replacing any existing headers with the same name
-	 *
-	 * @param header the header name
-	 * @param value  the header value
-	 */
-	void addHeader(String header, String value);
+    /**
+     * Adds a header in this operation, not replacing any existing headers with the same name
+     *
+     * @param header the header name
+     * @param value  the header value
+     */
+    void addHeader(String header, String value);
 
-	/**
-	 * Gets an unmodifiable list of all present headers for this operation
-	 *
-	 * @return unmodifiable list of all present headers for this operation
-	 */
-	List<HeaderPair> getAllHeaders();
+    /**
+     * Gets an unmodifiable list of all present headers for this operation
+     *
+     * @return unmodifiable list of all present headers for this operation
+     */
+    List<HeaderPair> getAllHeaders();
 
-	/**
-	 * The http method in use
-	 *
-	 * @return http method in use
-	 */
-	String getMethod();
+    /**
+     * The http method in use
+     *
+     * @return http method in use
+     */
+    String getMethod();
 
-	/**
-	 * The final URI to which the request will be sent
-	 *
-	 * @return URI to which the request will be sent
-	 */
-	URI getURI();
+    /**
+     * The final URI to which the request will be sent
+     *
+     * @return URI to which the request will be sent
+     */
+    URI getURI();
 
-	/**
-	 * Sets the uri
-	 *
-	 * @param uri The final URI to which the request will be sent
-	 */
-	void setURI(URI uri);
+    /**
+     * Sets the uri
+     *
+     * @param uri The final URI to which the request will be sent
+     */
+    void setURI(URI uri);
 
-	/**
-	 * Aborts this request
-	 */
-	void abort();
+    /**
+     * Aborts this request
+     */
+    void abort();
 
-	/**
-	 * If the request has been aborted
-	 *
-	 * @return true if the request has been aborted, false otherwise
-	 */
-	boolean isAborted();
+    /**
+     * If the request has been aborted
+     *
+     * @return true if the request has been aborted, false otherwise
+     */
+    boolean isAborted();
 
 }

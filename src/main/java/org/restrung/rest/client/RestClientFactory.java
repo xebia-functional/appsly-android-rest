@@ -23,17 +23,18 @@ package org.restrung.rest.client;
  */
 public class RestClientFactory {
 
-	/**
-	 * the singleton shared instance
-	 */
-	private final static RestClient instance = new DefaultRestClientImpl();
+    /**
+     * the singleton shared instance
+     */
+    private final static RestClient instance = new DefaultRestClientImpl();
 
-	/**
-	 * Static factory method to obtain RestClient instances
-	 * @return  a singleton instance of a RestClient based on @see DefaultRestClientImpl
-	 */
-	public static RestClient getClient() {
-		return instance;
-	}
+    /**
+     * Static factory method to obtain RestClient instances
+     *
+     * @return a singleton instance of a RestClient based on @see DefaultRestClientImpl
+     */
+    public static RestClient getClient() {
+        return instance;
+    }
 
 }

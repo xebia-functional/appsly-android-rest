@@ -29,33 +29,35 @@ import java.util.concurrent.Callable;
 
 /**
  * AsyncTask for PUT requests
+ *
  * @param <T> an implementer of JSONResponse
  */
 public class APIPutAsyncTask<T extends JSONResponse> extends APIAsyncTask<T> {
 
     /**
      * Constructs a APIPutAsyncTask
-     * @param url the service endpoint
-     * @param body the json body to be sent as post
-     * @param delegate the delegate that will be notified on successful requests
-	 * @param apiCredentialsDelegate an credentialsdelegate to receive bad credentials callbacks
-     * @param params the params to be replaced on the url placeholders
+     *
+     * @param url                    the service endpoint
+     * @param body                   the json body to be sent as post
+     * @param delegate               the delegate that will be notified on successful requests
+     * @param apiCredentialsDelegate an credentialsdelegate to receive bad credentials callbacks
+     * @param params                 the params to be replaced on the url placeholders
      */
     public APIPutAsyncTask(String url, JSONSerializable body, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
         super(url, body, null, delegate, null, apiCredentialsDelegate, params);
     }
 
 
-	/**
-	 * @see android.os.AsyncTask#doInBackground(Object[])
-	 */
+    /**
+     * @see android.os.AsyncTask#doInBackground(Object[])
+     */
     @Override
     protected T doInBackground(String... args) {
-		return getOperation().executeWithExceptionHandling(new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return RestClientFactory.getClient().put(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
-			}
-		});
+        return getOperation().executeWithExceptionHandling(new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return RestClientFactory.getClient().put(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+            }
+        });
     }
 }

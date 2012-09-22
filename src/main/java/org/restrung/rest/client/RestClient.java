@@ -29,129 +29,129 @@ import java.io.File;
  */
 public interface RestClient {
 
-	/**
-	 * Performs an asynchronous GET request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param args     a list of args used in replacement to parse the url
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 */
-	<T extends JSONResponse> void getAsync(APIDelegate<T> delegate, String url, Object... args);
+    /**
+     * Performs an asynchronous GET request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param args     a list of args used in replacement to parse the url
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     */
+    <T extends JSONResponse> void getAsync(APIDelegate<T> delegate, String url, Object... args);
 
-	/**
-	 * Performs an asynchronous DELETE request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param args     a list of args used in replacement to parse the url
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 */
-	<T extends JSONResponse> void deleteAsync(APIDelegate<T> delegate, String url, Object... args);
+    /**
+     * Performs an asynchronous DELETE request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param args     a list of args used in replacement to parse the url
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     */
+    <T extends JSONResponse> void deleteAsync(APIDelegate<T> delegate, String url, Object... args);
 
-	/**
-	 * Performs an asynchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param body     the body to be posted as an implementer of JSONSerializable
-	 * @param args     a list of args used in replacement to parse the url
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 */
-	<T extends JSONResponse> void postAsync(APIDelegate<T> delegate, String url, JSONSerializable body, Object... args);
+    /**
+     * Performs an asynchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
+     * @param args     a list of args used in replacement to parse the url
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     */
+    <T extends JSONResponse> void postAsync(APIDelegate<T> delegate, String url, JSONSerializable body, Object... args);
 
-	/**
-	 * Performs an asynchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format. Optionally allows a file to be posted in which case the body should be sent as the first part of
-	 * a request with Multipart content type and the file as the second part.
-	 *
-	 * @param delegate   the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url        the url
-	 * @param body       the body to be posted as an implementer of JSONSerializable
-	 * @param file       the file to be posted. If not null the request will become a multipart request
-	 * @param postParams an optional callback delegate that can receive post progress and override if the requests is to be sent as multipart
-	 * @param args       a list of args used in replacement to parse the url
-	 * @param <T>        All serializable responses are expected to implement JSONResponse
-	 */
-	<T extends JSONResponse> void postAsync(APIDelegate<T> delegate, String url, File file, JSONSerializable body, APIPostParams postParams, Object... args);
+    /**
+     * Performs an asynchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format. Optionally allows a file to be posted in which case the body should be sent as the first part of
+     * a request with Multipart content type and the file as the second part.
+     *
+     * @param delegate   the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url        the url
+     * @param body       the body to be posted as an implementer of JSONSerializable
+     * @param file       the file to be posted. If not null the request will become a multipart request
+     * @param postParams an optional callback delegate that can receive post progress and override if the requests is to be sent as multipart
+     * @param args       a list of args used in replacement to parse the url
+     * @param <T>        All serializable responses are expected to implement JSONResponse
+     */
+    <T extends JSONResponse> void postAsync(APIDelegate<T> delegate, String url, File file, JSONSerializable body, APIPostParams postParams, Object... args);
 
-	/**
-	 * Performs an asynchronous PUT request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param body     the body to be posted as an implementer of JSONSerializable
-	 * @param args     a list of args used in replacement to parse the url
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 */
-	<T extends JSONResponse> void putAsync(APIDelegate<T> delegate, String url, JSONSerializable body, Object... args);
+    /**
+     * Performs an asynchronous PUT request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
+     * @param args     a list of args used in replacement to parse the url
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     */
+    <T extends JSONResponse> void putAsync(APIDelegate<T> delegate, String url, JSONSerializable body, Object... args);
 
-	/**
-	 * Performs a synchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param body     the body to be posted as an implementer of JSONSerializable
-	 * @param timeout  the request timeout
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 * @return a serialized instance of <T>
-	 */
-	<T extends JSONResponse> T post(APIDelegate<T> delegate, String url, JSONSerializable body, int timeout) throws APIException;
+    /**
+     * Performs a synchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
+     * @param timeout  the request timeout
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     * @return a serialized instance of <T>
+     */
+    <T extends JSONResponse> T post(APIDelegate<T> delegate, String url, JSONSerializable body, int timeout) throws APIException;
 
-	/**
-	 * Performs a synchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format. Optionally allows a file to be posted in which case the body should be sent as the first part of
-	 * a request with Multipart content type and the file as the second part.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param body     the body to be posted as an implementer of JSONSerializable
-	 * @param file     the file to be posted. If not null the request will become a multipart request
-	 * @param timeout  the request timeout
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 * @return a serialized instance of <T>
-	 */
-	<T extends JSONResponse> T post(APIDelegate<T> delegate, String url, JSONSerializable body, File file, int timeout, APIPostParams apiPostParams) throws APIException;
+    /**
+     * Performs a synchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format. Optionally allows a file to be posted in which case the body should be sent as the first part of
+     * a request with Multipart content type and the file as the second part.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
+     * @param file     the file to be posted. If not null the request will become a multipart request
+     * @param timeout  the request timeout
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     * @return a serialized instance of <T>
+     */
+    <T extends JSONResponse> T post(APIDelegate<T> delegate, String url, JSONSerializable body, File file, int timeout, APIPostParams apiPostParams) throws APIException;
 
-	/**
-	 * Performs a synchronous PUT request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param body     the body to be posted as an implementer of JSONSerializable
-	 * @param timeout  the request timeout
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 * @return a serialized instance of <T>
-	 */
-	<T extends JSONResponse> T put(APIDelegate<T> delegate, String url, JSONSerializable body, int timeout) throws APIException;
+    /**
+     * Performs a synchronous PUT request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
+     * @param timeout  the request timeout
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     * @return a serialized instance of <T>
+     */
+    <T extends JSONResponse> T put(APIDelegate<T> delegate, String url, JSONSerializable body, int timeout) throws APIException;
 
-	/**
-	 * Performs a synchronous GET request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param timeout  the request timeout
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 * @return a serialized instance of <T>
-	 */
-	<T extends JSONResponse> T get(APIDelegate<T> delegate, String url, int timeout) throws APIException;
+    /**
+     * Performs a synchronous GET request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param timeout  the request timeout
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     * @return a serialized instance of <T>
+     */
+    <T extends JSONResponse> T get(APIDelegate<T> delegate, String url, int timeout) throws APIException;
 
-	/**
-	 * Performs a synchronous DELETE request delegating results to a @see APIDelegate replacing url placeholder based
-	 * on args using @see java.lang.String#format.
-	 *
-	 * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
-	 * @param url      the url
-	 * @param timeout  the request timeout
-	 * @param <T>      All serializable responses are expected to implement JSONResponse
-	 * @return a serialized instance of <T>
-	 */
-	<T extends JSONResponse> T delete(APIDelegate<T> delegate, String url, int timeout) throws APIException;
+    /**
+     * Performs a synchronous DELETE request delegating results to a @see APIDelegate replacing url placeholder based
+     * on args using @see java.lang.String#format.
+     *
+     * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
+     * @param url      the url
+     * @param timeout  the request timeout
+     * @param <T>      All serializable responses are expected to implement JSONResponse
+     * @return a serialized instance of <T>
+     */
+    <T extends JSONResponse> T delete(APIDelegate<T> delegate, String url, int timeout) throws APIException;
 }

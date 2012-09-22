@@ -23,17 +23,19 @@ package org.restrung.rest.client;
  */
 public interface APIPostParams {
 
-	/**
-	 * Invoked while a file upload is in progress on a multipart POST request
-	 * @param bytes how many bytes have been transferred this far
-	 * @param progress the current progress from 0 to 100
-	 */
+    /**
+     * Invoked while a file upload is in progress on a multipart POST request
+     *
+     * @param bytes    how many bytes have been transferred this far
+     * @param progress the current progress from 0 to 100
+     */
     void onProgress(long bytes, int progress);
 
-	/**
-	 * Determines if the POST request is multipart
-	 * @return true or false
-	 */
+    /**
+     * Determines if the POST request is multipart
+     *
+     * @return true or false
+     */
     boolean isMultipart();
 
 }

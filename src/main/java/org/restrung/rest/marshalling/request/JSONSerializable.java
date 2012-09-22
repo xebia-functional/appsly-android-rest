@@ -24,10 +24,11 @@ package org.restrung.rest.marshalling.request;
  */
 public interface JSONSerializable {
 
-	/**
-	 * Get the bean serialized as JSON
-	 * @return a json representation of the bean
-	 */
+    /**
+     * Get the bean serialized as JSON
+     *
+     * @return a json representation of the bean
+     */
     String toJSON();
 
 }

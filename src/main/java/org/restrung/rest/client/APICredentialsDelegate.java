@@ -27,7 +27,8 @@ public interface APICredentialsDelegate {
 
     /**
      * Invoked when an authenticated call has been attempted with invalid credentials
-	 * @param e the credentials exception
+     *
+     * @param e the credentials exception
      */
     void onInvalidCredentials(InvalidCredentialsException e);
 

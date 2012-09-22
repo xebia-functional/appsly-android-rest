@@ -28,33 +28,35 @@ import java.util.concurrent.Callable;
 
 /**
  * AsyncTask for POST requests
+ *
  * @param <T> an implementer of JSONResponse
  */
 public class APIPostAsyncTask<T extends JSONResponse> extends APIAsyncTask<T> {
 
-	/**
-	 * Constructs a multipart APIPostAsyncTask that posts a file and an object
-	 * @param url                    the service endpoint
-	 * @param body                   the json body to be sent as post
-	 * @param file                   an optional file to be posted in the multipart
-	 * @param delegate               the delegate that will be notified on successful requests
-	 * @param apiCredentialsDelegate a credentials delegate
-	 * @param params                 the params to be replaced on the url placeholders
-	 */
-	public APIPostAsyncTask(String url, JSONSerializable body, File file, APIDelegate<T> delegate, APIPostParams delegateParams, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-		super(url, body, file, delegate, delegateParams, apiCredentialsDelegate, params);
-	}
+    /**
+     * Constructs a multipart APIPostAsyncTask that posts a file and an object
+     *
+     * @param url                    the service endpoint
+     * @param body                   the json body to be sent as post
+     * @param file                   an optional file to be posted in the multipart
+     * @param delegate               the delegate that will be notified on successful requests
+     * @param apiCredentialsDelegate a credentials delegate
+     * @param params                 the params to be replaced on the url placeholders
+     */
+    public APIPostAsyncTask(String url, JSONSerializable body, File file, APIDelegate<T> delegate, APIPostParams delegateParams, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
+        super(url, body, file, delegate, delegateParams, apiCredentialsDelegate, params);
+    }
 
-	/**
-	 * @see android.os.AsyncTask#doInBackground(Object[])
-	 */
-	@Override
-	protected T doInBackground(String... args) {
-		return getOperation().executeWithExceptionHandling(new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return RestClientFactory.getClient().post(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), getOperation().getFile(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT, getOperation().getPostDelegateParams());
-			}
-		});
-	}
+    /**
+     * @see android.os.AsyncTask#doInBackground(Object[])
+     */
+    @Override
+    protected T doInBackground(String... args) {
+        return getOperation().executeWithExceptionHandling(new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return RestClientFactory.getClient().post(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), getOperation().getFile(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT, getOperation().getPostDelegateParams());
+            }
+        });
+    }
 }

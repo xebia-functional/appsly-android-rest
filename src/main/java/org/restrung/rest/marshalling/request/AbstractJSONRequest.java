@@ -29,30 +29,30 @@ import java.util.Date;
  */
 public abstract class AbstractJSONRequest implements JSONSerializable {
 
-	/**
-	 * the shared gson builder
-	 */
-	private static GsonBuilder gsonBuilder = new GsonBuilder();
+    /**
+     * the shared gson builder
+     */
+    private static GsonBuilder gsonBuilder = new GsonBuilder();
 
-	/**
-	 * Register dates to be serialized as timestamps with seconds precision
-	 */
-	static {
-		gsonBuilder.registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
-			@Override
-			public JsonElement serialize(Date date, Type type, JsonSerializationContext jsonSerializationContext) {
-				return date == null ? null : new JsonPrimitive(date.getTime() / 1000);
-			}
-		});
-	}
+    /**
+     * Register dates to be serialized as timestamps with seconds precision
+     */
+    static {
+        gsonBuilder.registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
+            @Override
+            public JsonElement serialize(Date date, Type type, JsonSerializationContext jsonSerializationContext) {
+                return date == null ? null : new JsonPrimitive(date.getTime() / 1000);
+            }
+        });
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.request.JSONSerializable#toJSON()
-	 */
-	@Override
-	public String toJSON() {
-		Gson gson = gsonBuilder.create();
-		return gson.toJson(this);
-	}
+    /**
+     * @see org.restrung.rest.marshalling.request.JSONSerializable#toJSON()
+     */
+    @Override
+    public String toJSON() {
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(this);
+    }
 
 }

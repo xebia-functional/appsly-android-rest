@@ -25,46 +25,47 @@ import android.content.Context;
  */
 public interface CacheRequestInfoProvider<Result> {
 
-	/**
-	 *
-	 * @return the context initiating and handling the results
-	 */
-	Context getRequestingContext();
+    /**
+     * @return the context initiating and handling the results
+     */
+    Context getRequestingContext();
 
-	/**
-	 *
-	 * @return the policy utilized for considering cached results
-	 */
-	RequestCache.LoadPolicy getCacheLoadPolicy();
+    /**
+     * @return the policy utilized for considering cached results
+     */
+    RequestCache.LoadPolicy getCacheLoadPolicy();
 
-	/**
-	 *
-	 * @return the policy to utilize when storing cached results resulting from this request
-	 */
-	RequestCache.StoragePolicy getCacheStoragePolicy();
+    /**
+     * @return the policy to utilize when storing cached results resulting from this request
+     */
+    RequestCache.StoragePolicy getCacheStoragePolicy();
 
-	/**
-	 * Sets the context initiating and handling the results
-	 * @param context the context
-	 */
-	void setRequestingContext(Context context);
+    /**
+     * Sets the context initiating and handling the results
+     *
+     * @param context the context
+     */
+    void setRequestingContext(Context context);
 
-	/**
-	 * Sets the policy for loading
-	 * @param cacheLoadPolicy the policy utilized for considering cached results
-	 */
-	void setCacheLoadPolicy(RequestCache.LoadPolicy cacheLoadPolicy);
+    /**
+     * Sets the policy for loading
+     *
+     * @param cacheLoadPolicy the policy utilized for considering cached results
+     */
+    void setCacheLoadPolicy(RequestCache.LoadPolicy cacheLoadPolicy);
 
-	/**
-	 * Sets the policy for storing
-	 * @param cacheStoragePolicy the policy to utilize when storing cached results resulting from this request
-	 */
-	void setCacheStoragePolicy(RequestCache.StoragePolicy cacheStoragePolicy);
+    /**
+     * Sets the policy for storing
+     *
+     * @param cacheStoragePolicy the policy to utilize when storing cached results resulting from this request
+     */
+    void setCacheStoragePolicy(RequestCache.StoragePolicy cacheStoragePolicy);
 
-	/**
-	 * Sets the cache info for this request
-	 * @param cacheInfo the cache info object
-	 */
-	void setCacheInfo(CacheInfo cacheInfo);
+    /**
+     * Sets the cache info for this request
+     *
+     * @param cacheInfo the cache info object
+     */
+    void setCacheInfo(CacheInfo cacheInfo);
 
 }

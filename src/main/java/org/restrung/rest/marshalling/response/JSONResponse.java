@@ -28,10 +28,11 @@ import java.io.Serializable;
  */
 public interface JSONResponse extends Serializable {
 
-	/**
-	 * Handles a json object representation of the response body
-	 * @param jsonObject the json object
-	 */
+    /**
+     * Handles a json object representation of the response body
+     *
+     * @param jsonObject the json object
+     */
     void fromJSON(JSONObject jsonObject) throws JSONException;
 
 }

@@ -29,76 +29,85 @@ import java.util.Locale;
  */
 public interface ResponseOperation {
 
-	/**
-	 * Gets the response status code
-	 */
-	int getStatusCode();
+    /**
+     * Gets the response status code
+     */
+    int getStatusCode();
 
-	/**
-	 * Allows to modify the response status code
-	 * @param statusCode the status code
-	 * @throws IllegalStateException
-	 */
-	void setStatusCode(int statusCode) throws IllegalStateException;
+    /**
+     * Allows to modify the response status code
+     *
+     * @param statusCode the status code
+     * @throws IllegalStateException
+     */
+    void setStatusCode(int statusCode) throws IllegalStateException;
 
-	/**
-	 * Sets a reason message for an error or description on a response
-	 * @param reasonPhrase the reason phrase
-	 * @throws IllegalStateException
-	 */
-	void setReasonPhrase(String reasonPhrase) throws IllegalStateException;
+    /**
+     * Sets a reason message for an error or description on a response
+     *
+     * @param reasonPhrase the reason phrase
+     * @throws IllegalStateException
+     */
+    void setReasonPhrase(String reasonPhrase) throws IllegalStateException;
 
-	/**
-	 * If the request is repeatable
-	 * @return If the request is repeatable
-	 */
-	boolean isRepeatable();
+    /**
+     * If the request is repeatable
+     *
+     * @return If the request is repeatable
+     */
+    boolean isRepeatable();
 
-	/**
-	 * If the content is chunked
-	 * @return If the content is chunked
-	 */
-	boolean isChunked();
+    /**
+     * If the content is chunked
+     *
+     * @return If the content is chunked
+     */
+    boolean isChunked();
 
-	/**
-	 *
-	 * @return teh content length
-	 */
-	long getContentLength();
+    /**
+     * @return teh content length
+     */
+    long getContentLength();
 
-	/**
-	 * The header content type
-	 * @return the header content type as header pair
-	 */
-	HeaderPair getContentType();
+    /**
+     * The header content type
+     *
+     * @return the header content type as header pair
+     */
+    HeaderPair getContentType();
 
-	/**
-	 * The header content encoding
-	 * @return the header content encoding as header pair
-	 */
-	HeaderPair getContentEncoding();
+    /**
+     * The header content encoding
+     *
+     * @return the header content encoding as header pair
+     */
+    HeaderPair getContentEncoding();
 
-	/**
-	 * The entity content as an input stream
-	 * @return the content as an input stream
-	 */
-	InputStream getContent() throws IOException, IllegalStateException;
+    /**
+     * The entity content as an input stream
+     *
+     * @return the content as an input stream
+     */
+    InputStream getContent() throws IOException, IllegalStateException;
 
-	/**
-	 * If the entity is in streaming mode
-	 * @return if the current enity is in streaming mode
-	 */
-	boolean isStreaming();
+    /**
+     * If the entity is in streaming mode
+     *
+     * @return if the current enity is in streaming mode
+     */
+    boolean isStreaming();
 
-	/**
-	 * Gets the response locale
-	 * @return the response locale
-	 */
-	Locale getLocale();
+    /**
+     * Gets the response locale
+     *
+     * @return the response locale
+     */
+    Locale getLocale();
 
-	/**
-	 * Sets the response locale
-	 * @param locale the new response lcoale
-	 */
-	void setLocale(Locale locale);
+    /**
+     * Sets the response locale
+     *
+     * @param locale the new response lcoale
+     */
+    void setLocale(Locale locale);
 }

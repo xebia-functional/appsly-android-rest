@@ -11,84 +11,83 @@ import org.restrung.rest.utils.ContextUtils;
  */
 public abstract class AbstractCacheAwareRunnable<T extends JSONResponse> implements Runnable {
 
-	/**
-	 * The url path
-	 */
-	private String url;
+    /**
+     * The url path
+     */
+    private String url;
 
-	/**
-	 * The API delegate
-	 */
-	private APIDelegate<T> delegate;
+    /**
+     * The API delegate
+     */
+    private APIDelegate<T> delegate;
 
-	/**
-	 * A set of args used for the url placeholders
-	 */
-	private Object[] args;
+    /**
+     * A set of args used for the url placeholders
+     */
+    private Object[] args;
 
-	/**
-	 * Constructor
-	 * @param delegate the delegate
-	 * @param url the url
-	 * @param args args for url placeholders as in @see java.lang.String#format(String, Object[])
-	 */
-	public AbstractCacheAwareRunnable(APIDelegate<T> delegate, String url, Object[] args) {
-		this.url = url;
-		this.delegate = delegate;
-		this.args = args;
-	}
+    /**
+     * Constructor
+     *
+     * @param delegate the delegate
+     * @param url      the url
+     * @param args     args for url placeholders as in @see java.lang.String#format(String, Object[])
+     */
+    public AbstractCacheAwareRunnable(APIDelegate<T> delegate, String url, Object[] args) {
+        this.url = url;
+        this.delegate = delegate;
+        this.args = args;
+    }
 
-	/**
-	 * Retries the current runnable implementer if the cache network enabled policy is active
-	 * @param <T>
-	 */
-	protected <T extends JSONResponse> void reExecuteIfNetworkEnabled() {
-		if (RequestCache.LoadPolicy.NETWORK_ENABLED.equals(delegate.getCacheLoadPolicy())) {
-			delegate.setCacheLoadPolicy(RequestCache.LoadPolicy.LOAD_IF_OFFLINE);
-			run();
-		}
-	}
+    /**
+     * Retries the current runnable implementer if the cache network enabled policy is active
+     *
+     * @param <T>
+     */
+    protected <T extends JSONResponse> void reExecuteIfNetworkEnabled() {
+        if (RequestCache.LoadPolicy.NETWORK_ENABLED.equals(delegate.getCacheLoadPolicy())) {
+            delegate.setCacheLoadPolicy(RequestCache.LoadPolicy.LOAD_IF_OFFLINE);
+            run();
+        }
+    }
 
-	@Override
-	public void run() {
-		if (ContextUtils.supportsLoaders(delegate)) {
-			executeLoader();
-		} else {
-			executeAsyncTask();
-		}
-	}
+    @Override
+    public void run() {
+        if (ContextUtils.supportsLoaders(delegate)) {
+            executeLoader();
+        } else {
+            executeAsyncTask();
+        }
+    }
 
-	/**
-	 * Asks implementers to execute the operation on a loader
-	 */
-	public abstract void executeLoader();
+    /**
+     * Asks implementers to execute the operation on a loader
+     */
+    public abstract void executeLoader();
 
-	/**
-	 * Asks implementers to execute the operation on a loader
-	 */
-	public abstract void executeAsyncTask();
+    /**
+     * Asks implementers to execute the operation on a loader
+     */
+    public abstract void executeAsyncTask();
 
-	/**
-	 *
-	 * @return the unparsed url path with var placeholders
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the unparsed url path with var placeholders
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	/**
-	 *
-	 * @return the api delegate
-	 */
-	public APIDelegate<T> getDelegate() {
-		return delegate;
-	}
+    /**
+     * @return the api delegate
+     */
+    public APIDelegate<T> getDelegate() {
+        return delegate;
+    }
 
-	/**
-	 *
-	 * @return the args used for url placeholders
-	 */
-	public Object[] getArgs() {
-		return args;
-	}
+    /**
+     * @return the args used for url placeholders
+     */
+    public Object[] getArgs() {
+        return args;
+    }
 }

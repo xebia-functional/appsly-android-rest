@@ -10,28 +10,30 @@ import org.restrung.rest.client.APIDelegate;
  */
 public class ContextUtils {
 
-	/**
-	 * Prevent instantiation
-	 */
-	private ContextUtils () {
-	}
+    /**
+     * Prevent instantiation
+     */
+    private ContextUtils() {
+    }
 
-	/**
-	 * Gets a loader manager for the context
-	 * @param context the context
-	 * @return the loader manager if any
-	 */
-	public static LoaderManager getLoaderManager(Context context) {
-		return FragmentActivity.class.isAssignableFrom(context.getClass()) ? ((FragmentActivity) context).getSupportLoaderManager() : null;
-	}
+    /**
+     * Gets a loader manager for the context
+     *
+     * @param context the context
+     * @return the loader manager if any
+     */
+    public static LoaderManager getLoaderManager(Context context) {
+        return FragmentActivity.class.isAssignableFrom(context.getClass()) ? ((FragmentActivity) context).getSupportLoaderManager() : null;
+    }
 
-	/**
-	 * Checks if a delegate's context supports loaders
-	 * @param delegate the delegate
-	 * @return true if the delegate requesting context supports loaders
-	 */
-	public static boolean supportsLoaders(APIDelegate<?> delegate) {
-		return getLoaderManager(delegate.getRequestingContext()) != null;
-	}
+    /**
+     * Checks if a delegate's context supports loaders
+     *
+     * @param delegate the delegate
+     * @return true if the delegate requesting context supports loaders
+     */
+    public static boolean supportsLoaders(APIDelegate<?> delegate) {
+        return getLoaderManager(delegate.getRequestingContext()) != null;
+    }
 
 }

@@ -28,28 +28,28 @@ import java.util.concurrent.Callable;
 
 public class APIGetLoader<T extends JSONResponse> extends APILoader<T> {
 
-	/**
-	 * @param delegate               the delegate that will be notified on successful requests
-	 * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
-	 * @param url                    the service endpoint
-	 * @param params                 the params to be replaced on the url placeholders
-	 */
-	public APIGetLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params) {
-		super(delegate, apiCredentialsDelegate, url, params);
-	}
+    /**
+     * @param delegate               the delegate that will be notified on successful requests
+     * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
+     * @param url                    the service endpoint
+     * @param params                 the params to be replaced on the url placeholders
+     */
+    public APIGetLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params) {
+        super(delegate, apiCredentialsDelegate, url, params);
+    }
 
-	@Override
-	public Callable<T> getCallable() {
-		return new Callable<T>() {
-			@Override
-			public T call() throws Exception {
-				return getOperation().executeWithExceptionHandling(new Callable<T>() {
-					@Override
-					public T call() throws Exception {
-						return RestClientFactory.getClient().get(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
-					}
-				});
-			}
-		};
-	}
+    @Override
+    public Callable<T> getCallable() {
+        return new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                return getOperation().executeWithExceptionHandling(new Callable<T>() {
+                    @Override
+                    public T call() throws Exception {
+                        return RestClientFactory.getClient().get(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+                    }
+                });
+            }
+        };
+    }
 }

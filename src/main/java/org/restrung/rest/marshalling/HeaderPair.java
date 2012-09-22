@@ -23,16 +23,14 @@ package org.restrung.rest.marshalling;
  */
 public interface HeaderPair {
 
-	/**
-	 *
-	 * @return the header name
-	 */
-	public String getName();
+    /**
+     * @return the header name
+     */
+    public String getName();
 
-	/**
-	 *
-	 * @return the header value
-	 */
-	public String getValue();
+    /**
+     * @return the header value
+     */
+    public String getValue();
 
 }

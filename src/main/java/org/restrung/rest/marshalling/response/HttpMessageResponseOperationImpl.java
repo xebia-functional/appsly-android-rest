@@ -33,129 +33,129 @@ import java.util.Locale;
  */
 public class HttpMessageResponseOperationImpl implements ResponseOperation {
 
-	/**
-	 * The message delegate that is receiving the customizations
-	 */
-	private HttpResponse delegate;
+    /**
+     * The message delegate that is receiving the customizations
+     */
+    private HttpResponse delegate;
 
-	/**
-	 * The response entity
-	 */
-	private HttpEntity httpEntity;
+    /**
+     * The response entity
+     */
+    private HttpEntity httpEntity;
 
-	/**
-	 * Default delegate based constructor
-	 *
-	 * @param delegate the HttpResponse delegate
-	 */
-	public HttpMessageResponseOperationImpl(HttpResponse delegate) {
-		this.delegate = delegate;
-		this.httpEntity = delegate.getEntity();
-	}
+    /**
+     * Default delegate based constructor
+     *
+     * @param delegate the HttpResponse delegate
+     */
+    public HttpMessageResponseOperationImpl(HttpResponse delegate) {
+        this.delegate = delegate;
+        this.httpEntity = delegate.getEntity();
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.response.ResponseOperation#getStatusCode()
-	 */
-	@Override
-	public int getStatusCode() {
-		return delegate.getStatusLine().getStatusCode();
-	}
+    /**
+     * @see org.restrung.rest.marshalling.response.ResponseOperation#getStatusCode()
+     */
+    @Override
+    public int getStatusCode() {
+        return delegate.getStatusLine().getStatusCode();
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.response.ResponseOperation#setStatusCode(int)
-	 */
-	@Override
-	public void setStatusCode(int statusCode) throws IllegalStateException {
-		delegate.setStatusCode(statusCode);
-	}
+    /**
+     * @see org.restrung.rest.marshalling.response.ResponseOperation#setStatusCode(int)
+     */
+    @Override
+    public void setStatusCode(int statusCode) throws IllegalStateException {
+        delegate.setStatusCode(statusCode);
+    }
 
-	/**
-	 * @see ResponseOperation#setReasonPhrase(String)
-	 */
-	@Override
-	public void setReasonPhrase(String reasonPhrase) throws IllegalStateException {
-		delegate.setReasonPhrase(reasonPhrase);
-	}
+    /**
+     * @see ResponseOperation#setReasonPhrase(String)
+     */
+    @Override
+    public void setReasonPhrase(String reasonPhrase) throws IllegalStateException {
+        delegate.setReasonPhrase(reasonPhrase);
+    }
 
-	/**
-	 * @see ResponseOperation#isRepeatable()
-	 */
-	@Override
-	public boolean isRepeatable() {
-		return httpEntity.isRepeatable();
-	}
+    /**
+     * @see ResponseOperation#isRepeatable()
+     */
+    @Override
+    public boolean isRepeatable() {
+        return httpEntity.isRepeatable();
+    }
 
-	/**
-	 * @see ResponseOperation#isChunked()
-	 */
-	@Override
-	public boolean isChunked() {
-		return httpEntity.isChunked();
-	}
+    /**
+     * @see ResponseOperation#isChunked()
+     */
+    @Override
+    public boolean isChunked() {
+        return httpEntity.isChunked();
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.response.ResponseOperation#getContentLength()
-	 */
-	@Override
-	public long getContentLength() {
-		return httpEntity.getContentLength();
-	}
+    /**
+     * @see org.restrung.rest.marshalling.response.ResponseOperation#getContentLength()
+     */
+    @Override
+    public long getContentLength() {
+        return httpEntity.getContentLength();
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.response.ResponseOperation#getContentType()
-	 */
-	@Override
-	public HeaderPair getContentType() {
-		return getHeaderPair(httpEntity.getContentType());
-	}
+    /**
+     * @see org.restrung.rest.marshalling.response.ResponseOperation#getContentType()
+     */
+    @Override
+    public HeaderPair getContentType() {
+        return getHeaderPair(httpEntity.getContentType());
+    }
 
-	/**
-	 * @see ResponseOperation#getContentEncoding()
-	 */
-	@Override
-	public HeaderPair getContentEncoding() {
-		return getHeaderPair(httpEntity.getContentEncoding());
-	}
+    /**
+     * @see ResponseOperation#getContentEncoding()
+     */
+    @Override
+    public HeaderPair getContentEncoding() {
+        return getHeaderPair(httpEntity.getContentEncoding());
+    }
 
-	/**
-	 * Private factory method to get a header pair
-	 *
-	 * @param header the http commons header
-	 * @return the header pair
-	 */
-	private static HeaderPair getHeaderPair(Header header) {
-		return new HeaderPairImpl(header);
-	}
+    /**
+     * Private factory method to get a header pair
+     *
+     * @param header the http commons header
+     * @return the header pair
+     */
+    private static HeaderPair getHeaderPair(Header header) {
+        return new HeaderPairImpl(header);
+    }
 
-	/**
-	 * @see ResponseOperation#getContent()
-	 */
-	@Override
-	public InputStream getContent() throws IOException, IllegalStateException {
-		return httpEntity.getContent();
-	}
+    /**
+     * @see ResponseOperation#getContent()
+     */
+    @Override
+    public InputStream getContent() throws IOException, IllegalStateException {
+        return httpEntity.getContent();
+    }
 
-	/**
-	 * @see ResponseOperation#isStreaming()
-	 */
-	@Override
-	public boolean isStreaming() {
-		return httpEntity.isStreaming();
-	}
+    /**
+     * @see ResponseOperation#isStreaming()
+     */
+    @Override
+    public boolean isStreaming() {
+        return httpEntity.isStreaming();
+    }
 
-	/**
-	 * @see ResponseOperation#getLocale()
-	 */
-	@Override
-	public Locale getLocale() {
-		return delegate.getLocale();
-	}
+    /**
+     * @see ResponseOperation#getLocale()
+     */
+    @Override
+    public Locale getLocale() {
+        return delegate.getLocale();
+    }
 
-	/**
-	 * @see org.restrung.rest.marshalling.response.ResponseOperation#setLocale(java.util.Locale)
-	 */
-	@Override
-	public void setLocale(Locale locale) {
-		delegate.setLocale(locale);
-	}
+    /**
+     * @see org.restrung.rest.marshalling.response.ResponseOperation#setLocale(java.util.Locale)
+     */
+    @Override
+    public void setLocale(Locale locale) {
+        delegate.setLocale(locale);
+    }
 }

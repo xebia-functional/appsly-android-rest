@@ -23,68 +23,74 @@ package org.restrung.rest.exceptions;
  */
 public class APIException extends Exception {
 
-	/**
-	 * status code for errors that are unknown
-	 */
-	public static int UNTRACKED_ERROR = -1;
+    /**
+     * status code for errors that are unknown
+     */
+    public static int UNTRACKED_ERROR = -1;
 
-	/**
-	 * the error code usually equivalent to the http status code
-	 */
-	private int errorCode;
+    /**
+     * the error code usually equivalent to the http status code
+     */
+    private int errorCode;
 
-	/**
-	 * Constructor that constructs an APIException from an error code
-	 * @param errorCode the error code usually equivalent to the http status code
-	 */
-	public APIException(int errorCode) {
-		this.errorCode = errorCode;
-	}
+    /**
+     * Constructor that constructs an APIException from an error code
+     *
+     * @param errorCode the error code usually equivalent to the http status code
+     */
+    public APIException(int errorCode) {
+        this.errorCode = errorCode;
+    }
 
-	/**
-	 * Constructor that constructs an APIException from an error code and message
-	 * @param message the exception message
-	 * @param errorCode the error code usually equivalent to the http status code
-	 */
-	public APIException(String message, int errorCode) {
-		super(message);
-		this.errorCode = errorCode;
-	}
+    /**
+     * Constructor that constructs an APIException from an error code and message
+     *
+     * @param message   the exception message
+     * @param errorCode the error code usually equivalent to the http status code
+     */
+    public APIException(String message, int errorCode) {
+        super(message);
+        this.errorCode = errorCode;
+    }
 
-	/**
-	 * Constructor that encapsulates another exception as an APIException
-	 * @param message the exception message
-	 * @param throwable another exception or error
-	 * @param errorCode the error code usually equivalent to the http status code
-	 */
-	public APIException(String message, Throwable throwable, int errorCode) {
-		super(message, throwable);
-		this.errorCode = errorCode;
-	}
+    /**
+     * Constructor that encapsulates another exception as an APIException
+     *
+     * @param message   the exception message
+     * @param throwable another exception or error
+     * @param errorCode the error code usually equivalent to the http status code
+     */
+    public APIException(String message, Throwable throwable, int errorCode) {
+        super(message, throwable);
+        this.errorCode = errorCode;
+    }
 
-	/**
-	 * Constructor that encapsulates another exception as an APIException
-	 * @param throwable another exception or error
-	 * @param errorCode the error code usually equivalent to the http status code
-	 */
-	public APIException(Throwable throwable, int errorCode) {
-		super(throwable);
-		this.errorCode = errorCode;
-	}
+    /**
+     * Constructor that encapsulates another exception as an APIException
+     *
+     * @param throwable another exception or error
+     * @param errorCode the error code usually equivalent to the http status code
+     */
+    public APIException(Throwable throwable, int errorCode) {
+        super(throwable);
+        this.errorCode = errorCode;
+    }
 
-	/**
-	 * the error code usually equivalent to the http status code
-	 * @return the error code
-	 */
-	public int getErrorCode() {
-		return errorCode;
-	}
+    /**
+     * the error code usually equivalent to the http status code
+     *
+     * @return the error code
+     */
+    public int getErrorCode() {
+        return errorCode;
+    }
 
-	/**
-	 * sets the error code
-	 * @param errorCode the error code usually equivalent to the http status code
-	 */
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
+    /**
+     * sets the error code
+     *
+     * @param errorCode the error code usually equivalent to the http status code
+     */
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
 }

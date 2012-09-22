@@ -25,44 +25,47 @@ import java.util.Date;
  */
 public class CacheInfo {
 
-	/**
-	 * Represents a non cached request
-	 */
-	public static final CacheInfo NONE = new CacheInfo(false, null);
+    /**
+     * Represents a non cached request
+     */
+    public static final CacheInfo NONE = new CacheInfo(false, null);
 
-	/**
-	 * true if the current results have been loaded from the cache
-	 */
-	private boolean loadedFromCache;
+    /**
+     * true if the current results have been loaded from the cache
+     */
+    private boolean loadedFromCache;
 
-	/**
-	 * the last time the results for this request were last updated
-	 */
-	private Date lastRefreshed;
+    /**
+     * the last time the results for this request were last updated
+     */
+    private Date lastRefreshed;
 
-	/**
-	 * Construct a cache info object based on the values for loadedFromCache and lastRefreshed
-	 * @param loadedFromCache true if the current results have been loaded from the cache
-	 * @param lastRefreshed the last time the results for this request were last updated
-	 */
-	public CacheInfo(boolean loadedFromCache, Date lastRefreshed) {
-		this.loadedFromCache = loadedFromCache;
-		this.lastRefreshed = lastRefreshed;
-	}
+    /**
+     * Construct a cache info object based on the values for loadedFromCache and lastRefreshed
+     *
+     * @param loadedFromCache true if the current results have been loaded from the cache
+     * @param lastRefreshed   the last time the results for this request were last updated
+     */
+    public CacheInfo(boolean loadedFromCache, Date lastRefreshed) {
+        this.loadedFromCache = loadedFromCache;
+        this.lastRefreshed = lastRefreshed;
+    }
 
-	/**
-	 * If the results for this request were loaded from the cache or not
-	 * @return true if the current results have been loaded from the cache
-	 */
-	public boolean isLoadedFromCache() {
-		return loadedFromCache;
-	}
+    /**
+     * If the results for this request were loaded from the cache or not
+     *
+     * @return true if the current results have been loaded from the cache
+     */
+    public boolean isLoadedFromCache() {
+        return loadedFromCache;
+    }
 
-	/**
-	 * The last time the results for this request were updated
-	 * @return the last time the results for this request were last updated
-	 */
-	public Date getLastRefreshed() {
-		return lastRefreshed;
-	}
+    /**
+     * The last time the results for this request were updated
+     *
+     * @return the last time the results for this request were last updated
+     */
+    public Date getLastRefreshed() {
+        return lastRefreshed;
+    }
 }

@@ -29,45 +29,46 @@ import org.restrung.rest.cache.CacheRequestInfoProvider;
  */
 public interface APIDelegate<Result extends JSONResponse> extends CacheRequestInfoProvider<Result> {
 
-	/**
-	 * Used when the operation is sent as a loader. The underlying loader will replace other loaders with the same id.
-	 * @return the operation id which uniquely identifies this operation when compared to other operations.
-	 */
-	int getOperationId();
+    /**
+     * Used when the operation is sent as a loader. The underlying loader will replace other loaders with the same id.
+     *
+     * @return the operation id which uniquely identifies this operation when compared to other operations.
+     */
+    int getOperationId();
 
-	/**
-	 * Gives caller a chance to customize or query  certain aspects of a request operation e.g. headers
-	 *
-	 * @param operation the operation
-	 */
-	void onRequest(RequestOperation operation);
+    /**
+     * Gives caller a chance to customize or query  certain aspects of a request operation e.g. headers
+     *
+     * @param operation the operation
+     */
+    void onRequest(RequestOperation operation);
 
-	/**
-	 * Gives caller a chance to customize or query certain aspects of a response operation e.g. statusCode
-	 *
-	 * @param operation the operation
-	 */
-	void onResponse(ResponseOperation operation);
+    /**
+     * Gives caller a chance to customize or query certain aspects of a response operation e.g. statusCode
+     *
+     * @param operation the operation
+     */
+    void onResponse(ResponseOperation operation);
 
-	/**
-	 * Delegates serialized results back to the caller
-	 *
-	 * @param result the serialized results
-	 */
-	void onResults(Result result);
+    /**
+     * Delegates serialized results back to the caller
+     *
+     * @param result the serialized results
+     */
+    void onResults(Result result);
 
-	/**
-	 * Delegates optential erros back to the caller
-	 *
-	 * @param e the error or exception resulting from the operation
-	 */
-	void onError(Throwable e);
+    /**
+     * Delegates optential erros back to the caller
+     *
+     * @param e the error or exception resulting from the operation
+     */
+    void onError(Throwable e);
 
-	/**
-	 * Informs the system as to what the expected response type for this call is
-	 *
-	 * @return the class type for the expected response
-	 */
-	Class<Result> getExpectedResponseType();
+    /**
+     * Informs the system as to what the expected response type for this call is
+     *
+     * @return the class type for the expected response
+     */
+    Class<Result> getExpectedResponseType();
 
 }

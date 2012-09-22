@@ -23,19 +23,19 @@ package org.restrung.rest.exceptions;
  */
 public class InvalidCredentialsException extends APIException {
 
-	public InvalidCredentialsException(int errorCode) {
-		super(errorCode);
-	}
+    public InvalidCredentialsException(int errorCode) {
+        super(errorCode);
+    }
 
-	public InvalidCredentialsException(String s, int errorCode) {
-		super(s, errorCode);
-	}
+    public InvalidCredentialsException(String s, int errorCode) {
+        super(s, errorCode);
+    }
 
-	public InvalidCredentialsException(String s, Throwable throwable, int errorCode) {
-		super(s, throwable, errorCode);
-	}
+    public InvalidCredentialsException(String s, Throwable throwable, int errorCode) {
+        super(s, throwable, errorCode);
+    }
 
-	public InvalidCredentialsException(Throwable throwable, int errorCode) {
-		super(throwable, errorCode);
-	}
+    public InvalidCredentialsException(Throwable throwable, int errorCode) {
+        super(throwable, errorCode);
+    }
 }

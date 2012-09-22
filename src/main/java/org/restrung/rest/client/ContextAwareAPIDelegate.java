@@ -83,6 +83,7 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
 
     /**
      * Return context
+     *
      * @return
      */
     public Context getRequestingContext() {
@@ -91,6 +92,7 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
 
     /**
      * Set context
+     *
      * @param requestingContext
      */
     public void setRequestingContext(Context requestingContext) {
