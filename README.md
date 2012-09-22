@@ -244,7 +244,7 @@ The cache load policies available are:
 
 #### 2.2.4.2. Direct access
 
-You can manually access objects in the cache, invalidate, put and perform many other operations exposed as static methods in the
+Access objects in the cache, invalidate, put and perform many other operations directly via the static methods at
 [org.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java) class.
 
 #### 2.2.5. Serialization
@@ -260,8 +260,8 @@ own implementation of [org.restrung.rest.marshalling.response.JSONResponse](http
 
 #### 2.2.6. Interceptors
 
-Restrung allows you to intercept the request before being sent and response before being serialized by overriding org.restrung.rest.client.APIDelegate#onRequest and org.restrung.rest.client.APIDelegate.onResponse
-in the same way onResults and onError are usually overridden to obtained serialized results or handling errors.
+You can customize the request before being sent by overriding **onRequest(RequestOperation)** in your APIDelegate.
+Same applies for the response before being serialized. Simply override **onResponse(ResponseOperation)** in your APIDelegate.
 
 e.g.
 
