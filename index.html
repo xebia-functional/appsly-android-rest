@@ -33,57 +33,52 @@
       <section id="main_content" class="inner">
         <h1>Restrung</h1>
 
-<p>Android client library to <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> and HTTP based web services.</p>
+<p>Android client library to <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> services</p>
 
 <p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
 
 <ul>
 <li><a href="#restrung">Restrung</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li>
-<a href="#introduction">Introduction</a>
+<a href="#download">Download</a>
 
 <ul>
-<li>
-<a href="#1-download">1. Download</a>
-
-<ul>
-<li><a href="#11-maven-dependency">1.1. Maven Dependency</a></li>
-<li><a href="#12-apklib-and-others">1.2. APKLib and others</a></li>
+<li><a href="#maven-dependency">Maven Dependency</a></li>
+<li><a href="#apklib-and-others">APKLib and others</a></li>
 </ul>
 </li>
 <li>
-<a href="#2-usage">2. Usage</a>
+<a href="#usage">Usage</a>
 
 <ul>
 <li>
-<a href="#21-simple">2.1. Simple</a>
+<a href="#simple">Simple</a>
 
 <ul>
-<li><a href="#211-get">2.1.1. GET</a></li>
-<li><a href="#212-post">2.1.2. POST</a></li>
-<li><a href="#213-put">2.1.3. PUT</a></li>
-<li><a href="#214-delete">2.1.4. DELETE</a></li>
+<li><a href="#get">GET</a></li>
+<li><a href="#post">POST</a></li>
+<li><a href="#put">PUT</a></li>
+<li><a href="#delete">DELETE</a></li>
 </ul>
 </li>
 <li>
-<a href="#22-advanced">2.2. Advanced</a>
+<a href="#advanced">Advanced</a>
 
 <ul>
-<li><a href="#221-loaders">2.2.1. Loaders</a></li>
-<li><a href="#222-asynctasks">2.2.2. AsyncTasks</a></li>
-<li><a href="#223-runnables">2.2.3. Runnables</a></li>
+<li><a href="#loaders">Loaders</a></li>
+<li><a href="#asynctasks">AsyncTasks</a></li>
+<li><a href="#runnables">Runnables</a></li>
 <li>
-<a href="#224-cache">2.2.4. Cache</a>
+<a href="#cache">Cache</a>
 
 <ul>
-<li><a href="#2241-load-policies">2.2.4.1. Load Policies</a></li>
-<li><a href="#2242-direct-access">2.2.4.2. Direct access</a></li>
+<li><a href="#load-policies">Load Policies</a></li>
+<li><a href="#direct-access">Direct access</a></li>
 </ul>
 </li>
-<li><a href="#225-serialization">2.2.5. Serialization</a></li>
-<li><a href="#226-interceptors">2.2.6. Interceptors</a></li>
-</ul>
-</li>
+<li><a href="#serialization">Serialization</a></li>
+<li><a href="#interceptors">Interceptors</a></li>
 </ul>
 </li>
 </ul>
@@ -93,9 +88,9 @@
 <p>Restrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.</p>
 
-<h2>1. Download</h2>
+<h1>Download</h1>
 
-<h3>1.1. Maven Dependency</h3>
+<h2>Maven Dependency</h2>
 
 <p>Restrung may be automatically imported in your project if you already use <a href="http://maven.apache.org/">Maven</a>. Just declare restrung as a maven dependency.</p>
 
@@ -106,21 +101,21 @@ Contributions and constructive feedback are welcome.</p>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
-<h3>1.2. APKLib and others</h3>
+<h2>APKLib and others</h2>
 
 <p>You can get releases, snapshots and other forms in which Restrung is distributed in the <a href="https://github.com/47deg/restrung/downloads">Downloads</a> page.</p>
 
-<h2>2. Usage</h2>
+<h1>Usage</h1>
 
 <p>Whether you plan to use Restrung for simple http requests to a RESTful service or you need more control over requests, serialization, etc.
 We encourage you to read this short guide to fully understand what RESTRung is and what's not.</p>
 
-<h3>2.1. Simple</h3>
+<h2>Simple</h2>
 
 <p>The main interface to send requests and receive serialize responses is through the RestClient which default implementation you can access with the RestClientFactory
 The RestClient exposes both Asynchronous and Synchronous operations for the most commons <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP verbs</a>.</p>
 
-<h4>2.1.1. GET</h4>
+<h3>GET</h3>
 
 <div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
 
@@ -137,7 +132,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h4>2.1.2. POST</h4>
+<h3>POST</h3>
 
 <p><em>Simple POST</em></p>
 
@@ -183,7 +178,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="n">sourceObject</span><span class="o">,</span> <span class="n">file</span> <span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h4>2.1.3. PUT</h4>
+<h3>PUT</h3>
 
 <div class="highlight"><pre><span class="c1">//An object that implements JSONSerializable</span>
 <span class="n">AnyBeanObject</span> <span class="n">sourceObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnyBeanObject</span><span class="o">();</span>
@@ -204,7 +199,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="n">sourceObject</span> <span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h4>2.1.4. DELETE</h4>
+<h3>DELETE</h3>
 
 <div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">deleteAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
 
@@ -221,12 +216,12 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h3>2.2. Advanced</h3>
+<h2>Advanced</h2>
 
 <p>If you don't wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
 loaders, asynctasks or runnable classes for each one of the operations.</p>
 
-<h4>2.2.1. Loaders</h4>
+<h3>Loaders</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java">org.restrung.rest.async.loaders.APIGetLoader</a>
@@ -237,7 +232,7 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java">org.restrung.rest.async.loaders.APIDeleteLoader</a>
 </li>
-</ul><h4>2.2.2. AsyncTasks</h4>
+</ul><h3>AsyncTasks</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java">org.restrung.rest.async.asynctasks.APIGetAsyncTask</a>
@@ -248,7 +243,7 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java">org.restrung.rest.async.asynctasks.APIDeleteAsyncTask</a>
 </li>
-</ul><h4>2.2.3. Runnables</h4>
+</ul><h3>Runnables</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java">org.restrung.rest.async.runnables.GetRunnable</a>
@@ -259,7 +254,7 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java">org.restrung.rest.async.runnables.DeleteRunnable</a>
 </li>
-</ul><h4>2.2.4. Cache</h4>
+</ul><h3>Cache</h3>
 
 <p>Restrung includes a cache mechanism to help fast retrieval of GET request responses.
 Restrung uses the request parameters and components to create a unique ID used as cache key.</p>
@@ -286,7 +281,7 @@ Restrung uses the request parameters and components to create a unique ID used a
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h5>2.2.4.1. Load Policies</h5>
+<h4>Load Policies</h4>
 
 <p>The cache load policies available are:</p>
 
@@ -298,12 +293,12 @@ Restrung uses the request parameters and components to create a unique ID used a
 <li>ENABLED - Load always from the cache if available.</li>
 <li>LOAD_IF_TIMEOUT - Load from the cache when the request times out.</li>
 <li>NETWORK_ENABLED - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)</li>
-</ul><h5>2.2.4.2. Direct access</h5>
+</ul><h4>Direct access</h4>
 
 <p>Access objects in the cache, invalidate, put and perform many other operations directly via the static methods at
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java">org.restrung.rest.cache.RequestCache</a> class.</p>
 
-<h4>2.2.5. Serialization</h4>
+<h3>Serialization</h3>
 
 <p>Restrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize <a href="http://en.wikipedia.org/wiki/JavaBeans">javabeans</a> from and to <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
 To have your beans autoserialized when being sent as a request body in both POST and PUT request make your class extend from
@@ -314,7 +309,7 @@ own implementation of <a href="https://github.com/47deg/restrung/blob/master/src
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java">org.restrung.rest.marshalling.response.AbstractJSONResponse</a> or provide your
 own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java">org.restrung.rest.marshalling.response.JSONResponse</a></p>
 
-<h4>2.2.6. Interceptors</h4>
+<h3>Interceptors</h3>
 
 <p>You can customize the request before being sent by overriding <strong>onRequest(RequestOperation)</strong> in your APIDelegate.
 Same applies for the response before being serialized. Simply override <strong>onResponse(ResponseOperation)</strong> in your APIDelegate.</p>
