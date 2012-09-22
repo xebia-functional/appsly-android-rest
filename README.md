@@ -149,27 +149,19 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.1.1 GET
 
-```java
-APIGetLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params)
-```
+[org.restrung.rest.async.loaders.APIGetLoader](src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
 
 #### 2.2.1.2 POST
 
-```java
-APIPostLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, APIPostParams delegateParams, String url, JSONSerializable body, File file, Object... params)
-```
+[org.restrung.rest.async.loaders.APIPostLoader](src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
 
 #### 2.2.1.3 PUT
 
-```java
-APIPutLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, Object... params)
-```
+[org.restrung.rest.async.loaders.APIPutLoader](src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
 
 #### 2.2.1.4 DELETE
 
-```java
-APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params)
-```
+[org.restrung.rest.async.loaders.APIDeleteLoader](src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
 
 #### 2.2.2. AsyncTasks
 
