@@ -5,7 +5,7 @@ Restrung is an Android client library for RESTful and HTTP based web services.
 # Introduction
 
 Restrung was born out of the need to provide a clear and easy interface for Android apps @ 47 degrees to RESTful and HTTP based web services.
-Contributions and constructive feedback will always be welcomed.
+Contributions and constructive feedback are welcome.
 
 ## 1. Download
 
@@ -21,6 +21,8 @@ Restrung may be automatically imported in your project if you already use [Maven
 </dependency>
 ```
 ### 1.2. APKLib and others
+
+You can get releases, snapshots and other binary forms in which Restrung is distributed in the [Downloads](https://github.com/47deg/restrung/downloads) page.
 
 ## 2. Usage
 
@@ -202,13 +204,15 @@ loaders, asynctasks or runnable classes for each one of the operations.
 #### 2.2.4. Cache
 
 Restrung includes a cache mechanism to help fast retrieval of GET request responses.
+Restrung uses the request parameters and components to create a unique ID used as cache key.
 
 e.g.
 
 *Load always from cache*
 
 ```java
-RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.ENABLED) {
+RestClientFactory.getClient().getAsync(
+    new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.ENABLED) {
 
 ...
 
@@ -218,7 +222,8 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 *Load always from cache if there is no internet connection*
 
 ```java
-RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.LOAD_IF_OFFLINE) {
+RestClientFactory.getClient().getAsync(
+    new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.LOAD_IF_OFFLINE) {
 
 ...
 
@@ -244,6 +249,37 @@ You can manually access objects in the cache, invalidate, put and perform many o
 
 #### 2.2.5. Serialization
 
+Restrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize [javabeans](http://en.wikipedia.org/wiki/JavaBeans) from and to [JSON](http://en.wikipedia.org/wiki/JSON).
+To have your beans autoserialized when being sent as a request body in both POST and PUT request make your class extend from
+[org.restrung.rest.marshalling.request.AbstractJSONRequest](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java) or provide your
+own implementation of [org.restrung.rest.marshalling.request.JSONSerializable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java)
+
+To have your beans autoserialized when receiving a response body in make your class extend from
+[org.restrung.rest.marshalling.response.AbstractJSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java) or provide your
+own implementation of [org.restrung.rest.marshalling.response.JSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java)
+
 #### 2.2.6. Interceptors
+
+Restrung allows you to intercept the request before being sent and response before being serialized by overriding org.restrung.rest.client.APIDelegate#onRequest and org.restrung.rest.client.APIDelegate.onResponse
+in the same way onResults and onError are usually overridden to obtained serialized results or handling errors.
+
+e.g.
+
+```java
+RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
+
+    ...
+
+    public void onRequest(RequestOperation operation) {
+        //add request headers, setup basic auth, ...
+    }
+
+    public void onResponse(ResponseOperation operation) {
+        // intercept status code, ...
+    }
+
+}, "http://url/%s/%s", "param1", "param2");
+```
+
 
 
