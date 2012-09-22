@@ -39,7 +39,7 @@ public class GetRunnable<T extends JSONResponse> extends AbstractCacheAwareRunna
 	 */
 	@Override
 	public void executeLoader() {
-		new APIGetLoader<T>(getUrl(), getDelegate(), null, getArgs()) {
+		new APIGetLoader<T>(getDelegate(), null, getUrl(), getArgs()) {
 			@Override
 			public void onLoadFinished(Loader<T> loader, T data) {
 				super.onLoadFinished(loader, data);

@@ -60,12 +60,12 @@ public abstract class APILoader<T extends JSONResponse> implements LoaderManager
 	/**
 	 * Constructs a loader
 	 *
-	 * @param url                    the url
 	 * @param apiDelegate            the API delegate
 	 * @param apiCredentialsDelegate the api credentials delegate
+	 * @param url                    the url
 	 * @param params                 a set of params to be replaced in the url
 	 */
-	public APILoader(String url, APIDelegate<T> apiDelegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
+	public APILoader(APIDelegate<T> apiDelegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params) {
 		super();
 		this.context = apiDelegate.getRequestingContext();
 		this.loaderManager = ContextUtils.getLoaderManager(context);
@@ -75,15 +75,15 @@ public abstract class APILoader<T extends JSONResponse> implements LoaderManager
 	/**
 	 * Constructs a loader
 	 *
-	 * @param url                    the url
-	 * @param file                   the file
-	 * @param body                   the body
 	 * @param apiDelegate            the API delegate
-	 * @param delegateParams         the delegate params
 	 * @param apiCredentialsDelegate the api credentials delegate
+	 * @param url                    the url
+	 * @param body                   the body
+	 * @param file                   the file
+	 * @param delegateParams         the delegate params
 	 * @param params                 a set of params to be replaced in the url
 	 */
-	public APILoader(String url, JSONSerializable body, File file, APIDelegate<T> apiDelegate, APIPostParams delegateParams, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
+	public APILoader(APIDelegate<T> apiDelegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, File file, APIPostParams delegateParams, Object... params) {
 		super();
 		this.context = apiDelegate.getRequestingContext();
 		this.loaderManager = ContextUtils.getLoaderManager(context);

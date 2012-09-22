@@ -40,7 +40,7 @@ public class APIDeleteLoader<T extends JSONResponse> extends APILoader<T> {
      * @param params the params to be replaced on the url placeholders
      */
     public APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-        super(url, delegate, apiCredentialsDelegate, params);
+        super(delegate, apiCredentialsDelegate, url, params);
     }
 
 	@Override

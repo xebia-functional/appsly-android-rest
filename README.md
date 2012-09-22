@@ -34,7 +34,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 
 #### 2.1.1. Async
 
-**GET**
+#### 2.1.1.1 GET
 
 ```java
 RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
@@ -52,7 +52,7 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", "param1", "param2");
 ```
 
-**POST**
+#### 2.1.1.2 POST
 
 *Simple POST*
 
@@ -100,7 +100,7 @@ RestClientFactory.getClient().postAsync(new ContextAwareAPIDelegate<Target>(cont
 }, "http://url/%s/%s", sourceObject, file , "param1", "param2");
 ```
 
-**PUT**
+#### 2.1.1.3 PUT
 
 ```java
 //An object that implements JSONSerializable
@@ -122,7 +122,7 @@ RestClientFactory.getClient().putAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", sourceObject , "param1", "param2");
 ```
 
-**DELETE**
+#### 2.1.1.4 DELETE
 
 ```java
 RestClientFactory.getClient().deleteAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
@@ -140,11 +140,36 @@ RestClientFactory.getClient().deleteAsync(new ContextAwareAPIDelegate<Target>(co
 }, "http://url/%s/%s", "param1", "param2");
 ```
 
-#### 2.1.2. Sync
-
 ### 2.2. Advanced
 
+If you don't wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
+loaders, asynctasks or runnable classes for each one of the operations.
+
 #### 2.2.1. Loaders
+
+#### 2.2.1.1 GET
+
+```java
+APIGetLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params)
+```
+
+#### 2.2.1.2 POST
+
+```java
+APIPostLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, APIPostParams delegateParams, String url, JSONSerializable body, File file, Object... params)
+```
+
+#### 2.2.1.3 PUT
+
+```java
+APIPutLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, Object... params)
+```
+
+#### 2.2.1.4 DELETE
+
+```java
+APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params)
+```
 
 #### 2.2.2. AsyncTasks
 

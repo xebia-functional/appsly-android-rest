@@ -59,6 +59,6 @@ public class PostRunnable<T extends JSONResponse> extends AbstractCacheAwareRunn
 	 */
 	@Override
 	public void executeLoader() {
-		new APIPostLoader<T>(getUrl(), body, file, getDelegate(), postParams, null, getArgs()).execute();
+		new APIPostLoader<T>(getDelegate(), null, postParams, getUrl(), body, file, getArgs()).execute();
 	}
 }

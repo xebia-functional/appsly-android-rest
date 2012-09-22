@@ -34,15 +34,15 @@ public class APIPostLoader<T extends JSONResponse> extends APILoader<T> {
 
     /**
      *
-     * @param url the service endpoint
-     * @param body the json body to be sent as post
-     * @param file
-     * @param delegate the delegate that will be notified on successful requests
-     * @param apiCredentialsDelegate
-     * @param params the params to be replaced on the url placeholders
-     */
-    public APIPostLoader(String url, JSONSerializable body, File file, APIDelegate<T> delegate, APIPostParams delegateParams, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-        super(url, body, file, delegate, delegateParams, apiCredentialsDelegate, params);
+	 * @param delegate the delegate that will be notified on successful requests
+	 * @param apiCredentialsDelegate the credentials delegate
+	 * @param url the service endpoint
+	 * @param body the json body to be sent as post
+	 * @param file an optional file
+	 * @param params the params to be replaced on the url placeholders
+	 */
+    public APIPostLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, APIPostParams delegateParams, String url, JSONSerializable body, File file, Object... params) {
+        super(delegate, apiCredentialsDelegate, url, body, file, delegateParams, params);
     }
 
 	@Override

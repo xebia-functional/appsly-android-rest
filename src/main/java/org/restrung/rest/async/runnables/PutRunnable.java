@@ -40,6 +40,6 @@ public class PutRunnable<T extends JSONResponse> extends AbstractCacheAwareRunna
 	 */
 	@Override
 	public void executeLoader() {
-		new APIPutLoader<T>(getUrl(), body, getDelegate(), null, getArgs()).execute();
+		new APIPutLoader<T>(getDelegate(), null, getUrl(), body, getArgs()).execute();
 	}
 }

@@ -29,13 +29,13 @@ import java.util.concurrent.Callable;
 public class APIGetLoader<T extends JSONResponse> extends APILoader<T> {
 
 	/**
-	 * @param url                    the service endpoint
 	 * @param delegate               the delegate that will be notified on successful requests
 	 * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
+	 * @param url                    the service endpoint
 	 * @param params                 the params to be replaced on the url placeholders
 	 */
-	public APIGetLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-		super(url, delegate, apiCredentialsDelegate, params);
+	public APIGetLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params) {
+		super(delegate, apiCredentialsDelegate, url, params);
 	}
 
 	@Override

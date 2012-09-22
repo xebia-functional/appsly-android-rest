@@ -33,13 +33,13 @@ public class APIPutLoader<T extends JSONResponse> extends APILoader<T> {
 
     /**
      *
-     * @param url the service endpoint
-     * @param body the json body to be sent as post
-     * @param delegate the delegate that will be notified on successful requests
-     * @param params the params to be replaced on the url placeholders
-     */
-    public APIPutLoader(String url, JSONSerializable body, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-        super(url, body, null, delegate, null, apiCredentialsDelegate, params);
+	 * @param delegate the delegate that will be notified on successful requests
+	 * @param url the service endpoint
+	 * @param body the json body to be sent as post
+	 * @param params the params to be replaced on the url placeholders
+	 */
+    public APIPutLoader(APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, Object... params) {
+        super(delegate, apiCredentialsDelegate, url, body, null, null, params);
     }
 
 	@Override
