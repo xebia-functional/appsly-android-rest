@@ -183,6 +183,22 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.3. Runnables
 
+#### 2.2.2.1 GET
+
+[org.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java)
+
+#### 2.2.2.2 POST
+
+[org.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java)
+
+#### 2.2.2.3 PUT
+
+[org.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java)
+
+#### 2.2.2.4 DELETE
+
+[org.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java)
+
 #### 2.2.4. Cache
 
 #### 2.2.5. Serialization
