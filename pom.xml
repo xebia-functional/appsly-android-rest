@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2012 47 Degrees, LLC
+  ~ http://47deg.com
+  ~ hello@47deg.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <scm.branch>master</scm.branch>
+        <android.sdk.path>/Applications/android-sdk-macosx</android.sdk.path>
+        <android.sdk.version>2.3.3</android.sdk.version>
+        <android.sdk.platform>8</android.sdk.platform>
+        <android.compatibility.support.version>r6</android.compatibility.support.version>
+        <android.maven.plugin.version>3.3.2</android.maven.plugin.version>
+        <apache.http.client.version>4.1.1</apache.http.client.version>
+        <google.gson.version>2.2.2</google.gson.version>
+        <github.global.server>github</github.global.server>
+    </properties>
+
+    <groupId>org.restrung</groupId>
+    <artifactId>restrung</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>apklib</packaging>
+    <name>Restrung Android REST Library</name>
+    <description>Restrung is an Android client library for RESTful and HTTP based web services.</description>
+    <url>https://github.com/47deg/restrung</url>
+    <inceptionYear>2012</inceptionYear>
+
+    <scm>
+        <url>https://github.com/47deg/restrung/tree/${scm.branch}</url>
+        <connection>scm:git:git://github.com/jayway/maven-android-plugin.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/jayway/maven-android-plugin.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>Github Issue Tracking</system>
+        <url>https://github.com/47deg/restrung/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>47 Degrees</name>
+            <id>47devs</id>
+            <url>http://47deg.com/company/</url>
+            <roles>
+                <role>Developer</role>
+                <role>Contributor</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${android.sdk.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>${android.compatibility.support.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache.http.client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient-cache</artifactId>
+            <version>${apache.http.client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${apache.http.client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${google.gson.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>${android.maven.plugin.version}</version>
+                <configuration>
+                    <sdk>
+                        <path>${android.sdk.path}</path>
+                        <platform>${android.sdk.platform}</platform>
+                    </sdk>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>downloads-maven-plugin</artifactId>
+                <version>0.5</version>
+                <configuration>
+                    <description>${project.version} release of ${project.name}</description>
+                    <override>true</override>
+                    <includeAttached>true</includeAttached>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.6</version>
+                <configuration>
+                    <message>Creating site for ${project.version}</message>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
