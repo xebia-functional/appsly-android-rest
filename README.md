@@ -147,59 +147,100 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.1. Loaders
 
-#### 2.2.1.1 GET
+##### 2.2.1.1 GET
 
 [org.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
 
-#### 2.2.1.2 POST
+##### 2.2.1.2 POST
 
 [org.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
 
-#### 2.2.1.3 PUT
+##### 2.2.1.3 PUT
 
 [org.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
 
-#### 2.2.1.4 DELETE
+##### 2.2.1.4 DELETE
 
 [org.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
 
 #### 2.2.2. AsyncTasks
 
-#### 2.2.2.1 GET
+##### 2.2.2.1 GET
 
 [org.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
 
-#### 2.2.2.2 POST
+##### 2.2.2.2 POST
 
 [org.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
 
-#### 2.2.2.3 PUT
+##### 2.2.2.3 PUT
 
 [org.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
 
-#### 2.2.2.4 DELETE
+##### 2.2.2.4 DELETE
 
 [org.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
 
 #### 2.2.3. Runnables
 
-#### 2.2.2.1 GET
+##### 2.2.2.1 GET
 
 [org.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java)
 
-#### 2.2.2.2 POST
+##### 2.2.2.2 POST
 
 [org.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java)
 
-#### 2.2.2.3 PUT
+##### 2.2.2.3 PUT
 
 [org.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java)
 
-#### 2.2.2.4 DELETE
+##### 2.2.2.4 DELETE
 
 [org.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java)
 
 #### 2.2.4. Cache
+
+Restrung includes a cache mechanism to help fast retrieval of GET request responses.
+
+e.g.
+
+*Load always from cache*
+
+```java
+RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.ENABLED) {
+
+...
+
+}, "http://url/%s/%s", "param1", "param2");
+```
+
+*Load always from cache if there is no internet connection*
+
+```java
+RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class, RequestCache.LoadPolicy.LOAD_IF_OFFLINE) {
+
+...
+
+}, "http://url/%s/%s", "param1", "param2");
+```
+
+#### 2.2.4.1. Load Policies
+
+The cache load policies available are:
+
+**NEVER** - Never use the cache.
+**LOAD_IF_OFFLINE** - Load from the cache when the app is offline.
+**LOAD_ON_ERROR** - Load from cache if there is an error.
+**ETAG** - Load from the cache if we have data stored and the server returns a 304 (not modified) response.
+**ENABLED** - Load always from the cache if available.
+**LOAD_IF_TIMEOUT** - Load from the cache when the request times out.
+**NETWORK_ENABLED** - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)
+
+#### 2.2.4.2. Direct access
+
+You can manually access objects in the cache, invalidate, put and perform many other operations exposed as static methods in the
+[org.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java) class.
 
 #### 2.2.5. Serialization
 

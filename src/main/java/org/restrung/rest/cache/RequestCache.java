@@ -36,6 +36,12 @@ import java.util.concurrent.Callable;
 public class RequestCache {
 
 	/**
+	 * Prevents instantiation
+	 */
+	private RequestCache() {
+	}
+
+	/**
 	 * The extension used for the cache files
 	 */
 	private static String CACHE_EXTENSION = ".obj.cache";
@@ -71,7 +77,7 @@ public class RequestCache {
 		ENABLED,
 
 		/**
-		 * Load from the cache if we are within the timeout window
+		 * Load from the cache if the request times out
 		 */
 		LOAD_IF_TIMEOUT,
 
