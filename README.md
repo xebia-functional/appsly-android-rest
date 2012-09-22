@@ -229,13 +229,13 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 
 The cache load policies available are:
 
-**NEVER** - Never use the cache.
-**LOAD_IF_OFFLINE** - Load from the cache when the app is offline.
-**LOAD_ON_ERROR** - Load from cache if there is an error.
-**ETAG** - Load from the cache if we have data stored and the server returns a 304 (not modified) response.
-**ENABLED** - Load always from the cache if available.
-**LOAD_IF_TIMEOUT** - Load from the cache when the request times out.
-**NETWORK_ENABLED** - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)
+* *NEVER* - Never use the cache.
+* *LOAD_IF_OFFLINE* - Load from the cache when the app is offline.
+* *LOAD_ON_ERROR* - Load from cache if there is an error.
+* *ETAG* - Load from the cache if we have data stored and the server returns a 304 (not modified) response.
+* *ENABLED* - Load always from the cache if available.
+* *LOAD_IF_TIMEOUT* - Load from the cache when the request times out.
+* *NETWORK_ENABLED* - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)
 
 #### 2.2.4.2. Direct access
 
