@@ -149,19 +149,19 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.1.1 GET
 
-[org.restrung.rest.async.loaders.APIGetLoader](src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
+[org.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
 
 #### 2.2.1.2 POST
 
-[org.restrung.rest.async.loaders.APIPostLoader](src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
+[org.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
 
 #### 2.2.1.3 PUT
 
-[org.restrung.rest.async.loaders.APIPutLoader](src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
+[org.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
 
 #### 2.2.1.4 DELETE
 
-[org.restrung.rest.async.loaders.APIDeleteLoader](src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
+[org.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
 
 #### 2.2.2. AsyncTasks
 
