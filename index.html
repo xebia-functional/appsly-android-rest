@@ -1,90 +1,42 @@
 <!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Restrung by 47deg</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Restrung</h1>
-        <p class="header">Android client library for RESTful services</p>
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/47deg/restrung/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/47deg/restrung/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/47deg/restrung">View On GitHub</a></li>
-        </ul>
+  <title>Restrung</title>
+  <meta name="description" content="Android client library for RESTful services">
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/47deg">47deg</a></p>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
+</head>
 
-      </header>
-      <section>
-        <h1>Restrung</h1>
+<body>
 
-<p>Android client library to <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> services</p>
-
-<p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
-
-<ul>
-<li><a href="#restrung">Restrung</a></li>
-<li><a href="#introduction">Introduction</a></li>
-<li>
-<a href="#download">Download</a>
-
-<ul>
-<li><a href="#maven-dependency">Maven Dependency</a></li>
-<li><a href="#apklib-and-others">APKLib and others</a></li>
-</ul>
-</li>
-<li>
-<a href="#usage">Usage</a>
-
-<ul>
-<li>
-<a href="#simple">Simple</a>
-
-<ul>
-<li><a href="#get">GET</a></li>
-<li><a href="#post">POST</a></li>
-<li><a href="#put">PUT</a></li>
-<li><a href="#delete">DELETE</a></li>
-</ul>
-</li>
-<li>
-<a href="#advanced">Advanced</a>
-
-<ul>
-<li><a href="#loaders">Loaders</a></li>
-<li><a href="#asynctasks">AsyncTasks</a></li>
-<li><a href="#runnables">Runnables</a></li>
-<li>
-<a href="#cache">Cache</a>
-
-<ul>
-<li><a href="#load-policies">Load Policies</a></li>
-<li><a href="#direct-access">Direct access</a></li>
-</ul>
-</li>
-<li><a href="#serialization">Serialization</a></li>
-<li><a href="#interceptors">Interceptors</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul><h1>Introduction</h1>
-
-<p>Restrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to RESTful and HTTP based web services.
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Restrung</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Android client library for RESTful services</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/47deg/restrung/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/47deg/restrung/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/47deg/restrung" class="code">View Restrung on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <p>Restrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.</p>
 
 <h1>Download</h1>
@@ -329,13 +281,27 @@ Same applies for the response before being serialized. Simply override <strong>o
 
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+        </article>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		          <script type="text/javascript">
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/47deg" class="avatar"><img src="https://secure.gravatar.com/avatar/a235213bef8b51d0ae25d16b60ef9038?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/47deg">47deg</a> maintains <a href="https://github.com/47deg/restrung">Restrung</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/47deg/restrung/tarball/master" class="tar">tar</a><a href="https://github.com/47deg/restrung/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -346,5 +312,5 @@ Same applies for the response before being serialized. Simply override <strong>o
             } catch(err) {}
           </script>
 
-  </body>
+</body>
 </html>
