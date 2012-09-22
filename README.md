@@ -2,6 +2,29 @@
 
 Android client library to [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Restrung](#restrung)
+- [Introduction](#introduction)
+- [Download](#download)
+	- [Maven Dependency](#maven-dependency)
+	- [APKLib and others](#apklib-and-others)
+- [Usage](#usage)
+	- [Simple](#simple)
+		- [GET](#get)
+		- [POST](#post)
+		- [PUT](#put)
+		- [DELETE](#delete)
+	- [Advanced](#advanced)
+		- [Loaders](#loaders)
+		- [AsyncTasks](#asynctasks)
+		- [Runnables](#runnables)
+		- [Cache](#cache)
+			- [Load Policies](#load-policies)
+			- [Direct access](#direct-access)
+		- [Serialization](#serialization)
+		- [Interceptors](#interceptors)
+
 # Introduction
 
 Restrung was born out of the need to provide a clear and easy interface for Android apps @ [47 degrees](http://47deg.com) to RESTful and HTTP based web services.
