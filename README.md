@@ -1,10 +1,10 @@
 # Restrung
 
-Android client library for RESTful and HTTP based web services.
+Android client library to [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) and HTTP based web services.
 
 # Introduction
 
-Restrung was born out of the need to provide a clear and easy interface for Android apps @ 47 degrees to RESTful and HTTP based web services.
+Restrung was born out of the need to provide a clear and easy interface for Android apps @ [47 degrees](http://47deg.com) to RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
