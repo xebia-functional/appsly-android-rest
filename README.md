@@ -165,6 +165,22 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 #### 2.2.2. AsyncTasks
 
+#### 2.2.2.1 GET
+
+[org.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
+
+#### 2.2.2.2 POST
+
+[org.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
+
+#### 2.2.2.3 PUT
+
+[org.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
+
+#### 2.2.2.4 DELETE
+
+[org.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
+
 #### 2.2.3. Runnables
 
 #### 2.2.4. Cache
