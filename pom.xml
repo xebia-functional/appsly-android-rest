@@ -46,8 +46,8 @@
 
     <scm>
         <url>https://github.com/47deg/restrung/tree/${scm.branch}</url>
-        <connection>scm:git:git://github.com/jayway/maven-android-plugin.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/jayway/maven-android-plugin.git</developerConnection>
+        <connection>scm:git:git://github.com/47deg/restrung.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/47deg/restrung.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 

@@ -34,9 +34,7 @@ We encourage you to read this short guide to fully understand what RESTRung is a
 The main interface to send requests and receive serialize responses is through the RestClient which default implementation you can access with the RestClientFactory
 The RestClient exposes both Asynchronous and Synchronous operations for the most commons [HTTP verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
 
-#### 2.1.1. Async
-
-#### 2.1.1.1 GET
+#### 2.1.1. GET
 
 ```java
 RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
@@ -54,7 +52,7 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", "param1", "param2");
 ```
 
-#### 2.1.1.2 POST
+#### 2.1.2 POST
 
 *Simple POST*
 
@@ -102,7 +100,7 @@ RestClientFactory.getClient().postAsync(new ContextAwareAPIDelegate<Target>(cont
 }, "http://url/%s/%s", sourceObject, file , "param1", "param2");
 ```
 
-#### 2.1.1.3 PUT
+#### 2.1.3 PUT
 
 ```java
 //An object that implements JSONSerializable
@@ -124,7 +122,7 @@ RestClientFactory.getClient().putAsync(new ContextAwareAPIDelegate<Target>(conte
 }, "http://url/%s/%s", sourceObject , "param1", "param2");
 ```
 
-#### 2.1.1.4 DELETE
+#### 2.1.4 DELETE
 
 ```java
 RestClientFactory.getClient().deleteAsync(new ContextAwareAPIDelegate<Target>(context, Target.class) {
