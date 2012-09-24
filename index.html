@@ -31,7 +31,13 @@
         <hr>
 
         <section id="main_content">
-          <p>RESTrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to interface with RESTful and HTTP based web services.
+          <h1>RESTrung</h1>
+
+<p>Android client library for <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> services</p>
+
+<h1>Introduction</h1>
+
+<p>RESTrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 Degrees</a> to interface with RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.</p>
 
 <h1>Download</h1>
@@ -41,7 +47,7 @@ Contributions and constructive feedback are welcome.</p>
 <p>RESTrung may be automatically imported into your project if you already use <a href="http://maven.apache.org/">Maven</a>. Just declare RESTrung as a maven dependency.</p>
 
 <div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.restrung<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>it.restrung<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>restrung<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
@@ -171,35 +177,35 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 <h3>Loaders</h3>
 
 <ul>
-<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java">org.restrung.rest.async.loaders.APIGetLoader</a>
+<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java">it.restrung.rest.async.loaders.APIGetLoader</a>
 </li>
-<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java">org.restrung.rest.async.loaders.APIPostLoader</a>
+<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java">it.restrung.rest.async.loaders.APIPostLoader</a>
 </li>
-<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java">org.restrung.rest.async.loaders.APIPutLoader</a>
+<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java">it.restrung.rest.async.loaders.APIPutLoader</a>
 </li>
-<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java">org.restrung.rest.async.loaders.APIDeleteLoader</a>
+<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java">it.restrung.rest.async.loaders.APIDeleteLoader</a>
 </li>
 </ul><h3>AsyncTasks</h3>
 
 <ul>
-<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java">org.restrung.rest.async.asynctasks.APIGetAsyncTask</a>
+<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java">it.restrung.rest.async.asynctasks.APIGetAsyncTask</a>
 </li>
-<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java">org.restrung.rest.async.asynctasks.APIPostAsyncTask</a>
+<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java">it.restrung.rest.async.asynctasks.APIPostAsyncTask</a>
 </li>
-<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java">org.restrung.rest.async.asynctasks.APIPutAsyncTask</a>
+<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java">it.restrung.rest.async.asynctasks.APIPutAsyncTask</a>
 </li>
-<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java">org.restrung.rest.async.asynctasks.APIDeleteAsyncTask</a>
+<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java">it.restrung.rest.async.asynctasks.APIDeleteAsyncTask</a>
 </li>
 </ul><h3>Runnables</h3>
 
 <ul>
-<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java">org.restrung.rest.async.runnables.GetRunnable</a>
+<li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java">it.restrung.rest.async.runnables.GetRunnable</a>
 </li>
-<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java">org.restrung.rest.async.runnables.PostRunnable</a>
+<li>POST - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java">it.restrung.rest.async.runnables.PostRunnable</a>
 </li>
-<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java">org.restrung.rest.async.runnables.PutRunnable</a>
+<li>PUT - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java">it.restrung.rest.async.runnables.PutRunnable</a>
 </li>
-<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java">org.restrung.rest.async.runnables.DeleteRunnable</a>
+<li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java">it.restrung.rest.async.runnables.DeleteRunnable</a>
 </li>
 </ul><h3>Cache</h3>
 
@@ -243,18 +249,18 @@ RESTrung uses the request parameters and components to create a unique ID used a
 </ul><h4>Direct access</h4>
 
 <p>Access objects in the cache, invalidate, put and perform many other operations directly via the static methods available through the
-<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java">org.restrung.rest.cache.RequestCache</a> class.</p>
+<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java">it.restrung.rest.cache.RequestCache</a> class.</p>
 
 <h3>Serialization</h3>
 
 <p>RESTrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize <a href="http://en.wikipedia.org/wiki/JavaBeans">javabeans</a> to and from <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
 To have your beans auto-serialized when being sent as the body of both POST and PUT requests; make your class extend from
-<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java">org.restrung.rest.marshalling.request.AbstractJSONRequest</a> or provide your
-own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java">org.restrung.rest.marshalling.request.JSONSerializable</a></p>
+<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java">it.restrung.rest.marshalling.request.AbstractJSONRequest</a> or provide your
+own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java">it.restrung.rest.marshalling.request.JSONSerializable</a></p>
 
 <p>To have your beans auto-serialized when receiving a response body; make your class extend from
-<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java">org.restrung.rest.marshalling.response.AbstractJSONResponse</a> or provide your
-own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java">org.restrung.rest.marshalling.response.JSONResponse</a></p>
+<a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java">it.restrung.rest.marshalling.response.AbstractJSONResponse</a> or provide your
+own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java">it.restrung.rest.marshalling.response.JSONResponse</a></p>
 
 <h3>Interceptors</h3>
 
