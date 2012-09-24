@@ -10,7 +10,7 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Restrung by 47deg</title>
+    <title>RESTrung by 47deg</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
       <div class="inner">
 
         <header>
-          <h1>Restrung</h1>
+          <h1>RESTrung</h1>
           <h2>Android client library for RESTful services</h2>
         </header>
 
@@ -31,35 +31,36 @@
         <hr>
 
         <section id="main_content">
-          <p>Restrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to RESTful and HTTP based web services.
+          <p>RESTrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 degrees</a> to interface with RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.</p>
 
 <h1>Download</h1>
 
 <h2>Maven Dependency</h2>
 
-<p>Restrung may be automatically imported in your project if you already use <a href="http://maven.apache.org/">Maven</a>. Just declare restrung as a maven dependency.</p>
+<p>RESTrung may be automatically imported into your project if you already use <a href="http://maven.apache.org/">Maven</a>. Just declare RESTrung as a maven dependency.</p>
 
 <div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.restrung<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>restrung<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
 <h2>APKLib and others</h2>
 
-<p>You can get releases, snapshots and other forms in which Restrung is distributed in the <a href="https://github.com/47deg/restrung/downloads">Downloads</a> page.</p>
+<p>You can get releases, snapshots and other forms in which RESTrung is distributed from the <a href="https://github.com/47deg/restrung/downloads">Downloads</a> page.</p>
 
 <h1>Usage</h1>
 
-<p>Whether you plan to use Restrung for simple http requests to a RESTful service or you need more control over requests, serialization, etc.
-We encourage you to read this short guide to fully understand what RESTRung is and what's not.</p>
+<p>Whether you plan to use RESTrung for simple HTTP requests to a RESTful service or you need more control over requests, serialization, etc,
+we encourage you to read this short guide to fully understand what RESTrung is and what it is not.</p>
 
 <h2>Simple</h2>
 
-<p>The main interface to send requests and receive serialize responses is through the RestClient which default implementation you can access with the RestClientFactory
-The RestClient exposes both Asynchronous and Synchronous operations for the most commons <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP verbs</a>.</p>
+<p>The main interface to send requests and receive serialized responses is through RestClient whose default implementation you can access with the RestClientFactory.
+The RestClient exposes both Asynchronous and Synchronous operations for the most common <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP verbs</a>.</p>
 
 <h3>GET</h3>
 
@@ -72,7 +73,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//handle error here in the main thread</span>
+        <span class="c1">//handle errors here in the main thread</span>
     <span class="o">}</span>
 
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
@@ -164,7 +165,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 
 <h2>Advanced</h2>
 
-<p>If you don't wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
+<p>If you do not wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
 loaders, asynctasks or runnable classes for each one of the operations.</p>
 
 <h3>Loaders</h3>
@@ -202,8 +203,8 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 </ul><h3>Cache</h3>
 
-<p>Restrung includes a cache mechanism to help fast retrieval of GET request responses.
-Restrung uses the request parameters and components to create a unique ID used as cache key.</p>
+<p>RESTrung includes a cache mechanism to help with fast retrieval of GET responses.
+RESTrung uses the request parameters and components to create a unique ID used as the cache key.</p>
 
 <p>e.g.</p>
 
@@ -217,7 +218,7 @@ Restrung uses the request parameters and components to create a unique ID used a
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<p><em>Load always from cache if there is no internet connection</em></p>
+<p><em>Load from cache if there is no internet connection</em></p>
 
 <div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span>
     <span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">RequestCache</span><span class="o">.</span><span class="na">LoadPolicy</span><span class="o">.</span><span class="na">LOAD_IF_OFFLINE</span><span class="o">)</span> <span class="o">{</span>
@@ -241,24 +242,24 @@ Restrung uses the request parameters and components to create a unique ID used a
 <li>NETWORK_ENABLED - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)</li>
 </ul><h4>Direct access</h4>
 
-<p>Access objects in the cache, invalidate, put and perform many other operations directly via the static methods at
+<p>Access objects in the cache, invalidate, put and perform many other operations directly via the static methods available through the
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java">org.restrung.rest.cache.RequestCache</a> class.</p>
 
 <h3>Serialization</h3>
 
-<p>Restrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize <a href="http://en.wikipedia.org/wiki/JavaBeans">javabeans</a> from and to <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
-To have your beans autoserialized when being sent as a request body in both POST and PUT request make your class extend from
+<p>RESTrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize <a href="http://en.wikipedia.org/wiki/JavaBeans">javabeans</a> to and from <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
+To have your beans auto-serialized when being sent as the body of both POST and PUT requests; make your class extend from
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java">org.restrung.rest.marshalling.request.AbstractJSONRequest</a> or provide your
 own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java">org.restrung.rest.marshalling.request.JSONSerializable</a></p>
 
-<p>To have your beans autoserialized when receiving a response body in make your class extend from
+<p>To have your beans auto-serialized when receiving a response body; make your class extend from
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java">org.restrung.rest.marshalling.response.AbstractJSONResponse</a> or provide your
 own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java">org.restrung.rest.marshalling.response.JSONResponse</a></p>
 
 <h3>Interceptors</h3>
 
-<p>You can customize the request before being sent by overriding <strong>onRequest(RequestOperation)</strong> in your APIDelegate.
-Same applies for the response before being serialized. Simply override <strong>onResponse(ResponseOperation)</strong> in your APIDelegate.</p>
+<p>You can customize the request before transmitting by overriding <strong>onRequest(RequestOperation)</strong> in your APIDelegate.
+If you wish to customize the response before being deserialized, simply override <strong>onResponse(ResponseOperation)</strong> in your APIDelegate.</p>
 
 <p>e.g.</p>
 
@@ -279,7 +280,7 @@ Same applies for the response before being serialized. Simply override <strong>o
         </section>
 
         <footer>
-          Restrung is maintained by <a href="https://github.com/47deg">47deg</a><br>
+          RESTrung is maintained by <a href="https://github.com/47deg">47deg</a><br>
           This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
         </footer>
 
