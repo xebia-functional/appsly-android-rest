@@ -41,6 +41,7 @@ Restrung may be automatically imported in your project if you already use [Maven
     <groupId>org.restrung</groupId>
     <artifactId>restrung</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <type>apklib</type>
 </dependency>
 ```
 ## APKLib and others
