@@ -1,10 +1,10 @@
-# Restrung
+# RESTrung
 
-Android client library to [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services
+Android client library for [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Restrung](#restrung)
+- [RESTrung](#restrung)
 - [Introduction](#introduction)
 - [Download](#download)
 	- [Maven Dependency](#maven-dependency)
@@ -27,14 +27,14 @@ Android client library to [RESTful](http://en.wikipedia.org/wiki/Representationa
 
 # Introduction
 
-Restrung was born out of the need to provide a clear and easy interface for Android apps @ [47 degrees](http://47deg.com) to RESTful and HTTP based web services.
+RESTrung was born out of the need to provide a clear and easy interface for Android apps @ [47 degrees](http://47deg.com) to interface with RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.
 
 # Download
 
 ## Maven Dependency
 
-Restrung may be automatically imported in your project if you already use [Maven](http://maven.apache.org/). Just declare restrung as a maven dependency.
+RESTrung may be automatically imported into your project if you already use [Maven](http://maven.apache.org/). Just declare RESTrung as a maven dependency.
 
 ```xml
 <dependency>
@@ -46,17 +46,17 @@ Restrung may be automatically imported in your project if you already use [Maven
 ```
 ## APKLib and others
 
-You can get releases, snapshots and other forms in which Restrung is distributed in the [Downloads](https://github.com/47deg/restrung/downloads) page.
+You can get releases, snapshots and other forms in which RESTrung is distributed from the [Downloads](https://github.com/47deg/restrung/downloads) page.
 
 # Usage
 
-Whether you plan to use Restrung for simple http requests to a RESTful service or you need more control over requests, serialization, etc.
-We encourage you to read this short guide to fully understand what RESTRung is and what's not.
+Whether you plan to use RESTrung for simple HTTP requests to a RESTful service or you need more control over requests, serialization, etc,
+we encourage you to read this short guide to fully understand what RESTrung is and what it is not.
 
 ## Simple
 
-The main interface to send requests and receive serialize responses is through the RestClient which default implementation you can access with the RestClientFactory
-The RestClient exposes both Asynchronous and Synchronous operations for the most commons [HTTP verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
+The main interface to send requests and receive serialized responses is through RestClient whose default implementation you can access with the RestClientFactory.
+The RestClient exposes both Asynchronous and Synchronous operations for the most common [HTTP verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
 
 ### GET
 
@@ -70,7 +70,7 @@ RestClientFactory.getClient().getAsync(new ContextAwareAPIDelegate<Target>(conte
 
 	@Override
 	public void onError(Throwable e) {
-		//handle error here in the main thread
+		//handle errors here in the main thread
 	}
 
 }, "http://url/%s/%s", "param1", "param2");
@@ -166,7 +166,7 @@ RestClientFactory.getClient().deleteAsync(new ContextAwareAPIDelegate<Target>(co
 
 ## Advanced
 
-If you don't wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
+If you do not wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
 loaders, asynctasks or runnable classes for each one of the operations.
 
 ### Loaders
@@ -192,8 +192,8 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 ### Cache
 
-Restrung includes a cache mechanism to help fast retrieval of GET request responses.
-Restrung uses the request parameters and components to create a unique ID used as cache key.
+RESTrung includes a cache mechanism to help with fast retrieval of GET responses.
+RESTrung uses the request parameters and components to create a unique ID used as the cache key.
 
 e.g.
 
@@ -208,7 +208,7 @@ RestClientFactory.getClient().getAsync(
 }, "http://url/%s/%s", "param1", "param2");
 ```
 
-*Load always from cache if there is no internet connection*
+*Load from cache if there is no internet connection*
 
 ```java
 RestClientFactory.getClient().getAsync(
@@ -233,24 +233,24 @@ The cache load policies available are:
 
 #### Direct access
 
-Access objects in the cache, invalidate, put and perform many other operations directly via the static methods at
+Access objects in the cache, invalidate, put and perform many other operations directly via the static methods available through the
 [org.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java) class.
 
 ### Serialization
 
-Restrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize [javabeans](http://en.wikipedia.org/wiki/JavaBeans) from and to [JSON](http://en.wikipedia.org/wiki/JSON).
-To have your beans autoserialized when being sent as a request body in both POST and PUT request make your class extend from
+RESTrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize [javabeans](http://en.wikipedia.org/wiki/JavaBeans) to and from [JSON](http://en.wikipedia.org/wiki/JSON).
+To have your beans auto-serialized when being sent as the body of both POST and PUT requests; make your class extend from
 [org.restrung.rest.marshalling.request.AbstractJSONRequest](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java) or provide your
 own implementation of [org.restrung.rest.marshalling.request.JSONSerializable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java)
 
-To have your beans autoserialized when receiving a response body in make your class extend from
+To have your beans auto-serialized when receiving a response body; make your class extend from
 [org.restrung.rest.marshalling.response.AbstractJSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java) or provide your
 own implementation of [org.restrung.rest.marshalling.response.JSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java)
 
 ### Interceptors
 
-You can customize the request before being sent by overriding **onRequest(RequestOperation)** in your APIDelegate.
-Same applies for the response before being serialized. Simply override **onResponse(ResponseOperation)** in your APIDelegate.
+You can customize the request before transmitting by overriding **onRequest(RequestOperation)** in your APIDelegate.
+If you wish to customize the response before being deserialized, simply override **onResponse(ResponseOperation)** in your APIDelegate.
 
 e.g.
 
