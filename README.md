@@ -171,24 +171,24 @@ loaders, asynctasks or runnable classes for each one of the operations.
 
 ### Loaders
 
-* GET - [it.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIGetLoader.java)
-* POST - [it.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPostLoader.java)
-* PUT - [it.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIPutLoader.java)
-* DELETE - [it.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/loaders/APIDeleteLoader.java)
+* GET - [it.restrung.rest.async.loaders.APIGetLoader](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIGetLoader.java)
+* POST - [it.restrung.rest.async.loaders.APIPostLoader](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIPostLoader.java)
+* PUT - [it.restrung.rest.async.loaders.APIPutLoader](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIPutLoader.java)
+* DELETE - [it.restrung.rest.async.loaders.APIDeleteLoader](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIDeleteLoader.java)
 
 ### AsyncTasks
 
-* GET - [it.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
-* POST - [it.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
-* PUT - [it.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
-* DELETE - [it.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
+* GET - [it.restrung.rest.async.asynctasks.APIGetAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIGetAsyncTask.java)
+* POST - [it.restrung.rest.async.asynctasks.APIPostAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIPostAsyncTask.java)
+* PUT - [it.restrung.rest.async.asynctasks.APIPutAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIPutAsyncTask.java)
+* DELETE - [it.restrung.rest.async.asynctasks.APIDeleteAsyncTask](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java)
 
 ### Runnables
 
-* GET - [it.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/GetRunnable.java)
-* POST - [it.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PostRunnable.java)
-* PUT - [it.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/PutRunnable.java)
-* DELETE - [it.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/async/runnables/DeleteRunnable.java)
+* GET - [it.restrung.rest.async.runnables.GetRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/GetRunnable.java)
+* POST - [it.restrung.rest.async.runnables.PostRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/PostRunnable.java)
+* PUT - [it.restrung.rest.async.runnables.PutRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/PutRunnable.java)
+* DELETE - [it.restrung.rest.async.runnables.DeleteRunnable](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/DeleteRunnable.java)
 
 ### Cache
 
@@ -234,18 +234,18 @@ The cache load policies available are:
 #### Direct access
 
 Access objects in the cache, invalidate, put and perform many other operations directly via the static methods available through the
-[it.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/cache/RequestCache.java) class.
+[it.restrung.rest.cache.RequestCache](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/cache/RequestCache.java) class.
 
 ### Serialization
 
 RESTrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize [javabeans](http://en.wikipedia.org/wiki/JavaBeans) to and from [JSON](http://en.wikipedia.org/wiki/JSON).
 To have your beans auto-serialized when being sent as the body of both POST and PUT requests; make your class extend from
-[it.restrung.rest.marshalling.request.AbstractJSONRequest](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/AbstractJSONRequest.java) or provide your
-own implementation of [it.restrung.rest.marshalling.request.JSONSerializable](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/request/JSONSerializable.java)
+[it.restrung.rest.marshalling.request.AbstractJSONRequest](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/request/AbstractJSONRequest.java) or provide your
+own implementation of [it.restrung.rest.marshalling.request.JSONSerializable](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/request/JSONSerializable.java)
 
 To have your beans auto-serialized when receiving a response body; make your class extend from
-[it.restrung.rest.marshalling.response.AbstractJSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/AbstractJSONResponse.java) or provide your
-own implementation of [it.restrung.rest.marshalling.response.JSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/org/restrung/rest/marshalling/response/JSONResponse.java)
+[it.restrung.rest.marshalling.response.AbstractJSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/response/AbstractJSONResponse.java) or provide your
+own implementation of [it.restrung.rest.marshalling.response.JSONResponse](https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/response/JSONResponse.java)
 
 ### Interceptors
 
