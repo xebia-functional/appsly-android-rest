@@ -35,8 +35,8 @@ Contributions and constructive feedback are welcome.
 ## Maven Dependency
 
 RESTrung may be automatically imported into your project if you already use [Maven](http://maven.apache.org/). Just declare RESTrung as a maven dependency.
-If you wish to use always the latest unstable snapshots add the sonatype repository where RESTrung snapshot artifacts are being deployed.
-RESTrung oficial releases will be made available at Maven Central.
+If you wish to always use the latest unstable snapshots, add the Sonatype repository where the RESTrung snapshot artifacts are being deployed.
+RESTrung official releases will be made available at Maven Central.
 
 ```xml
 <repository>
@@ -63,7 +63,7 @@ RESTrung oficial releases will be made available at Maven Central.
 ```
 ## APKLib and others
 
-You can get releases, snapshots and other forms in which RESTrung is distributed from the [Downloads](https://github.com/47deg/restrung/downloads) page.
+You can get the releases, snapshots and other forms in which RESTrung is distributed from the [Downloads](https://github.com/47deg/restrung/downloads) page.
 
 # Usage
 
