@@ -18,7 +18,7 @@
 
 package it.restrung.rest.cache;
 
-import android.content.Context;
+import it.restrung.rest.client.ContextProvider;
 
 /**
  * Exposes behavior to obtain cache information
@@ -26,9 +26,9 @@ import android.content.Context;
 public interface CacheRequestInfoProvider<Result> {
 
     /**
-     * @return the context initiating and handling the results
+     * @return the context provider initiating and handling the results
      */
-    Context getRequestingContext();
+    ContextProvider getContextProvider();
 
     /**
      * @return the policy utilized for considering cached results
@@ -41,11 +41,11 @@ public interface CacheRequestInfoProvider<Result> {
     RequestCache.StoragePolicy getCacheStoragePolicy();
 
     /**
-     * Sets the context initiating and handling the results
+     * Sets the context provider initiating and handling the results
      *
-     * @param context the context
+     * @param contextProvider the context
      */
-    void setRequestingContext(Context context);
+    void setContextProvider(ContextProvider contextProvider);
 
     /**
      * Sets the policy for loading

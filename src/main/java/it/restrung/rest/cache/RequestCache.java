@@ -158,7 +158,7 @@ public class RequestCache {
             T result = operation.call();
             provider.setCacheInfo(CacheInfo.NONE);
             if (StoragePolicy.PERMANENTLY.equals(provider.getCacheStoragePolicy())) {
-                put(provider.getRequestingContext(), result, params);
+                put(provider.getContextProvider().getContext(), result, params);
             }
             return result;
         }
@@ -181,7 +181,7 @@ public class RequestCache {
                 case ETAG:
                     throw new UnsupportedOperationException("ETAG not yet supported");
                 case LOAD_IF_OFFLINE:
-                    ConnectivityManager connectivityManager = (ConnectivityManager) provider.getRequestingContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    ConnectivityManager connectivityManager = (ConnectivityManager) provider.getContextProvider().getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     if (connectivityManager.getActiveNetworkInfo().isConnected()) {
                         result = performOperation();
                     } else {
@@ -280,7 +280,7 @@ public class RequestCache {
      * @return the in memory original object
      */
     public static <T extends Serializable> T get(CacheRequestInfoProvider<T> cacheRequestInfoProvider, Object... params) {
-        File file = getCacheFile(cacheRequestInfoProvider.getRequestingContext(), cacheKey(params));
+        File file = getCacheFile(cacheRequestInfoProvider.getContextProvider().getContext(), cacheKey(params));
         cacheRequestInfoProvider.setCacheInfo(new CacheInfo(true, new Date(file.lastModified())));
         return IOUtils.loadSerializableObjectFromDisk(file);
     }
