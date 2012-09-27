@@ -28,7 +28,7 @@
         <android.sdk.path>/Applications/android-sdk-macosx</android.sdk.path>
         <android.sdk.version>2.3.3</android.sdk.version>
         <android.sdk.platform>8</android.sdk.platform>
-        <android.compatibility.support.version>r6</android.compatibility.support.version>
+        <android.compatibility.support.version>r7</android.compatibility.support.version>
         <android.maven.plugin.version>3.3.2</android.maven.plugin.version>
         <apache.http.client.version>4.1.1</apache.http.client.version>
         <google.gson.version>2.2.2</google.gson.version>
@@ -99,7 +99,6 @@
             <groupId>com.google.android</groupId>
             <artifactId>support-v4</artifactId>
             <version>${android.compatibility.support.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
