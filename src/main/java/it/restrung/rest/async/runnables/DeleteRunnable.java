@@ -1,5 +1,6 @@
 package it.restrung.rest.async.runnables;
 
+import it.restrung.rest.async.asynctasks.APIDeleteAsyncTask;
 import it.restrung.rest.async.loaders.APIDeleteLoader;
 import it.restrung.rest.client.APIDelegate;
 import it.restrung.rest.marshalling.response.JSONResponse;
@@ -25,7 +26,7 @@ public class DeleteRunnable<T extends JSONResponse> extends AbstractCacheAwareRu
      */
     @Override
     public void executeAsyncTask() {
-        new APIDeleteLoader<T>(getUrl(), getDelegate(), null, getArgs()).execute();
+        new APIDeleteAsyncTask<T>(getUrl(), getDelegate(), null, getArgs()).execute();
     }
 
     /**
