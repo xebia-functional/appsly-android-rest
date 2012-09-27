@@ -35,8 +35,25 @@ Contributions and constructive feedback are welcome.
 ## Maven Dependency
 
 RESTrung may be automatically imported into your project if you already use [Maven](http://maven.apache.org/). Just declare RESTrung as a maven dependency.
+If you wish to use always the latest unstable snapshots add the sonatype repository where RESTrung snapshot artifacts are being deployed.
+RESTrung oficial releases will be made available at Maven Central.
 
 ```xml
+<repository>
+    <id>sonatype</id>
+    <url>https://oss.sonatype.org/content/groups/public/</url>
+    <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+    </releases>
+    <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>ignore</checksumPolicy>
+    </snapshots>
+</repository>
+
 <dependency>
     <groupId>it.restrung</groupId>
     <artifactId>restrung</artifactId>
