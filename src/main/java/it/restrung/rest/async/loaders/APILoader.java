@@ -29,7 +29,6 @@ import it.restrung.rest.client.APICredentialsDelegate;
 import it.restrung.rest.client.APIDelegate;
 import it.restrung.rest.client.APIPostParams;
 import it.restrung.rest.marshalling.request.JSONSerializable;
-import it.restrung.rest.utils.ContextUtils;
 import it.restrung.rest.marshalling.response.JSONResponse;
 
 import java.io.File;
@@ -67,8 +66,8 @@ public abstract class APILoader<T extends JSONResponse> implements LoaderManager
      */
     public APILoader(APIDelegate<T> apiDelegate, APICredentialsDelegate apiCredentialsDelegate, String url, Object... params) {
         super();
-        this.context = apiDelegate.getRequestingContext();
-        this.loaderManager = ContextUtils.getLoaderManager(context);
+        this.context = apiDelegate.getContextProvider().getContext();
+        this.loaderManager = apiDelegate.getContextProvider().getLoaderManager();
         this.delegate = new AsyncOperation<T>(url, apiDelegate, apiCredentialsDelegate, params);
     }
 
@@ -85,8 +84,8 @@ public abstract class APILoader<T extends JSONResponse> implements LoaderManager
      */
     public APILoader(APIDelegate<T> apiDelegate, APICredentialsDelegate apiCredentialsDelegate, String url, JSONSerializable body, File file, APIPostParams delegateParams, Object... params) {
         super();
-        this.context = apiDelegate.getRequestingContext();
-        this.loaderManager = ContextUtils.getLoaderManager(context);
+        this.context = apiDelegate.getContextProvider().getContext();
+        this.loaderManager = apiDelegate.getContextProvider().getLoaderManager();
         this.delegate = new AsyncOperation<T>(url, body, file, apiDelegate, delegateParams, apiCredentialsDelegate, params);
     }
 
