@@ -47,7 +47,6 @@ public class APIPutAsyncTask<T extends JSONResponse> extends APIAsyncTask<T> {
         super(url, body, null, delegate, null, apiCredentialsDelegate, params);
     }
 
-
     /**
      * @see android.os.AsyncTask#doInBackground(Object[])
      */

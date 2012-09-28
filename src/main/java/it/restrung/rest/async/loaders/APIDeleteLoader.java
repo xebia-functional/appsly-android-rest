@@ -22,6 +22,7 @@ import it.restrung.rest.async.AsyncOperation;
 import it.restrung.rest.client.APICredentialsDelegate;
 import it.restrung.rest.client.APIDelegate;
 import it.restrung.rest.client.RestClientFactory;
+import it.restrung.rest.marshalling.request.JSONSerializable;
 import it.restrung.rest.marshalling.response.JSONResponse;
 
 import java.util.concurrent.Callable;
@@ -39,8 +40,8 @@ public class APIDeleteLoader<T extends JSONResponse> extends APILoader<T> {
      * @param apiCredentialsDelegate an optional delegate to handle invalid credentials
      * @param params                 the params to be replaced on the url placeholders
      */
-    public APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, Object... params) {
-        super(delegate, apiCredentialsDelegate, url, params);
+    public APIDeleteLoader(String url, APIDelegate<T> delegate, APICredentialsDelegate apiCredentialsDelegate, JSONSerializable body, Object... params) {
+        super(delegate, apiCredentialsDelegate, url, body, null, null, params);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class APIDeleteLoader<T extends JSONResponse> extends APILoader<T> {
                 return getOperation().executeWithExceptionHandling(new Callable<T>() {
                     @Override
                     public T call() throws Exception {
-                        return RestClientFactory.getClient().delete(getOperation().getApiDelegate(), getOperation().getUrl(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
+                        return RestClientFactory.getClient().delete(getOperation().getApiDelegate(), getOperation().getUrl(), getOperation().getBody(), AsyncOperation.DEFAULT_REQUEST_TIMEOUT);
                     }
                 });
             }

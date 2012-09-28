@@ -46,10 +46,12 @@ public interface RestClient {
      *
      * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
      * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
      * @param args     a list of args used in replacement to parse the url
      * @param <T>      All serializable responses are expected to implement JSONResponse
      */
-    <T extends JSONResponse> void deleteAsync(APIDelegate<T> delegate, String url, Object... args);
+    <T extends JSONResponse> void deleteAsync(APIDelegate<T> delegate, String url, JSONSerializable body, Object... args);
+
 
     /**
      * Performs an asynchronous POST request delegating results to a @see APIDelegate replacing url placeholder based
@@ -149,9 +151,10 @@ public interface RestClient {
      *
      * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
      * @param url      the url
+     * @param body     the body to be posted as an implementer of JSONSerializable
      * @param timeout  the request timeout
      * @param <T>      All serializable responses are expected to implement JSONResponse
      * @return a serialized instance of <T>
      */
-    <T extends JSONResponse> T delete(APIDelegate<T> delegate, String url, int timeout) throws APIException;
+    <T extends JSONResponse> T delete(APIDelegate<T> delegate, String url, JSONSerializable body, int timeout) throws APIException;
 }
