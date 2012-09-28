@@ -26,8 +26,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scm.branch>master</scm.branch>
         <android.sdk.path>/Applications/android-sdk-macosx</android.sdk.path>
-        <android.sdk.version>2.3.3</android.sdk.version>
-        <android.sdk.platform>8</android.sdk.platform>
+        <android.sdk.version>4.0.1.2</android.sdk.version>
+        <android.sdk.platform>14</android.sdk.platform>
         <android.compatibility.support.version>r7</android.compatibility.support.version>
         <android.maven.plugin.version>3.3.2</android.maven.plugin.version>
         <apache.http.client.version>4.1.1</apache.http.client.version>
@@ -135,6 +135,7 @@
                     </sdk>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <resourceDirectory>src/main/resources/res</resourceDirectory>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
