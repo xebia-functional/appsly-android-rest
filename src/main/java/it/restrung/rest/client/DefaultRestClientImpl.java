@@ -24,11 +24,15 @@ import it.restrung.rest.async.runnables.GetRunnable;
 import it.restrung.rest.async.runnables.PostRunnable;
 import it.restrung.rest.async.runnables.PutRunnable;
 import it.restrung.rest.cache.RequestCache;
+import it.restrung.rest.exceptions.APIException;
 import it.restrung.rest.exceptions.InvalidCredentialsException;
 import it.restrung.rest.marshalling.request.HttpMessageRequestOperationImpl;
+import it.restrung.rest.marshalling.request.JSONSerializable;
 import it.restrung.rest.marshalling.response.HttpMessageResponseOperationImpl;
+import it.restrung.rest.marshalling.response.JSONResponse;
 import it.restrung.rest.misc.CountingMultipartEntity;
 import it.restrung.rest.misc.HttpClientFactory;
+import it.restrung.rest.misc.HttpDeleteWithBody;
 import it.restrung.rest.utils.Base64;
 import it.restrung.rest.utils.IOUtils;
 import org.apache.http.HttpEntity;
@@ -45,11 +49,11 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpConnectionParams;
 import org.json.JSONException;
 import org.json.JSONObject;
-import it.restrung.rest.exceptions.APIException;
-import it.restrung.rest.marshalling.request.JSONSerializable;
-import it.restrung.rest.marshalling.response.JSONResponse;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.concurrent.Callable;
 
@@ -81,8 +85,8 @@ public class DefaultRestClientImpl implements RestClient {
      * @see RestClient#deleteAsync
      */
     @Override
-    public <T extends JSONResponse> void deleteAsync(final APIDelegate<T> delegate, final String path, final Object... args) {
-        new DeleteRunnable<T>(delegate, path, args).run();
+    public <T extends JSONResponse> void deleteAsync(final APIDelegate<T> delegate, final String path, final JSONSerializable body, final Object... args) {
+        new DeleteRunnable<T>(delegate, path, body, args).run();
     }
 
     /**
@@ -166,14 +170,14 @@ public class DefaultRestClientImpl implements RestClient {
     }
 
     /**
-     * @see RestClient#delete(APIDelegate, String, int)
+     * @see RestClient#delete(APIDelegate, String, it.restrung.rest.marshalling.request.JSONSerializable, int)
      */
     @Override
-    public <T extends JSONResponse> T delete(final APIDelegate<T> apiDelegate, final String url, final int timeout) throws APIException {
+    public <T extends JSONResponse> T delete(final APIDelegate<T> apiDelegate, final String url, final JSONSerializable body, final int timeout) throws APIException {
         return executeCacheableOperation(new Callable<T>() {
             @Override
             public T call() throws Exception {
-                String result = performDelete(url, null, null, timeout, apiDelegate);
+                String result = performDelete(url, null, null, body, timeout, apiDelegate);
                 return serializeResultForDelegate(result, apiDelegate);
             }
         }, apiDelegate, url, null, null, timeout);
@@ -324,20 +328,23 @@ public class DefaultRestClientImpl implements RestClient {
      * @param url      the url
      * @param user     an optional user for basic auth
      * @param password an optional password for basic auth
+     * @param body     the requests body if any
      * @param timeout  the request timeout
-     * @param delegate the api delegate that will receive callbacks regarding progress and results
-     * @return the response body as a string
+     * @param delegate the api delegate that will receive callbacks regarding progress and results   @return the response body as a string
      * @throws APIException
      */
-    public static String performDelete(String url, String user, String password, int timeout, APIDelegate<?> delegate) throws APIException {
+    public static String performDelete(String url, String user, String password, JSONSerializable body, int timeout, APIDelegate<?> delegate) throws APIException {
         Log.d(RestClient.class.getSimpleName(), "DELETE: " + url);
         String responseBody;
         try {
             DefaultHttpClient httpclient = HttpClientFactory.getClient();
-            HttpDelete httpDelete = new HttpDelete(url);
+            HttpRequestBase httpDelete = body == null ? new HttpDelete(url) : new HttpDeleteWithBody(url);
             setupTimeout(timeout, httpclient);
             setupCommonHeaders(httpDelete);
             setupBasicAuth(user, password, httpDelete);
+            if (body != null && HttpEntityEnclosingRequestBase.class.isAssignableFrom(httpDelete.getClass())) {
+                setupRequestBody((HttpEntityEnclosingRequestBase)httpDelete, body.toJSON(), null, null);
+            }
             handleRequest(httpDelete, delegate);
             HttpResponse response = httpclient.execute(httpDelete);
             responseBody = handleResponse(response, delegate);
