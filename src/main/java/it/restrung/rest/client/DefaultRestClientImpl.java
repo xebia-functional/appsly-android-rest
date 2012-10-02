@@ -463,6 +463,7 @@ public class DefaultRestClientImpl implements RestClient {
     private static void setupCommonHeaders(HttpRequestBase request) {
         request.addHeader("X-47deg-Platform", "android");
         request.addHeader(CoreProtocolPNames.USER_AGENT, "47deg.com/restrung");
+        request.addHeader("Accept", "application/json");
     }
 
     /**
