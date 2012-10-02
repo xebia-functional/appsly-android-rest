@@ -35,6 +35,8 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
 
     private static final AtomicInteger defaultOperationId = new AtomicInteger();
 
+    private int operationId;
+
     /**
      * The context provider
      */
@@ -136,6 +138,7 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
             this.cacheStoragePolicy = cacheStoragePolicy;
         }
         this.expectedResponseType = target;
+        this.operationId = defaultOperationId.incrementAndGet();
     }
 
     /**
@@ -143,7 +146,7 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
      */
     @Override
     public int getOperationId() {
-        return defaultOperationId.incrementAndGet();
+        return this.operationId;
     }
 
     /**

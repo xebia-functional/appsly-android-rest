@@ -135,7 +135,7 @@
                     </sdk>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <resourceDirectory>src/main/resources/res</resourceDirectory>
+                    <resourceDirectory>res</resourceDirectory>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
