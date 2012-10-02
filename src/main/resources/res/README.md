@@ -1,0 +1,1 @@
+Empty folder necessary for the android maven plugin to compile properly.

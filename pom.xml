@@ -155,11 +155,12 @@
                     <description>${project.version} release of ${project.name}</description>
                     <override>true</override>
                     <includeAttached>true</includeAttached>
-                    <suffix>.${maven.build.timestamp}</suffix>
+                    <!--<suffix>.${maven.build.timestamp}</suffix>-->
                     <includes>
                         <include>*.apklib</include>
                         <include>*.jar</include>
                     </includes>
+                    <override>true</override>
                 </configuration>
             </plugin>
 
