@@ -125,6 +125,37 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
     }
 
     /**
+     * Constructor for ContextProvider with default cache policies
+     * @param contextProvider the context provider
+     * @param target the expected response type
+     */
+    protected ContextAwareAPIDelegate(ContextProvider contextProvider, Class<Result> target) {
+        this(contextProvider, target, null, null);
+    }
+
+    /**
+     * Constructor for ContextProvider with specific cache policies
+     * @param contextProvider the context provider
+     * @param target the expected response type
+     * @param cacheLoadPolicy the cache load policy
+     */
+    protected ContextAwareAPIDelegate(ContextProvider contextProvider, Class<Result> target, RequestCache.LoadPolicy cacheLoadPolicy) {
+        this(contextProvider, target, cacheLoadPolicy, null);
+    }
+
+    /**
+     * Constructor for ContextProvider with specific cache policies
+     * @param contextProvider the context provider
+     * @param target the expected response type
+     * @param cacheLoadPolicy the cache load policy
+     * @param cacheStoragePolicy the cache storage policy
+     */
+    protected ContextAwareAPIDelegate(ContextProvider contextProvider, Class<Result> target, RequestCache.LoadPolicy cacheLoadPolicy, RequestCache.StoragePolicy cacheStoragePolicy) {
+        init(target, cacheLoadPolicy, cacheStoragePolicy);
+        setContextProvider(contextProvider);
+    }
+
+    /**
      * Private helper that that all constructors delegate to and that initializes the delegate
      * @param target the expected response type
      * @param cacheLoadPolicy the cache load policy
