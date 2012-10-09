@@ -38,7 +38,7 @@
     <groupId>it.restrung</groupId>
     <artifactId>restrung</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>apklib</packaging>
+    <packaging>jar</packaging>
     <name>Restrung Android REST Library</name>
     <description>Restrung is an Android client library for RESTful and HTTP based web services.</description>
     <url>https://github.com/47deg/restrung</url>
@@ -99,6 +99,7 @@
             <groupId>com.google.android</groupId>
             <artifactId>support-v4</artifactId>
             <version>${android.compatibility.support.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -125,21 +126,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                <artifactId>android-maven-plugin</artifactId>
-                <version>${android.maven.plugin.version}</version>
-                <configuration>
-                    <sdk>
-                        <path>${android.sdk.path}</path>
-                        <platform>${android.sdk.platform}</platform>
-                    </sdk>
-                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <resourceDirectory>res</resourceDirectory>
-                </configuration>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
@@ -157,19 +143,25 @@
                     <includeAttached>true</includeAttached>
                     <!--<suffix>.${maven.build.timestamp}</suffix>-->
                     <includes>
-                        <include>*.apklib</include>
                         <include>*.jar</include>
                     </includes>
                     <override>true</override>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.2.2</version>
                 <configuration>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>
