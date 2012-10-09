@@ -9,6 +9,7 @@ Android client library for [RESTful](http://en.wikipedia.org/wiki/Representation
 - [Download](#download)
 	- [Maven Dependency](#maven-dependency)
 	- [APKLib and others](#apklib-and-others)
+	- [Dependencies](#dependencies)
 - [Usage](#usage)
 	- [Simple](#simple)
 		- [GET](#get)
@@ -58,12 +59,31 @@ RESTrung official releases will be made available at Maven Central.
     <groupId>it.restrung</groupId>
     <artifactId>restrung</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <type>apklib</type>
 </dependency>
 ```
 ## APKLib and others
 
 You can get the releases, snapshots and other forms in which RESTrung is distributed from the [Downloads](https://github.com/47deg/restrung/downloads) page.
+
+## Dependencies
+
+RESTrung depends on the following libraries.
+
+org.apache.httpcomponents : httpclient : 4.1.1
+org.apache.httpcomponents : httpclient-cache : 4.1.1
+org.apache.httpcomponents : httpmime : 4.1.1
+com.google.code.gson : gson : 2.2.2
+
+RESTrung expect that you include one the google android [compatibility libraries](http://developer.android.com/intl/es/tools/extras/support-library.html) in order to use Loaders in versions that do not support them natively.
+Depends on your requirements you may choose to include one of the following...
+
+com.google.android :
+    support-v4 (Available in Maven Central)
+    support-v13 (Not Available in Maven Central at this time)
+    [maps support] (https://github.com/petedoyle/android-support-v4-googlemaps/downloads)
+
+RESTrung does not directly include dependencies in the no-deps release or hard dependencies in the maven dependencies to the support libraries due to incompatibilities between apps that need Maps supports and those that don't.
+
 
 # Usage
 
