@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="RESTrung : Android client library for RESTful services" />
+    <meta name="description" content="RESTrung : Android library for RESTful services" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/47deg/restrung">View on GitHub</a>
 
           <h1 id="project_title">RESTrung</h1>
-          <h2 id="project_tagline">Android client library for RESTful services</h2>
+          <h2 id="project_tagline">Android library for RESTful services</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/47deg/restrung/zipball/master">Download this project as a .zip file</a>
@@ -67,13 +67,35 @@ RESTrung official releases will be made available at Maven Central.</p>
     <span class="nt">&lt;groupId&gt;</span>it.restrung<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>restrung<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
 <h2>APKLib and others</h2>
 
 <p>You can get the releases, snapshots and other forms in which RESTrung is distributed from the <a href="https://github.com/47deg/restrung/downloads">Downloads</a> page.</p>
+
+<h2>Dependencies</h2>
+
+<p>RESTrung depends on the following libraries.</p>
+
+<ul>
+<li>org.apache.httpcomponents : httpclient : 4.1.1</li>
+<li>org.apache.httpcomponents : httpclient-cache : 4.1.1</li>
+<li>org.apache.httpcomponents : httpmime : 4.1.1</li>
+<li>com.google.code.gson : gson : 2.2.2</li>
+</ul><p>RESTrung expect that you include one the google android <a href="http://developer.android.com/intl/es/tools/extras/support-library.html">compatibility libraries</a> in order to use Loaders in versions that do not support them natively.
+Depends on your requirements you may choose to include one of the following...</p>
+
+<ul>
+<li>com.google.android :
+
+<ul>
+<li>support-v4 (Available in Maven Central)</li>
+<li>support-v13 (Not Available in Maven Central at this time)</li>
+<li><a href="https://github.com/petedoyle/android-support-v4-googlemaps/downloads">maps support</a></li>
+</ul>
+</li>
+</ul><p>RESTrung does not directly include dependencies in the no-deps release or hard dependencies in the maven dependencies to the support libraries due to incompatibilities between apps that need Maps supports and those that don't.</p>
 
 <h1>Usage</h1>
 
