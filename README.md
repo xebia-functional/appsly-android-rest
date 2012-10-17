@@ -25,6 +25,7 @@ Android client library for [RESTful](http://en.wikipedia.org/wiki/Representation
 			- [Direct access](#direct-access)
 		- [Serialization](#serialization)
 		- [Interceptors](#interceptors)
+- [License](#license)
 
 # Introduction
 
