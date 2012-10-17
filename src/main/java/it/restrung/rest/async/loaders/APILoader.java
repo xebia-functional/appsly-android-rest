@@ -20,10 +20,8 @@ package it.restrung.rest.async.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import it.restrung.rest.async.AsyncOperation;
 import it.restrung.rest.client.APICredentialsDelegate;
 import it.restrung.rest.client.APIDelegate;
@@ -160,11 +158,11 @@ public abstract class APILoader<T extends JSONResponse> implements LoaderManager
         @Override
         @SuppressWarnings("unchecked")
         public Z loadInBackground() {
-            try {
-                Looper.prepare();
-            } catch (RuntimeException e) {
-                Log.w(getClass().getSimpleName(), "Looper.prepare(); exception: ", e);
-            }
+//            try {
+//                Looper.prepare();
+//            } catch (RuntimeException e) {
+//                Log.w(getClass().getSimpleName(), "Looper.prepare(); exception: ", e);
+//            }
             return loader.delegate.executeWithExceptionHandling(new Callable<Z>() {
                 @Override
                 public Z call() throws Exception {
