@@ -19,10 +19,12 @@
 package it.restrung.rest.marshalling.response;
 
 
+import it.restrung.rest.annotations.JsonProperty;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -60,8 +62,19 @@ public abstract class AbstractJSONResponse implements JSONResponse {
         for (Method method : methods) {
             if (method.getParameterTypes().length == 1 && method.getName().startsWith("set") && method.getName().length() > 3) {
                 Class argType = method.getParameterTypes()[0];
+
                 String propertyName = method.getName().substring(3);
                 propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
+
+                try {
+                    Field foundField = getClass().getDeclaredField(propertyName);
+                    if (foundField.isAnnotationPresent(JsonProperty.class)) {
+                        propertyName = foundField.getAnnotation(JsonProperty.class).value();
+                    }
+                } catch (NoSuchFieldException e) {
+                    //todo log errors when field names mismatch their setter
+                }
+
                 Object result = null;
                 if (String.class.isAssignableFrom(argType)) {
                     result = getString(propertyName);
