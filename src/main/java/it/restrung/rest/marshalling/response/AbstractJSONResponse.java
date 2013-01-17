@@ -46,10 +46,6 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      */
     protected transient Map<String, Object> propertyMap = new HashMap<String, Object>();
 
-    /**
-     * A cache map of already serialized array properties
-     */
-    protected transient Map<String, List<?>> listMap = new HashMap<String, List<?>>();
 
     /**
      * @see JSONResponse#fromJSON(org.json.JSONObject)
@@ -102,6 +98,13 @@ public abstract class AbstractJSONResponse implements JSONResponse {
                     } else {
                         result = getElementCollection(propertyName);
                     }
+                } else if (Map.class.isAssignableFrom(argType)) {
+                    Class typeArg = (Class) ((ParameterizedType) method.getGenericParameterTypes()[0]).getActualTypeArguments()[0];
+                    if (JSONResponse.class.isAssignableFrom(typeArg)) {
+                        result = getMap(propertyName, typeArg);
+                    } else {
+                        result = getElementMap(propertyName);
+                    }
                 } else {
                     throw new UnsupportedOperationException(String.format("%s is of type: %s which is not yet supported by the AbstractJSONResponse serialization", propertyName, argType));
                 }
@@ -126,7 +129,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
     @SuppressWarnings("unchecked")
     private List<?> getList(String property, Class<?> typeClass) {
         List<Object> list = null;
-        if (!listMap.containsKey(property)) {
+        if (!propertyMap.containsKey(property)) {
             JSONArray array = delegate.optJSONArray(property);
             if (array != null) {
                 list = new ArrayList<Object>(array.length());
@@ -145,12 +148,51 @@ public abstract class AbstractJSONResponse implements JSONResponse {
                     }
 
                 }
-                listMap.put(property, list);
+                propertyMap.put(property, list);
             }
         } else {
-            list = (List<Object>) listMap.get(property);
+            list = (List<Object>) propertyMap.get(property);
         }
         return list;
+    }
+
+    /**
+     * Gets a map property deserialized values from the cache or from the underlying JSONObject
+     *
+     * @param property  the property name
+     * @param typeClass the type of JSONResponse contained in the property
+     * @return the map of json response style objects associated to this property in the JSON response
+     */
+    @SuppressWarnings("unchecked")
+    private Map<String, ?> getMap(String property, Class<?> typeClass) {
+        Map<String, Object> map = null;
+        if (!propertyMap.containsKey(property)) {
+            JSONObject jsonMap = delegate.optJSONObject(property);
+            if (jsonMap != null) {
+                map = new LinkedHashMap<String, Object>(jsonMap.length());
+
+                while (jsonMap.keys().hasNext()) {
+                    String key = (String) jsonMap.keys().next();
+                    JSONObject jsonObject = jsonMap.optJSONObject(key);
+                    try {
+                        Object response = typeClass.newInstance();
+                        ((JSONResponse) response).fromJSON(jsonObject);
+                        map.put(key, response);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+                propertyMap.put(property, map);
+            }
+        } else {
+            map = (Map<String, Object>) propertyMap.get(property);
+        }
+        return map;
     }
 
     /**
@@ -176,6 +218,31 @@ public abstract class AbstractJSONResponse implements JSONResponse {
             list = (List<T>) propertyMap.get(property);
         }
         return list;
+    }
+
+    /**
+     * Gets a map property deserialized values from the cache or from the underlying JSONObject
+     *
+     * @param property the property name
+     * @return the map containining the keys as string and as values the primitive or simple supported objects associated to this property in the JSON response
+     */
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> getElementMap(String property) {
+        Map<String, Object> map = null;
+        if (!propertyMap.containsKey(property)) {
+            JSONObject jsonObject = delegate.optJSONObject(property);
+            if (jsonObject != null) {
+                map = new LinkedHashMap<String, Object>(jsonObject.length());
+                while (jsonObject.keys().hasNext()) {
+                    String key = (String) jsonObject.keys().next();
+                    map.put(key, jsonObject.opt(key));
+                }
+            }
+            propertyMap.put(property, map);
+        } else {
+            map = (Map<String, Object>) propertyMap.get(property);
+        }
+        return map;
     }
 
     /**
