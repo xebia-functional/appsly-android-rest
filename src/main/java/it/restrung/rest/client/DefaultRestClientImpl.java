@@ -219,7 +219,13 @@ public class DefaultRestClientImpl implements RestClient {
      * @return the serialized object of type <T>
      */
     private static <T extends JSONResponse> T serializeResultForDelegate(String result, APIDelegate<T> delegate) throws InstantiationException, IllegalAccessException, JSONException {
-        T serializedResult = delegate.getExpectedResponseType().newInstance();
+        Class<T> responseType = delegate.getExpectedResponseType();
+        T serializedResult;
+        if (ResponseTypeFactory.class.isAssignableFrom(delegate.getClass())) {
+            serializedResult = ((ResponseTypeFactory)delegate).newInstance(responseType);
+        } else {
+            serializedResult = responseType.newInstance();
+        }
         serializedResult.fromJSON(IOUtils.stringToJSON(result));
         return serializedResult;
     }

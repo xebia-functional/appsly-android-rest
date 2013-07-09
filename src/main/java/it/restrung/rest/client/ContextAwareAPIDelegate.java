@@ -22,6 +22,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import it.restrung.rest.cache.CacheInfo;
 import it.restrung.rest.cache.RequestCache;
+import it.restrung.rest.exceptions.APIException;
+import it.restrung.rest.exceptions.SerializationException;
 import it.restrung.rest.marshalling.request.RequestOperation;
 import it.restrung.rest.marshalling.response.JSONResponse;
 import it.restrung.rest.marshalling.response.ResponseOperation;
@@ -31,7 +33,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Wraps the API delegate with commodity values for cache policies, etc...
  */
-public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> implements APIDelegate<Result> {
+public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> implements APIDelegate<Result>, ResponseTypeFactory {
 
     private static final AtomicInteger defaultOperationId = new AtomicInteger();
 
@@ -268,5 +270,16 @@ public abstract class ContextAwareAPIDelegate<Result extends JSONResponse> imple
      */
     public void setExpectedResponseType(Class<Result> expectedResponseType) {
         this.expectedResponseType = expectedResponseType;
+    }
+
+    @Override
+    public <T extends JSONResponse> T newInstance(Class<T> targetClass) {
+        try {
+            return targetClass.newInstance();
+        } catch (InstantiationException e) {
+            throw new SerializationException(e);
+        } catch (IllegalAccessException e) {
+            throw new SerializationException(e);
+        }
     }
 }
