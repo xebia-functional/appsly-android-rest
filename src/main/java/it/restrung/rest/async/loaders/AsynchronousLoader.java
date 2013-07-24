@@ -21,6 +21,8 @@ package it.restrung.rest.async.loaders;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
+import java.util.concurrent.RejectedExecutionException;
+
 /**
  * Abstract class for asynchronous loaders
  *
@@ -63,8 +65,12 @@ public abstract class AsynchronousLoader<Result> extends AsyncTaskLoader<Result>
         if (result != null) {
             deliverResult(result);
         }
-        if (takeContentChanged() || result == null) {
-            forceLoad();
+        if (isStarted() && (takeContentChanged() || result == null)) {
+            try {
+                forceLoad();
+            } catch (RejectedExecutionException e) {
+                cancelLoad();
+            }
         }
     }
 
