@@ -23,9 +23,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scm.branch>master</scm.branch>
-        <android.sdk.path>/Applications/android-sdk-macosx</android.sdk.path>
-        <android.sdk.version>4.0.1.2</android.sdk.version>
-        <android.sdk.platform>14</android.sdk.platform>
+        <android.sdk.version>4.1.1.4</android.sdk.version>
+        <android.sdk.platform>18</android.sdk.platform>
         <android.compatibility.support.version>r7</android.compatibility.support.version>
         <android.maven.plugin.version>3.3.2</android.maven.plugin.version>
         <apache.http.client.version>4.1.1</apache.http.client.version>
@@ -35,7 +34,7 @@
 
     <groupId>it.restrung</groupId>
     <artifactId>restrung</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Restrung Android REST Library</name>
     <description>Restrung is an Android client library for RESTful and HTTP based web services.</description>
