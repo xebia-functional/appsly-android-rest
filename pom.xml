@@ -57,16 +57,15 @@
     </issueManagement>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus snapshot repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
+        <site />
         <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus release repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>private-releases</id>
+            <url>http://clinker.47deg.com/nexus/content/repositories/private-releases</url>
         </repository>
+        <snapshotRepository>
+            <id>private-snapshots</id>
+            <url>http://clinker.47deg.com/nexus/content/repositories/private-snapshots</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <licenses>
@@ -131,21 +130,6 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>downloads-maven-plugin</artifactId>
-                <version>0.5</version>
-                <configuration>
-                    <description>${project.version} release of ${project.name}</description>
-                    <override>true</override>
-                    <includeAttached>true</includeAttached>
-                    <!--<suffix>.${maven.build.timestamp}</suffix>-->
-                    <includes>
-                        <include>*.jar</include>
-                    </includes>
-                    <override>true</override>
                 </configuration>
             </plugin>
             <plugin>
