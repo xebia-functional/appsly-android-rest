@@ -19,9 +19,11 @@
 package it.restrung.rest.misc;
 
 import it.restrung.rest.client.APIPostParams;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 
+import java.io.File;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +32,7 @@ import java.nio.charset.Charset;
 /**
  * An implementation of MultipartEntity entity that allows the caller to get upload progress
  */
-public class CountingMultipartEntity extends MultipartEntity {
+public class CountingEntity extends FileEntity {
 
     /**
      * The listener receiving progress updates
@@ -44,23 +46,20 @@ public class CountingMultipartEntity extends MultipartEntity {
 
     /**
      * Constructor that creates a multi part entity for a POST or PUT request
-     * and accepts a listner for upload progress
+     * and accepts a listener for upload progress
      *
-     * @param mode       @see HttpMultipartMode
-     * @param boundary   the boundary to determine when a part ends and another one starts
-     * @param charset    the default charset for encoding purposes
+     * @param file the file to upload
      * @param fileLength the known file length
      * @param listener   a listener to receive upload progress
      */
-    public CountingMultipartEntity(HttpMultipartMode mode, final String boundary,
-                                   final Charset charset, long fileLength, APIPostParams listener) {
-        super(mode, boundary, charset);
+    public CountingEntity(final File file, long fileLength, APIPostParams listener) {
+        super(file, listener.getContentType());
         this.fileLength = fileLength;
         this.listener = listener;
     }
 
     /**
-     * @see MultipartEntity#writeTo(java.io.OutputStream)
+     * @see org.apache.http.entity.mime.MultipartEntity#writeTo(java.io.OutputStream)
      */
     @Override
     public void writeTo(final OutputStream outstream) throws IOException {

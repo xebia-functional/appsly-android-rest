@@ -30,6 +30,7 @@ import it.restrung.rest.marshalling.request.HttpMessageRequestOperationImpl;
 import it.restrung.rest.marshalling.request.JSONSerializable;
 import it.restrung.rest.marshalling.response.HttpMessageResponseOperationImpl;
 import it.restrung.rest.marshalling.response.JSONResponse;
+import it.restrung.rest.misc.CountingEntity;
 import it.restrung.rest.misc.CountingMultipartEntity;
 import it.restrung.rest.misc.HttpClientFactory;
 import it.restrung.rest.misc.HttpDeleteWithBody;
@@ -368,6 +369,8 @@ public class DefaultRestClientImpl implements RestClient {
     protected static void setupRequestBody(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase, String body, APIPostParams apiPostParams, File file) throws UnsupportedEncodingException {
         if (body != null && apiPostParams != null && apiPostParams.isMultipart()) {
             setupMultipartBodyWithFile(httpEntityEnclosingRequestBase, apiPostParams, body, file);
+        } else if (file != null && !apiPostParams.isMultipart()) {
+            setupBodyWithFile(httpEntityEnclosingRequestBase, apiPostParams, file);
         } else {
             setupSimpleRequestBody(httpEntityEnclosingRequestBase, body);
         }
@@ -382,6 +385,16 @@ public class DefaultRestClientImpl implements RestClient {
             httpEntityEnclosingRequestBase.setEntity(new StringEntity(body, "UTF-8"));
         }
     }
+
+    /**
+     * Private helper to setup a file request body
+     */
+    private static void setupBodyWithFile(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase, APIPostParams apiPostParams, File file) throws UnsupportedEncodingException {
+        CountingEntity entity = new CountingEntity(file, file.length(), apiPostParams);
+        httpEntityEnclosingRequestBase.setHeader(entity.getContentType());
+        httpEntityEnclosingRequestBase.setEntity(entity);
+    }
+
 
     /**
      * Private helper to setup a multipart request body

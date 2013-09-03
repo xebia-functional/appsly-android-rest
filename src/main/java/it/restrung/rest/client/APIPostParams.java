@@ -38,4 +38,10 @@ public interface APIPostParams {
      */
     boolean isMultipart();
 
+    /**
+     *
+     * @return The post content type
+     */
+    String getContentType();
+
 }
