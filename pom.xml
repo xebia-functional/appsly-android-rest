@@ -56,11 +56,11 @@
     <distributionManagement>
         <site />
         <repository>
-            <id>releases</id>
+            <id>public-releases</id>
             <url>http://clinker.47deg.com/nexus/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>public-snapshots</id>
             <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
