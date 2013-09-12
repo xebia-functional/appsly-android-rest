@@ -55,7 +55,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
     public void fromJSON(JSONObject jsonObject) throws JSONException {
         if (jsonObject != null) {
             this.delegate = jsonObject;
-            Method[] methods = getClass().getDeclaredMethods();
+            Method[] methods = getClass().getMethods();
             for (Method method : methods) {
                 if (method.getParameterTypes().length == 1 && method.getName().startsWith("set") && method.getName().length() > 3) {
                     Class argType = method.getParameterTypes()[0];
@@ -64,7 +64,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
                     propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
 
                     try {
-                        Field foundField = getClass().getDeclaredField(propertyName);
+                        Field foundField = getClass().getField(propertyName);
                         if (foundField.isAnnotationPresent(JsonProperty.class)) {
                             propertyName = foundField.getAnnotation(JsonProperty.class).value();
                         }
