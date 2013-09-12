@@ -64,7 +64,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
                     propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
 
                     try {
-                        Field foundField = getClass().getDeclaredField(propertyName);
+                        Field foundField = getClass().getField(propertyName);
                         if (foundField.isAnnotationPresent(JsonProperty.class)) {
                             propertyName = foundField.getAnnotation(JsonProperty.class).value();
                         }
