@@ -28,7 +28,7 @@
         <android.compatibility.support.version>r7</android.compatibility.support.version>
         <android.maven.plugin.version>3.3.2</android.maven.plugin.version>
         <apache.http.client.version>4.1.1</apache.http.client.version>
-        <google.gson.version>2.2.2</google.gson.version>
+        <google.gson.version>2.2.4</google.gson.version>
         <github.global.server>github</github.global.server>
     </properties>
 
