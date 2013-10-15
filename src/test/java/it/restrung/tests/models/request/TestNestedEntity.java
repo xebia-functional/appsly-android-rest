@@ -19,6 +19,8 @@ public class TestNestedEntity extends AbstractJSONRequest {
 
     private List<ThirdEntity> thirdEntities;
 
+    private Double[] doubles;
+
     public boolean isaBoolean() {
         return aBoolean;
     }
@@ -65,5 +67,13 @@ public class TestNestedEntity extends AbstractJSONRequest {
 
     public void setThirdEntities(List<ThirdEntity> thirdEntities) {
         this.thirdEntities = thirdEntities;
+    }
+
+    public Double[] getDoubles() {
+        return doubles;
+    }
+
+    public void setDoubles(Double[] doubles) {
+        this.doubles = doubles;
     }
 }

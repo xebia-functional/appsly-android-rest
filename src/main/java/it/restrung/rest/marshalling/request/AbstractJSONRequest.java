@@ -91,6 +91,18 @@ public abstract class AbstractJSONRequest implements JSONSerializable {
                         }
                     }
                     result = resultArray;
+                } else if (argType.isArray()) {
+                    JSONArray resultArray = new JSONArray();
+                    Object[] results = (Object[]) value;
+                    for (Object item : results) {
+                        if (JSONSerializable.class.isAssignableFrom(item.getClass())) {
+                            JSONSerializable jsonSerializable = (JSONSerializable) item;
+                            resultArray.put(new JSONObject(jsonSerializable.toJSON()));
+                        } else {
+                            resultArray.put(jsonValueFor(item));
+                        }
+                    }
+                    result = resultArray;
                 }
             } catch (JSONException e) {
                 throw new RuntimeException(e);

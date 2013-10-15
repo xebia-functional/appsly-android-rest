@@ -4,6 +4,7 @@ import it.restrung.tests.models.request.TestEntity;
 import it.restrung.tests.models.request.TestNestedEntity;
 import it.restrung.tests.models.request.ThirdEntity;
 import it.restrung.tests.models.response.TestResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -61,6 +62,7 @@ public class JSONSerializableTest {
                             setString(getRandomString());
                         }}
                 ));
+                setDoubles(new Double[]{ 0.1, 0.2 });
             }});
         }};
 
@@ -79,6 +81,7 @@ public class JSONSerializableTest {
         JSONObject nestedJSON = jsonObject.optJSONObject("nestedEntity");
         assertNotNull(nestedJSON.opt("nestedMap"));
         assertNotNull(nestedJSON.opt("thirdEntities"));
+        assertEquals(nestedJSON.optJSONArray("doubles").toString(), new JSONArray(new Double[]{ 0.1, 0.2}).toString());
     }
 
     @Test
