@@ -1,8 +1,12 @@
-package it.restrung.tests.models;
+package it.restrung.tests.models.request;
 
+import it.restrung.rest.annotations.JsonProperty;
 import it.restrung.rest.marshalling.request.AbstractJSONRequest;
 
 public class TestEntity extends AbstractJSONRequest {
+
+    @JsonProperty("_id")
+    private String objectId;
 
     private String string;
 
@@ -52,5 +56,13 @@ public class TestEntity extends AbstractJSONRequest {
 
     public void setNestedEntity(TestNestedEntity nestedEntity) {
         this.nestedEntity = nestedEntity;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

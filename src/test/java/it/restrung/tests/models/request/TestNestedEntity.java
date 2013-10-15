@@ -1,4 +1,4 @@
-package it.restrung.tests.models;
+package it.restrung.tests.models.request;
 
 import it.restrung.rest.marshalling.request.AbstractJSONRequest;
 

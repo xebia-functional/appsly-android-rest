@@ -1,8 +1,9 @@
 package it.restrung.tests;
 
-import it.restrung.tests.models.TestEntity;
-import it.restrung.tests.models.TestNestedEntity;
-import it.restrung.tests.models.ThirdEntity;
+import it.restrung.tests.models.request.TestEntity;
+import it.restrung.tests.models.request.TestNestedEntity;
+import it.restrung.tests.models.request.ThirdEntity;
+import it.restrung.tests.models.response.TestResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class JSONSerializableTest {
@@ -35,6 +37,7 @@ public class JSONSerializableTest {
     private TestEntity getTestEntity() {
 
         return new TestEntity() {{
+            setObjectId(getRandomString());
             setString(getRandomString());
             setAnInt(getRandomInt());
             setaDouble(getRandomDouble());
@@ -76,6 +79,20 @@ public class JSONSerializableTest {
         JSONObject nestedJSON = jsonObject.optJSONObject("nestedEntity");
         assertNotNull(nestedJSON.opt("nestedMap"));
         assertNotNull(nestedJSON.opt("thirdEntities"));
+    }
+
+    @Test
+    public void testAnnotatedProperties() throws JSONException {
+        TestEntity testEntity = getTestEntity();
+        String id = testEntity.getObjectId();
+        String json = testEntity.toJSON();
+        JSONObject jsonObject = new JSONObject(json);
+        assertNotNull(jsonObject);
+        assertNotNull(jsonObject.opt("_id"));
+        TestResponse deserialized = new TestResponse();
+        deserialized.fromJSON(jsonObject);
+        assertEquals("Deserialization based on @JsonProperty failed", deserialized.getObjectId(), id);
+
     }
 
 }

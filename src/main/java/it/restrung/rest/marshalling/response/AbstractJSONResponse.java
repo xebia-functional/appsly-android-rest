@@ -19,20 +19,19 @@
 package it.restrung.rest.marshalling.response;
 
 
-import it.restrung.rest.annotations.JsonProperty;
+import it.restrung.rest.utils.ClassUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 /**
- * Convenience abstract class to be implemented by objects that can be deserialized from remote response
- * This class ues reflection to invoke setter from json properties
+ * Convenience abstract class to be implemented by objects that can be deserialized from JSON
+ * This class uses reflection to invoke setters that match the JSON naming conventions
  */
 public abstract class AbstractJSONResponse implements JSONResponse {
 
@@ -55,67 +54,52 @@ public abstract class AbstractJSONResponse implements JSONResponse {
     public void fromJSON(JSONObject jsonObject) throws JSONException {
         if (jsonObject != null) {
             this.delegate = jsonObject;
-            Method[] methods = getClass().getMethods();
-            for (Method method : methods) {
-                if (method.getParameterTypes().length == 1 && method.getName().startsWith("set") && method.getName().length() > 3) {
-                    Class argType = method.getParameterTypes()[0];
-
-                    String propertyName = method.getName().substring(3);
-                    propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
-
-                    try {
-                        Field foundField = getClass().getField(propertyName);
-                        if (foundField.isAnnotationPresent(JsonProperty.class)) {
-                            propertyName = foundField.getAnnotation(JsonProperty.class).value();
-                        }
-                    } catch (NoSuchFieldException e) {
-                        //todo log errors when field names mismatch their setter
+            for (Method method :  ClassUtils.getAllSettersInHierarchy(getClass())) {
+                Class argType = method.getParameterTypes()[0];
+                String propertyName = ClassUtils.getJsonPropertyName(method);
+                Object result = null;
+                if (String.class.isAssignableFrom(argType)) {
+                    result = getString(propertyName);
+                } else if (Boolean.class.isAssignableFrom(argType) || boolean.class.isAssignableFrom(argType)) {
+                    result = getBoolean(propertyName);
+                } else if (Double.class.isAssignableFrom(argType) || double.class.isAssignableFrom(argType)) {
+                    result = getDouble(propertyName);
+                } else if (Long.class.isAssignableFrom(argType) || long.class.isAssignableFrom(argType)) {
+                    result = getLong(propertyName);
+                } else if (Integer.class.isAssignableFrom(argType) || int.class.isAssignableFrom(argType)) {
+                    result = getInt(propertyName);
+                } else if (Date.class.isAssignableFrom(argType)) {
+                    result = getDate(propertyName);
+                } else if (JSONResponse.class.isAssignableFrom(argType)) {
+                    result = getObject(propertyName, argType);
+                } else if (Enum.class.isAssignableFrom(argType)) {
+                    String value = getString(propertyName);
+                    if (value != null) {
+                        result = Enum.valueOf((Class<Enum>) argType, getString(propertyName));
                     }
-
-                    Object result = null;
-                    if (String.class.isAssignableFrom(argType)) {
-                        result = getString(propertyName);
-                    } else if (Boolean.class.isAssignableFrom(argType) || boolean.class.isAssignableFrom(argType)) {
-                        result = getBoolean(propertyName);
-                    } else if (Double.class.isAssignableFrom(argType) || double.class.isAssignableFrom(argType)) {
-                        result = getDouble(propertyName);
-                    } else if (Long.class.isAssignableFrom(argType) || long.class.isAssignableFrom(argType)) {
-                        result = getLong(propertyName);
-                    } else if (Integer.class.isAssignableFrom(argType) || int.class.isAssignableFrom(argType)) {
-                        result = getInt(propertyName);
-                    } else if (Date.class.isAssignableFrom(argType)) {
-                        result = getDate(propertyName);
-                    } else if (JSONResponse.class.isAssignableFrom(argType)) {
-                        result = getObject(propertyName, argType);
-                    } else if (Enum.class.isAssignableFrom(argType)) {
-                        String value = getString(propertyName);
-                        if (value != null) {
-                            result = Enum.valueOf((Class<Enum>) argType, getString(propertyName));
-                        }
-                    } else if (List.class.isAssignableFrom(argType)) {
-                        Class typeArg = (Class) ((ParameterizedType) method.getGenericParameterTypes()[0]).getActualTypeArguments()[0];
-                        if (JSONResponse.class.isAssignableFrom(typeArg)) {
-                            result = getList(propertyName, typeArg);
-                        } else {
-                            result = getElementCollection(propertyName);
-                        }
-                    } else if (Map.class.isAssignableFrom(argType)) {
-                        Class typeArg = (Class) ((ParameterizedType) method.getGenericParameterTypes()[0]).getActualTypeArguments()[0];
-                        if (JSONResponse.class.isAssignableFrom(typeArg)) {
-                            result = getMap(propertyName, typeArg);
-                        } else {
-                            result = getElementMap(propertyName);
-                        }
+                } else if (List.class.isAssignableFrom(argType)) {
+                    Class typeArg = (Class) ((ParameterizedType) method.getGenericParameterTypes()[0]).getActualTypeArguments()[0];
+                    if (JSONResponse.class.isAssignableFrom(typeArg)) {
+                        result = getList(propertyName, typeArg);
                     } else {
-                        throw new UnsupportedOperationException(String.format("%s is of type: %s which is not yet supported by the AbstractJSONResponse serialization", propertyName, argType));
+                        result = getElementCollection(propertyName);
                     }
-                    try {
-                        method.invoke(this, result);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e);
+                } else if (Map.class.isAssignableFrom(argType)) {
+                    Class typeArg = (Class) ((ParameterizedType) method.getGenericParameterTypes()[0]).getActualTypeArguments()[0];
+                    if (JSONResponse.class.isAssignableFrom(typeArg)) {
+                        result = getMap(propertyName, typeArg);
+                    } else {
+                        result = getElementMap(propertyName);
                     }
+                } else {
+                    throw new UnsupportedOperationException(String.format("%s is of type: %s which is not yet supported by the AbstractJSONResponse serialization", propertyName, argType));
+                }
+                try {
+                    method.invoke(this, result);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }

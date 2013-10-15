@@ -19,12 +19,11 @@
 package it.restrung.rest.marshalling.request;
 
 
-import it.restrung.rest.annotations.JsonProperty;
+import it.restrung.rest.utils.ClassUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -32,68 +31,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Abstract class for JSONSerializable instance that relies upon Google's gson library to auto serialize beans to
- * a json string
+ * Abstract class for JSONSerializable instances that want the commodity to have their properties serialized to JSON
  */
 public abstract class AbstractJSONRequest implements JSONSerializable {
 
-    /**
-     * Register dates to be serialized as timestamps with seconds precision
-     */
-//    static {
-//        gsonBuilder.registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
-//            @Override
-//            public JsonElement serialize(Date date, Type type, JsonSerializationContext jsonSerializationContext) {
-//                return date == null ? null : new JsonPrimitive(date.getTime() / 1000);
-//            }
-//        });
-//    }
-
-    /**
-     * @see JSONSerializable#toJSON()
-     */
-
-//    public String toJSON() {
-//        JSONObject root = new JSONObject();
-//        root.put()
-//        return root.toJSONString();
-//    }
     @Override
     public String toJSON() {
         JSONObject root = new JSONObject();
-        Method[] methods = getClass().getMethods();
-        for (Method method : methods) {
-            if ((method.getName().startsWith("get") || method.getName().startsWith("is")) && method.getName().length() > 3) {
-                String propertyName = method.getName().substring(3);
-                if (propertyName.equals("class")) {
-                    continue;
-                }
-                propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
-                try {
-                    Field foundField = getClass().getField(propertyName);
-                    if (foundField.isAnnotationPresent(JsonProperty.class)) {
-                        propertyName = foundField.getAnnotation(JsonProperty.class).value();
-                    }
-                } catch (NoSuchFieldException e) {
-                    //todo log errors when field names mismatch their setter
-                }
-
-                Object result = null;
-                try {
-                    result = method.invoke(this, null);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
+        for (Method method : ClassUtils.getAllGettersInHierarchy(getClass())) {
+            String propertyName = ClassUtils.getJsonPropertyName(method);
+            Object result;
+            try {
+                result = method.invoke(this, null);
                 if (result != null) {
                     result = jsonValueFor(result);
                 }
-                try {
-                    root.put(propertyName, result);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+                root.put(propertyName, result);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
             }
         }
         return root.toString();
