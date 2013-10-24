@@ -53,15 +53,16 @@
     </issueManagement>
 
     <distributionManagement>
-        <site />
-        <repository>
-            <id>public-releases</id>
-            <url>http://clinker.47deg.com/nexus/content/repositories/releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>public-snapshots</id>
-            <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus release repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <licenses>
