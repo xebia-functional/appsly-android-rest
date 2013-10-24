@@ -113,7 +113,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      * @return the list of objects associated to this property in the JSON response
      */
     @SuppressWarnings("unchecked")
-    private List<?> getList(String property, Class<?> typeClass) {
+    protected List<?> getList(String property, Class<?> typeClass) {
         List<Object> list = null;
         if (!propertyMap.containsKey(property)) {
             JSONArray array = delegate.optJSONArray(property);
@@ -150,7 +150,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      * @return the map of json response style objects associated to this property in the JSON response
      */
     @SuppressWarnings("unchecked")
-    private Map<String, ?> getMap(String property, Class<?> typeClass) {
+    protected Map<String, ?> getMap(String property, Class<?> typeClass) {
         Map<String, Object> map = null;
         if (!propertyMap.containsKey(property)) {
             JSONObject jsonMap = delegate.optJSONObject(property);
@@ -188,7 +188,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      * @return the list of primitive or simple supported objects associated to this property in the JSON response
      */
     @SuppressWarnings("unchecked")
-    private <T> List<T> getElementCollection(String property) {
+    protected <T> List<T> getElementCollection(String property) {
         List<T> list = null;
         if (!propertyMap.containsKey(property)) {
             JSONArray jsonArray = delegate.optJSONArray(property);
@@ -213,7 +213,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      * @return the map containining the keys as string and as values the primitive or simple supported objects associated to this property in the JSON response
      */
     @SuppressWarnings("unchecked")
-    private Map<String, Object> getElementMap(String property) {
+    protected Map<String, Object> getElementMap(String property) {
         Map<String, Object> map = null;
         if (!propertyMap.containsKey(property)) {
             JSONObject jsonObject = delegate.optJSONObject(property);
@@ -238,7 +238,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      * @param typeClass the type of JSONResponse contained in the property
      */
     @SuppressWarnings("unchecked")
-    private Object getObject(String property, Class<?> typeClass) {
+    protected Object getObject(String property, Class<?> typeClass) {
         Object object = null;
         if (!propertyMap.containsKey(property)) {
             JSONObject jsonObject = delegate.optJSONObject(property);
@@ -268,7 +268,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private Date getDate(String property) {
+    protected Date getDate(String property) {
         Long timestamp = delegate.optLong(property);
         return timestamp != null ? new Date(timestamp * 1000) : null;
     }
@@ -279,7 +279,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private String getString(String property) {
+    protected String getString(String property) {
         String value = delegate.optString(property, null);
         return "null".equals(value) ? null : value;
     }
@@ -290,7 +290,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private double getDouble(String property) {
+    protected double getDouble(String property) {
         return delegate.optDouble(property, 0.0);
     }
 
@@ -300,7 +300,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private long getLong(String property) {
+    protected long getLong(String property) {
         return delegate.optLong(property, 0);
     }
 
@@ -310,7 +310,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private int getInt(String property) {
+    protected int getInt(String property) {
         return delegate.optInt(property, 0);
     }
 
@@ -320,7 +320,7 @@ public abstract class AbstractJSONResponse implements JSONResponse {
      *
      * @param property the property name
      */
-    private boolean getBoolean(String property) {
+    protected boolean getBoolean(String property) {
         return delegate.optBoolean(property, false);
     }
 
