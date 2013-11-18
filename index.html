@@ -1,54 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="RESTrung : Android library for RESTful services" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>RESTrung by 47deg</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>RESTrung</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">RESTrung</h1>
+        <p class="header">Android library for RESTful services</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/47deg/restrung">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/47deg/restrung/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/47deg/restrung/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/47deg/restrung">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">RESTrung</h1>
-          <h2 id="project_tagline">Android library for RESTful services</h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/47deg">47deg</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/47deg/restrung/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/47deg/restrung/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>RESTrung</h1>
+      </header>
+      <section>
+        <h1>
+<a name="restrung" class="anchor" href="#restrung"><span class="octicon octicon-link"></span></a>RESTrung</h1>
 
 <p>Android client library for <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> services</p>
 
-<h1>Introduction</h1>
+<p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
+
+<ul>
+<li><a href="#restrung">RESTrung</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li>
+<a href="#download">Download</a>
+
+<ul>
+<li><a href="#maven-dependency">Maven Dependency</a></li>
+<li><a href="#apklib-and-others">APKLib and others</a></li>
+<li><a href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li>
+<a href="#usage">Usage</a>
+
+<ul>
+<li>
+<a href="#simple">Simple</a>
+
+<ul>
+<li><a href="#get">GET</a></li>
+<li><a href="#post">POST</a></li>
+<li><a href="#put">PUT</a></li>
+<li><a href="#delete">DELETE</a></li>
+</ul>
+</li>
+<li>
+<a href="#advanced">Advanced</a>
+
+<ul>
+<li><a href="#loaders">Loaders</a></li>
+<li><a href="#asynctasks">AsyncTasks</a></li>
+<li><a href="#runnables">Runnables</a></li>
+<li>
+<a href="#cache">Cache</a>
+
+<ul>
+<li><a href="#load-policies">Load Policies</a></li>
+<li><a href="#direct-access">Direct access</a></li>
+</ul>
+</li>
+<li><a href="#serialization">Serialization</a></li>
+<li><a href="#interceptors">Interceptors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#license">License</a></li>
+</ul><h1>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>RESTrung was born out of the need to provide a clear and easy interface for Android apps @ <a href="http://47deg.com">47 Degrees</a> to interface with RESTful and HTTP based web services.
 Contributions and constructive feedback are welcome.</p>
 
-<h1>Download</h1>
+<h1>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h1>
 
-<h2>Maven Dependency</h2>
+<h2>
+<a name="maven-dependency" class="anchor" href="#maven-dependency"><span class="octicon octicon-link"></span></a>Maven Dependency</h2>
 
 <p>RESTrung may be automatically imported into your project if you already use <a href="http://maven.apache.org/">Maven</a>. Just declare RESTrung as a maven dependency.
 If you wish to always use the latest unstable snapshots, add the Sonatype repository where the RESTrung snapshot artifacts are being deployed.
-RESTrung official releases will be made available at Maven Central.</p>
+RESTrung official releases will be made available at Clinker.</p>
 
-<div class="highlight"><pre><span class="nt">&lt;repository&gt;</span>
+<p>Latest stable</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>public-releases<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;url&gt;</span>http://clinker.47deg.com/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;releases&gt;</span>
+        <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+        <span class="nt">&lt;updatePolicy&gt;</span>daily<span class="nt">&lt;/updatePolicy&gt;</span>
+        <span class="nt">&lt;checksumPolicy&gt;</span>fail<span class="nt">&lt;/checksumPolicy&gt;</span>
+    <span class="nt">&lt;/releases&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>it.restrung<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>restrung<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<p>Snapshots</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>sonatype<span class="nt">&lt;/id&gt;</span>
     <span class="nt">&lt;url&gt;</span>https://oss.sonatype.org/content/groups/public/<span class="nt">&lt;/url&gt;</span>
     <span class="nt">&lt;releases&gt;</span>
@@ -66,15 +140,17 @@ RESTrung official releases will be made available at Maven Central.</p>
 <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>it.restrung<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>restrung<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
-<h2>APKLib and others</h2>
+<h2>
+<a name="apklib-and-others" class="anchor" href="#apklib-and-others"><span class="octicon octicon-link"></span></a>APKLib and others</h2>
 
 <p>You can get the releases, snapshots and other forms in which RESTrung is distributed from the <a href="https://github.com/47deg/restrung/downloads">Downloads</a> page.</p>
 
-<h2>Dependencies</h2>
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <p>RESTrung depends on the following libraries.</p>
 
@@ -82,7 +158,6 @@ RESTrung official releases will be made available at Maven Central.</p>
 <li>org.apache.httpcomponents : httpclient : 4.1.1</li>
 <li>org.apache.httpcomponents : httpclient-cache : 4.1.1</li>
 <li>org.apache.httpcomponents : httpmime : 4.1.1</li>
-<li>com.google.code.gson : gson : 2.2.2</li>
 </ul><p>RESTrung expect that you include one the google android <a href="http://developer.android.com/intl/es/tools/extras/support-library.html">compatibility libraries</a> in order to use Loaders in versions that do not support them natively.
 Depends on your requirements you may choose to include one of the following...</p>
 
@@ -95,21 +170,22 @@ Depends on your requirements you may choose to include one of the following...</
 <li><a href="https://github.com/petedoyle/android-support-v4-googlemaps/downloads">maps support</a></li>
 </ul>
 </li>
-</ul><p>RESTrung does not directly include dependencies in the no-deps release or hard dependencies in the maven dependencies to the support libraries due to incompatibilities between apps that need Maps supports and those that don't.</p>
-
-<h1>Usage</h1>
+</ul><h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
 
 <p>Whether you plan to use RESTrung for simple HTTP requests to a RESTful service or you need more control over requests, serialization, etc,
 we encourage you to read this short guide to fully understand what RESTrung is and what it is not.</p>
 
-<h2>Simple</h2>
+<h2>
+<a name="simple" class="anchor" href="#simple"><span class="octicon octicon-link"></span></a>Simple</h2>
 
 <p>The main interface to send requests and receive serialized responses is through RestClient whose default implementation you can access with the RestClientFactory.
 The RestClient exposes both Asynchronous and Synchronous operations for the most common <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP verbs</a>.</p>
 
-<h3>GET</h3>
+<h3>
+<a name="get" class="anchor" href="#get"><span class="octicon octicon-link"></span></a>GET</h3>
 
-<div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResults</span><span class="o">(</span><span class="n">Target</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
@@ -124,11 +200,12 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h3>POST</h3>
+<h3>
+<a name="post" class="anchor" href="#post"><span class="octicon octicon-link"></span></a>POST</h3>
 
 <p><em>Simple POST</em></p>
 
-<div class="highlight"><pre><span class="c1">//An object that implements JSONSerializable</span>
+<div class="highlight highlight-java"><pre><span class="c1">//An object that implements JSONSerializable</span>
 <span class="n">AnyBeanObject</span> <span class="n">sourceObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnyBeanObject</span><span class="o">();</span>
 <span class="n">sourceObject</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
 
@@ -149,7 +226,7 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 
 <p><em>Multipart POST</em></p>
 
-<div class="highlight"><pre><span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="o">....;</span>
+<div class="highlight highlight-java"><pre><span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="o">....;</span>
 
 <span class="c1">//An object that implements JSONSerializable</span>
 <span class="n">AnyBeanObject</span> <span class="n">sourceObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnyBeanObject</span><span class="o">();</span>
@@ -170,9 +247,10 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="n">sourceObject</span><span class="o">,</span> <span class="n">file</span> <span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h3>PUT</h3>
+<h3>
+<a name="put" class="anchor" href="#put"><span class="octicon octicon-link"></span></a>PUT</h3>
 
-<div class="highlight"><pre><span class="c1">//An object that implements JSONSerializable</span>
+<div class="highlight highlight-java"><pre><span class="c1">//An object that implements JSONSerializable</span>
 <span class="n">AnyBeanObject</span> <span class="n">sourceObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnyBeanObject</span><span class="o">();</span>
 <span class="n">sourceObject</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
 
@@ -191,9 +269,10 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="n">sourceObject</span> <span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h3>DELETE</h3>
+<h3>
+<a name="delete" class="anchor" href="#delete"><span class="octicon octicon-link"></span></a>DELETE</h3>
 
-<div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">deleteAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">deleteAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResults</span><span class="o">(</span><span class="n">Target</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
@@ -208,12 +287,14 @@ The RestClient exposes both Asynchronous and Synchronous operations for the most
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h2>Advanced</h2>
+<h2>
+<a name="advanced" class="anchor" href="#advanced"><span class="octicon octicon-link"></span></a>Advanced</h2>
 
 <p>If you do not wish to use the RestClientFactory and RestClient interfaces you can get finer control by directly utilizing any of the
 loaders, asynctasks or runnable classes for each one of the operations.</p>
 
-<h3>Loaders</h3>
+<h3>
+<a name="loaders" class="anchor" href="#loaders"><span class="octicon octicon-link"></span></a>Loaders</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIGetLoader.java">it.restrung.rest.async.loaders.APIGetLoader</a>
@@ -224,7 +305,8 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/loaders/APIDeleteLoader.java">it.restrung.rest.async.loaders.APIDeleteLoader</a>
 </li>
-</ul><h3>AsyncTasks</h3>
+</ul><h3>
+<a name="asynctasks" class="anchor" href="#asynctasks"><span class="octicon octicon-link"></span></a>AsyncTasks</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIGetAsyncTask.java">it.restrung.rest.async.asynctasks.APIGetAsyncTask</a>
@@ -235,7 +317,8 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/asynctasks/APIDeleteAsyncTask.java">it.restrung.rest.async.asynctasks.APIDeleteAsyncTask</a>
 </li>
-</ul><h3>Runnables</h3>
+</ul><h3>
+<a name="runnables" class="anchor" href="#runnables"><span class="octicon octicon-link"></span></a>Runnables</h3>
 
 <ul>
 <li>GET - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/GetRunnable.java">it.restrung.rest.async.runnables.GetRunnable</a>
@@ -246,7 +329,8 @@ loaders, asynctasks or runnable classes for each one of the operations.</p>
 </li>
 <li>DELETE - <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/async/runnables/DeleteRunnable.java">it.restrung.rest.async.runnables.DeleteRunnable</a>
 </li>
-</ul><h3>Cache</h3>
+</ul><h3>
+<a name="cache" class="anchor" href="#cache"><span class="octicon octicon-link"></span></a>Cache</h3>
 
 <p>RESTrung includes a cache mechanism to help with fast retrieval of GET responses.
 RESTrung uses the request parameters and components to create a unique ID used as the cache key.</p>
@@ -255,7 +339,7 @@ RESTrung uses the request parameters and components to create a unique ID used a
 
 <p><em>Load always from cache</em></p>
 
-<div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span>
+<div class="highlight highlight-java"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span>
     <span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">RequestCache</span><span class="o">.</span><span class="na">LoadPolicy</span><span class="o">.</span><span class="na">ENABLED</span><span class="o">)</span> <span class="o">{</span>
 
 <span class="o">...</span>
@@ -265,7 +349,7 @@ RESTrung uses the request parameters and components to create a unique ID used a
 
 <p><em>Load from cache if there is no internet connection</em></p>
 
-<div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span>
+<div class="highlight highlight-java"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span>
     <span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">RequestCache</span><span class="o">.</span><span class="na">LoadPolicy</span><span class="o">.</span><span class="na">LOAD_IF_OFFLINE</span><span class="o">)</span> <span class="o">{</span>
 
 <span class="o">...</span>
@@ -273,7 +357,8 @@ RESTrung uses the request parameters and components to create a unique ID used a
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h4>Load Policies</h4>
+<h4>
+<a name="load-policies" class="anchor" href="#load-policies"><span class="octicon octicon-link"></span></a>Load Policies</h4>
 
 <p>The cache load policies available are:</p>
 
@@ -285,12 +370,14 @@ RESTrung uses the request parameters and components to create a unique ID used a
 <li>ENABLED - Load always from the cache if available.</li>
 <li>LOAD_IF_TIMEOUT - Load from the cache when the request times out.</li>
 <li>NETWORK_ENABLED - Load from the cache then refresh the cache with a network call (calls onResult in the APIDelegate twice)</li>
-</ul><h4>Direct access</h4>
+</ul><h4>
+<a name="direct-access" class="anchor" href="#direct-access"><span class="octicon octicon-link"></span></a>Direct access</h4>
 
 <p>Access objects in the cache, invalidate, put and perform many other operations directly via the static methods available through the
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/cache/RequestCache.java">it.restrung.rest.cache.RequestCache</a> class.</p>
 
-<h3>Serialization</h3>
+<h3>
+<a name="serialization" class="anchor" href="#serialization"><span class="octicon octicon-link"></span></a>Serialization</h3>
 
 <p>RESTrung comes with abstract classes that implement most of the tedious work related to serialize/deserialize <a href="http://en.wikipedia.org/wiki/JavaBeans">javabeans</a> to and from <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>.
 To have your beans auto-serialized when being sent as the body of both POST and PUT requests; make your class extend from
@@ -301,14 +388,15 @@ own implementation of <a href="https://github.com/47deg/restrung/blob/master/src
 <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/response/AbstractJSONResponse.java">it.restrung.rest.marshalling.response.AbstractJSONResponse</a> or provide your
 own implementation of <a href="https://github.com/47deg/restrung/blob/master/src/main/java/it/restrung/rest/marshalling/response/JSONResponse.java">it.restrung.rest.marshalling.response.JSONResponse</a></p>
 
-<h3>Interceptors</h3>
+<h3>
+<a name="interceptors" class="anchor" href="#interceptors"><span class="octicon octicon-link"></span></a>Interceptors</h3>
 
 <p>You can customize the request before transmitting by overriding <strong>onRequest(RequestOperation)</strong> in your APIDelegate.
 If you wish to customize the response before being deserialized, simply override <strong>onResponse(ResponseOperation)</strong> in your APIDelegate.</p>
 
 <p>e.g.</p>
 
-<div class="highlight"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="n">RestClientFactory</span><span class="o">.</span><span class="na">getClient</span><span class="o">().</span><span class="na">getAsync</span><span class="o">(</span><span class="k">new</span> <span class="n">ContextAwareAPIDelegate</span><span class="o">&lt;</span><span class="n">Target</span><span class="o">&gt;(</span><span class="n">context</span><span class="o">,</span> <span class="n">Target</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="o">...</span>
 
@@ -323,7 +411,8 @@ If you wish to customize the response before being deserialized, simply override
 <span class="o">},</span> <span class="s">"http://url/%s/%s"</span><span class="o">,</span> <span class="s">"param1"</span><span class="o">,</span> <span class="s">"param2"</span><span class="o">);</span>
 </pre></div>
 
-<h1>License</h1>
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
 
 <p>Copyright (C) 2012 47 Degrees, LLC
 <a href="http://47deg.com">http://47deg.com</a>
@@ -342,17 +431,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">RESTrung maintained by <a href="https://github.com/47deg">47deg</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-              <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -362,7 +446,6 @@ limitations under the License.</p>
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
