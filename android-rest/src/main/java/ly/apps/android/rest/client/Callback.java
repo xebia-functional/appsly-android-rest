@@ -99,18 +99,30 @@ public abstract class Callback<Result> extends BaseJsonHttpResponseHandler<Resul
 
     public abstract void onResponse(Response<Result> response);
 
+    private boolean proceedWithResponse() {
+        boolean proceed = true;
+        if (context != null && context instanceof RequestAwareContext) {
+            proceed = !((RequestAwareContext)context).shouldStopReceivingCallbacks();
+        }
+        return proceed;
+    }
+
     @Override
     public void onSuccess(int statusCode, Header[] headers, String rawResponse, Result response) {
         Logger.d("onSuccess: status" + statusCode + " rawResponse: " + rawResponse);
         Response<Result> httpResponse = new Response<Result>(statusCode, headers, rawResponse, response);
-        onResponse(httpResponse);
+        if (proceedWithResponse()) {
+            onResponse(httpResponse);
+        }
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable e, String rawData, Result errorResponse) {
         Logger.d("onFailure: status" + statusCode + " rawResponse: " + rawData);
         Response<Result> httpResponse = new Response<Result>(statusCode, headers, rawData, errorResponse, e);
-        onResponse(httpResponse);
+        if (proceedWithResponse()) {
+            onResponse(httpResponse);
+        }
     }
 
     @Override

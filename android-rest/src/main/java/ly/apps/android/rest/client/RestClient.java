@@ -20,6 +20,7 @@ package ly.apps.android.rest.client;
 
 
 
+import android.content.Context;
 import ly.apps.android.rest.converters.QueryParamsConverter;
 
 import java.io.File;
@@ -91,5 +92,7 @@ public interface RestClient {
 
 
     QueryParamsConverter getQueryParamsConverter();
+
+    void cancelRequests(Context context, boolean mayInterruptIfRunning);
 
 }

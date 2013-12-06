@@ -61,8 +61,11 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
             path = path.contains("?") ? path : path + "?";
             List<String> vals = new ArrayList<String>();
             for (Map.Entry<Integer, String> queryParamEntry : queryParams.entrySet()) {
-                String value = URLEncoder.encode(args[queryParamEntry.getKey()].toString(), "UTF-8");
-                vals.add(String.format("%s=%s", queryParamEntry.getValue(), value));
+                Object paramVal = args[queryParamEntry.getKey()];
+                if (paramVal != null) {
+                    String value = URLEncoder.encode(paramVal.toString(), "UTF-8");
+                    vals.add(String.format("%s=%s", queryParamEntry.getValue(), value));
+                }
             }
             path = path + StringUtils.join(vals.toArray(), "&");
         }

@@ -18,6 +18,7 @@
 
 package ly.apps.android.rest.client;
 
+import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.QueryParamsConverter;
@@ -49,6 +50,11 @@ public class DefaultRestClientImpl implements RestClient {
             client.removeHeader(header.getKey());
             client.addHeader(header.getKey(), header.getValue());
         }
+    }
+
+    @Override
+    public void cancelRequests(Context context, boolean mayInterruptIfRunning) {
+        client.cancelRequests(context, mayInterruptIfRunning);
     }
 
     private <T> void prepareRequest(Callback<T> delegate) {
