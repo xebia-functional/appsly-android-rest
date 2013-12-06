@@ -1,28 +1,18 @@
 package ly.apps.android.rest.client;
 
-import android.text.TextUtils;
-
-import ly.apps.android.rest.client.annotations.Body;
-import ly.apps.android.rest.client.annotations.DELETE;
-import ly.apps.android.rest.client.annotations.FormField;
-import ly.apps.android.rest.client.annotations.GET;
-import ly.apps.android.rest.client.annotations.HEAD;
-import ly.apps.android.rest.client.annotations.Header;
-import ly.apps.android.rest.client.annotations.PATCH;
-import ly.apps.android.rest.client.annotations.POST;
-import ly.apps.android.rest.client.annotations.PUT;
-import ly.apps.android.rest.client.annotations.Path;
-import ly.apps.android.rest.client.annotations.QueryParam;
+import ly.apps.android.rest.client.annotations.*;
+import ly.apps.android.rest.utils.HeaderUtils;
+import ly.apps.android.rest.utils.Logger;
 import ly.apps.android.rest.utils.ResponseTypeUtil;
-import ly.apps.android.rest.utils.StringUtils;
 
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,19 +45,29 @@ public class RestMethodCache {
 
     private boolean bodyPresent;
 
+    private int bundledQueryParamsPosition;
+
+    private boolean bundledQueryParamsPresent;
+
+    private int formDataPosition;
+
+    private boolean formDataPresent;
+
     private RequestType requestType;
 
-    private Type targetClass;
+    private Type targetType;
 
     private RestClient restClient;
 
-    public Type getTargetClass() {
-        return targetClass;
+    private boolean isList;
+
+    public Type getTargetType() {
+        return targetType;
     }
 
     @SuppressWarnings("unchecked")
     private void parseMethod() {
-        targetClass = ResponseTypeUtil.parseResponseType(method);
+        targetType = ResponseTypeUtil.parseResponseType(method);
         if (method.isAnnotationPresent(GET.class)) {
             requestType = RequestType.GET;
             path = method.getAnnotation(GET.class).value();
@@ -102,6 +102,12 @@ public class RestMethodCache {
                         pathParams.put(i,((Path) parameterAnnotation).value());
                     } else if (annotationType == QueryParam.class) {
                         queryParams.put(i,((QueryParam) parameterAnnotation).value());
+                    } else if (annotationType == QueryParams.class) {
+                        bundledQueryParamsPosition = i;
+                        bundledQueryParamsPresent = true;
+                    } else if (annotationType == FormData.class) {
+                        formDataPosition = i;
+                        formDataPresent = true;
                     } else if (annotationType == Header.class) {
                         headers.put(i,((Header) parameterAnnotation).value());
                     } else if (annotationType == Body.class) {
@@ -115,34 +121,29 @@ public class RestMethodCache {
         }
     }
 
-    public String parseArgs(String baseUrl, Object[] args) throws UnsupportedEncodingException {
-        String resultingPath = path;
-        for (Map.Entry<Integer, String> pathEntry : pathParams.entrySet()) {
-            String value = URLEncoder.encode(args[pathEntry.getKey()].toString(), "UTF-8");
-            resultingPath = resultingPath.replaceAll("\\{(" + value + ")\\}", value);
-        }
-        if (queryParams.size() > 0) {
-            resultingPath = resultingPath + "?";
-            String[] queryParamsArray = new String[queryParams.size()];
-            int i = 0;
-            for (Map.Entry<Integer, String> queryParamEntry : queryParams.entrySet()) {
-                String value = URLEncoder.encode(args[queryParamEntry.getKey()].toString(), "UTF-8");
-                queryParamsArray[i] = String.format("%s=%s", queryParamEntry.getValue(), value);
-                i++;
-            }
-            resultingPath = resultingPath + StringUtils.join(queryParamsArray, "&");
-        }
-        return baseUrl + resultingPath;
-    }
-
     @SuppressWarnings("unchecked")
     public <T> void invoke(String baseUrl, Callback<T> delegate, Object[] args) throws UnsupportedEncodingException {
         prepareDelegate(delegate, args);
-        String url = parseArgs(baseUrl, args);
+        String resultingPath = path;
+        if (pathParams.size() > 0) {
+            resultingPath = restClient.getQueryParamsConverter().parsePathParams(resultingPath, pathParams, args);
+        }
+        if (queryParams.size() > 0) {
+            resultingPath = restClient.getQueryParamsConverter().parseQueryParams(resultingPath, queryParams, args);
+        }
+        if (bundledQueryParamsPresent) {
+            resultingPath = restClient.getQueryParamsConverter().parseBundledQueryParams(resultingPath, args[bundledQueryParamsPosition]);
+        }
+        String url = baseUrl + resultingPath;
         Object body = null;
         if (bodyPresent) {
             body = args[bodyPosition];
+            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_JSON);
+        } else if (formDataPresent) {
+            body = args[formDataPosition];
+            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA);
         }
+        Logger.d("invoking: " + url + " with body: " + body + " and request content type: " + delegate.getRequestContentType());
         switch (requestType) {
             case GET:
                 restClient.get(url, delegate);
@@ -170,7 +171,16 @@ public class RestMethodCache {
 
     @SuppressWarnings("unchecked")
     private <T> void prepareDelegate(Callback<T> delegate, Object[] args) {
-        delegate.setTargetClass((Class<T>) targetClass);
+        if (targetType instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) targetType;
+            Type rawContainer = parameterizedType.getRawType();
+            Type containerTarget = parameterizedType.getActualTypeArguments()[0];
+            delegate.setResponseIsCollection(Collection.class.isAssignableFrom((Class<?>) rawContainer));
+            delegate.setCollectionType((Class<? extends Collection>) rawContainer);
+            delegate.setTargetClass((Class<T>) containerTarget);
+        } else {
+            delegate.setTargetClass((Class<T>) targetType);
+        }
         if (headers.size() > 0) {
             org.apache.http.Header[] headersArray = new org.apache.http.Header[headers.size()];
             int i = 0;

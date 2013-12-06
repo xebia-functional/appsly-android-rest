@@ -3,7 +3,8 @@ package ly.apps.android.rest.utils;
 
 public class HeaderUtils {
 
-    public final static String JSON_CONTENT_TYPE = "application/json; charset=utf-8";
+    public final static String CONTENT_TYPE_JSON = "application/json";
+    public final static String CONTENT_TYPE_MULTIPART_FORM_DATA = "multipart/form-data";
 
     private HeaderUtils() {
         // no instances

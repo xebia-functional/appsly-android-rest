@@ -20,6 +20,7 @@ package ly.apps.android.rest.client;
 
 import com.loopj.android.http.AsyncHttpClient;
 import ly.apps.android.rest.converters.BodyConverter;
+import ly.apps.android.rest.converters.QueryParamsConverter;
 import org.apache.http.entity.FileEntity;
 
 import java.io.File;
@@ -32,15 +33,18 @@ public class DefaultRestClientImpl implements RestClient {
 
     private AsyncHttpClient client;
 
+    private QueryParamsConverter queryParamsConverter;
+
     private BodyConverter converter;
 
-    public DefaultRestClientImpl(AsyncHttpClient client, BodyConverter converter) {
+    public DefaultRestClientImpl(AsyncHttpClient client, QueryParamsConverter queryParamsConverter, BodyConverter converter) {
         this.client = client;
+        this.queryParamsConverter = queryParamsConverter;
         this.converter = converter;
     }
 
-    public DefaultRestClientImpl(AsyncHttpClient client, BodyConverter converter, Map<String, String> defaultHeaders) {
-        this(client, converter);
+    public DefaultRestClientImpl(AsyncHttpClient client, QueryParamsConverter queryParamsConverter, BodyConverter converter, Map<String, String> defaultHeaders) {
+        this(client, queryParamsConverter, converter);
         for (Map.Entry<String, String> header : defaultHeaders.entrySet()) {
             client.removeHeader(header.getKey());
             client.addHeader(header.getKey(), header.getValue());
@@ -53,33 +57,41 @@ public class DefaultRestClientImpl implements RestClient {
 
     @Override
     public <T> void get(String url, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.get(delegate.getContext(), url, delegate.getAdditionalHeaders(), null, delegate);
     }
 
     @Override
     public <T> void delete(String url, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.delete(delegate.getContext(), url, delegate.getAdditionalHeaders(), null, delegate);
     }
 
     @Override
     public <T> void post(String url, Object body, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), converter.toRequestBody(body, delegate.getRequestContentType()), delegate.getRequestContentType(), delegate);
     }
 
     @Override
     public <T> void post(String url, File file, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), new FileEntity(file, delegate.getRequestContentType()), delegate.getRequestContentType(), delegate);
     }
 
     @Override
     public <T> void put(String url, Object body, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.put(delegate.getContext(), url, delegate.getAdditionalHeaders(), converter.toRequestBody(body, delegate.getRequestContentType()), delegate.getRequestContentType(), delegate);
     }
 
     @Override
     public <T> void head(String url, Callback<T> delegate) {
+        prepareRequest(delegate);
         client.head(delegate.getContext(), url, delegate.getAdditionalHeaders(), null, delegate);
     }
 
-
+    public QueryParamsConverter getQueryParamsConverter() {
+        return queryParamsConverter;
+    }
 }

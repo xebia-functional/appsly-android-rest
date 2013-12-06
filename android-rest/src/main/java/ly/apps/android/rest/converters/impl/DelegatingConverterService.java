@@ -1,6 +1,8 @@
-package ly.apps.android.rest.converters;
+package ly.apps.android.rest.converters.impl;
 
 
+import ly.apps.android.rest.client.Callback;
+import ly.apps.android.rest.converters.BodyConverter;
 import org.apache.http.HttpEntity;
 
 import java.lang.reflect.Type;
@@ -25,8 +27,8 @@ public class DelegatingConverterService implements BodyConverter {
     }
 
     @Override
-    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody) {
-        return getConverter(contentType).fromResponseBody(target, contentType, responseBody);
+    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, Callback<T> callback) {
+        return getConverter(contentType).fromResponseBody(target, contentType, responseBody, callback);
     }
 
     public BodyConverter getConverter(String contentType) {

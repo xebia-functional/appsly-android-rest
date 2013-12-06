@@ -20,6 +20,8 @@ package ly.apps.android.rest.client;
 
 
 
+import ly.apps.android.rest.converters.QueryParamsConverter;
+
 import java.io.File;
 
 /**
@@ -86,5 +88,8 @@ public interface RestClient {
      * @param delegate the APIDelegate that will handle results, error and request and response interception if necessary
      */
     <T> void head(String url, Callback<T> delegate);
+
+
+    QueryParamsConverter getQueryParamsConverter();
 
 }

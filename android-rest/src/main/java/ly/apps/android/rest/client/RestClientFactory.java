@@ -19,8 +19,10 @@
 package ly.apps.android.rest.client;
 
 import com.loopj.android.http.AsyncHttpClient;
-import ly.apps.android.rest.converters.DelegatingConverterService;
-import ly.apps.android.rest.converters.JacksonConverter;
+import ly.apps.android.rest.converters.impl.DelegatingConverterService;
+import ly.apps.android.rest.converters.impl.JacksonHttpFormValuesConverter;
+import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
+import ly.apps.android.rest.converters.impl.JacksonQueryParamsConverter;
 
 /**
  * Factory to obtain @see RestClient instances
@@ -35,8 +37,10 @@ public class RestClientFactory {
     static {
         instance = new DefaultRestClientImpl(
                 new AsyncHttpClient(),
+                new JacksonQueryParamsConverter(),
                 new DelegatingConverterService(){{
-                    addConverter(new JacksonConverter());
+                    addConverter(new JacksonBodyConverter());
+                    addConverter(new JacksonHttpFormValuesConverter());
                 }}
         );
     }

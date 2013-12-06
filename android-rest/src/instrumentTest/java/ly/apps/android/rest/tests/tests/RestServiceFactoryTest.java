@@ -1,17 +1,14 @@
 package ly.apps.android.rest.tests.tests;
 
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
-
 import ly.apps.android.rest.client.RestMethodCache;
 import ly.apps.android.rest.client.RestServiceFactory;
 import ly.apps.android.rest.tests.models.response.TestResponse;
 import ly.apps.android.rest.tests.services.TestRestService;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
 
@@ -43,24 +40,9 @@ public class RestServiceFactoryTest {
     @Test
     public void testResponseTypeInstrospected() {
         RestMethodCache methodCache = get("sampleGet");
-        assertEquals(TestResponse.class, methodCache.getTargetClass());
+        assertEquals(TestResponse.class, methodCache.getTargetType());
     }
 
-    @Test
-    public void testUrlParamParsing() throws UnsupportedEncodingException {
-        RestMethodCache methodCache = get("sampleGet");
-        Assert.assertNotNull(methodCache);
-        String result = methodCache.parseArgs(BASEURL, new Object[]{"model", "test", 10, null});
-        assertEquals(BASEURL + "/list/model/other/test?size=10", result);
-    }
-
-    @Test
-    public void testUrlParamParsingWithParamNotInPath() throws UnsupportedEncodingException {
-        RestMethodCache methodCache = get("samplePost");
-        Assert.assertNotNull(methodCache);
-        String result = methodCache.parseArgs(BASEURL, new Object[]{new File("."), "model", "test", 10, null});
-        assertEquals(BASEURL + "/list/model/other/test?size=10", result);
-    }
 
 
 }
