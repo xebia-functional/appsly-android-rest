@@ -1,0 +1,25 @@
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    dependencies {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    group = GROUP
+    version = VERSION_NAME
+    description = POM_DESCRIPTION
+}
+
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
+}
+

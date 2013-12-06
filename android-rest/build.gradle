@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.github.dcendents:android-maven-plugin:1.0'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'android-maven'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.0.0'
+
+    defaultConfig {
+        targetSdkVersion 19
+    }
+}
+
+android.libraryVariants.all { variant ->
+    def name = variant.buildType.name
+
+    // Only attach a jar for non-debug build types.
+    if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+        def task = project.tasks.create "jar${name.capitalize()}", Jar
+        task.dependsOn variant.javaCompile
+        task.from variant.javaCompile.destinationDir
+        artifacts.add('archives', task);
+    }
+}
+
+dependencies {
+    compile 'com.loopj.android:android-async-http:1.4.4'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    instrumentTestCompile 'junit:junit:4.8.2'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://clinker.47deg.com/nexus/content/repositories/snapshots/') {
+                authentication(userName: mavenDeployer, password: mavenDeployerPassword)
+            }
+        }
+    }
+}
