@@ -141,7 +141,7 @@ public class RestMethodCache {
             delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_JSON);
         } else if (formDataPresent) {
             body = args[formDataPosition];
-            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA);
+            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
         }
         Logger.d("invoking: " + url + " with body: " + body + " and request content type: " + delegate.getRequestContentType());
         switch (requestType) {

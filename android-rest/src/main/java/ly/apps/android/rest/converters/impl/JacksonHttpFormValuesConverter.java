@@ -5,15 +5,15 @@ import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.exceptions.SerializationException;
 import ly.apps.android.rest.utils.HeaderUtils;
 import ly.apps.android.rest.utils.Logger;
-import ly.apps.android.rest.utils.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,14 +39,13 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
         Logger.d("JacksonHttpFormValuesConverter.toRequestBody: object: " + object);
         try {
             Map<String,Object> props = mapper.convertValue(object, Map.class);
-            List<String> vals = new ArrayList<String>();
+            List<NameValuePair> vals = new ArrayList<NameValuePair>();
             for (Map.Entry<String, Object> queryParamEntry : props.entrySet()) {
                 if (queryParamEntry.getValue() != null) {
-                    String value = URLEncoder.encode(queryParamEntry.getValue().toString(), "UTF-8");
-                    vals.add(queryParamEntry.getKey() + "=" + value);
+                    vals.add(new BasicNameValuePair(queryParamEntry.getKey(), queryParamEntry.getValue().toString()));
                 }
             }
-            return new StringEntity(StringUtils.join(vals.toArray(), "&"));
+            return new UrlEncodedFormEntity(vals);
         } catch (UnsupportedEncodingException e) {
             throw new SerializationException(e);
         }
@@ -55,12 +54,12 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, Callback<T> callback) {
-        throw new UnsupportedOperationException("JacksonHttpFormValuesConverter only serializes request objects for " + HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA);
+        throw new UnsupportedOperationException("JacksonHttpFormValuesConverter only serializes request objects for " + HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
     }
 
     @Override
     public boolean supportsRequestContentType(String contentType) {
-        return HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA.startsWith(contentType);
+        return HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED.startsWith(contentType);
     }
 
     @Override
