@@ -88,7 +88,7 @@ public class RequestCache {
 //        /**
 //         * Cache data permanently, until explicitly expired or flushed
 //         */
-//        PERMANENTLY
+//        PERMANENT
 //    }
 //
 //    /**
@@ -145,7 +145,7 @@ public class RequestCache {
 //        private T performOperation() throws Exception {
 //            T result = operation.call();
 //            provider.setCacheInfo(CacheInfo.NONE);
-//            if (StoragePolicy.PERMANENTLY.equals(provider.getCacheStoragePolicy())) {
+//            if (StoragePolicy.PERMANENT.equals(provider.getCacheStoragePolicy())) {
 //                put(provider.getContextProvider().getContext(), result, params);
 //            }
 //            return result;

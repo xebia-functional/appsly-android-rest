@@ -1,5 +1,6 @@
 package ly.apps.android.rest.converters.impl;
 
+import android.net.Uri;
 import ly.apps.android.rest.converters.QueryParamsConverter;
 import ly.apps.android.rest.utils.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -31,7 +32,7 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
             if (paramVal == null) {
                 throw new IllegalArgumentException(String.format("No null param values are allowed for key: [%s]", pathEntry.getValue()));
             }
-            String value = URLEncoder.encode(paramVal.toString(), "UTF-8");
+            String value = Uri.encode(paramVal.toString());
             path = path.replaceAll("\\{(" + pathEntry.getValue() + ")\\}", value);
         }
         return path;
@@ -46,7 +47,7 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
             List<String> vals = new ArrayList<String>();
             for (Map.Entry<String, Object> queryParamEntry : props.entrySet()) {
                 if (queryParamEntry.getValue() != null) {
-                    String value = URLEncoder.encode(queryParamEntry.getValue().toString(), "UTF-8");
+                    String value = Uri.encode(queryParamEntry.getValue().toString());
                     vals.add(queryParamEntry.getKey() + "=" + value);
                 }
             }
@@ -63,7 +64,7 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
             for (Map.Entry<Integer, String> queryParamEntry : queryParams.entrySet()) {
                 Object paramVal = args[queryParamEntry.getKey()];
                 if (paramVal != null) {
-                    String value = URLEncoder.encode(paramVal.toString(), "UTF-8");
+                    String value = Uri.encode(paramVal.toString());
                     vals.add(String.format("%s=%s", queryParamEntry.getValue(), value));
                 }
             }

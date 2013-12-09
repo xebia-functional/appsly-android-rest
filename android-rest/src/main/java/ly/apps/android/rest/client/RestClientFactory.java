@@ -35,14 +35,10 @@ public class RestClientFactory {
     private final static RestClient instance;
 
     static {
-        instance = new DefaultRestClientImpl(
-                new AsyncHttpClient(),
-                new JacksonQueryParamsConverter(),
-                new DelegatingConverterService(){{
-                    addConverter(new JacksonBodyConverter());
-                    addConverter(new JacksonHttpFormValuesConverter());
-                }}
-        );
+        instance = new DefaultRestClientImplBuilder().setClient(new AsyncHttpClient()).setQueryParamsConverter(new JacksonQueryParamsConverter()).setConverter(new DelegatingConverterService() {{
+            addConverter(new JacksonBodyConverter());
+            addConverter(new JacksonHttpFormValuesConverter());
+        }}).createDefaultRestClientImpl();
     }
 
     /**

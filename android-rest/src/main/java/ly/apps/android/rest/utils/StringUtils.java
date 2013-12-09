@@ -3,6 +3,8 @@ package ly.apps.android.rest.utils;
 
 public class StringUtils {
 
+    public static final String EMPTY = "";
+
     private StringUtils(){
         //No instances
     }
