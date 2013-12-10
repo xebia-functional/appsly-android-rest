@@ -18,11 +18,13 @@
 
 package ly.apps.android.rest.client;
 
+import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
-import ly.apps.android.rest.converters.impl.DelegatingConverterService;
-import ly.apps.android.rest.converters.impl.JacksonHttpFormValuesConverter;
-import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
-import ly.apps.android.rest.converters.impl.JacksonQueryParamsConverter;
+import ly.apps.android.rest.cache.CacheAwareHttpClient;
+import ly.apps.android.rest.cache.ContextPersistentCacheManager;
+import ly.apps.android.rest.converters.impl.*;
+
+import java.io.File;
 
 /**
  * Factory to obtain @see RestClient instances
@@ -30,28 +32,21 @@ import ly.apps.android.rest.converters.impl.JacksonQueryParamsConverter;
 public class RestClientFactory {
 
     /**
-     * the singleton shared instance
+     * Static factory method to obtain RestClient instances
+     *
+     * @return a singleton instance of a RestClient based on @see DefaultRestClientImpl
      */
-    private final static RestClient instance;
-
-    static {
-        instance = new DefaultRestClientImpl(
-                new AsyncHttpClient(),
+    public static RestClient defaultClient(final Context context) {
+        return new DefaultRestClientImpl(
+                new CacheAwareHttpClient(new ContextPersistentCacheManager(context)) {{
+                    enableHttpResponseCache(10 * 1024 * 1024, new File(context.getCacheDir(), "android-rest-http"));
+                }},
                 new JacksonQueryParamsConverter(),
                 new DelegatingConverterService(){{
                     addConverter(new JacksonBodyConverter());
                     addConverter(new JacksonHttpFormValuesConverter());
                 }}
         );
-    }
-
-    /**
-     * Static factory method to obtain RestClient instances
-     *
-     * @return a singleton instance of a RestClient based on @see DefaultRestClientImpl
-     */
-    public static RestClient getClient() {
-        return instance;
     }
 
 }

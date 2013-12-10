@@ -21,11 +21,6 @@ public class RestServiceFactory {
     private static final ConcurrentMap<Method, RestMethodCache> methodCaches = new ConcurrentHashMap<Method, RestMethodCache>();
 
     @SuppressWarnings("unchecked")
-    public static <T> T getService(String baseUrl, Class<T> serviceClass) {
-        return getService(baseUrl, serviceClass, RestClientFactory.getClient());
-    }
-
-    @SuppressWarnings("unchecked")
     public static <T> T getService(String baseUrl, Class<T> serviceClass, RestClient restClient) {
         T service;
         if (serviceClass.isAnnotationPresent(RestService.class)) {

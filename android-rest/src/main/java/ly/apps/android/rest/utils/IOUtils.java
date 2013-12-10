@@ -54,11 +54,9 @@ public class IOUtils {
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
-            Log.d(IOUtils.class.getName(), "Error, file not found for save serializable object to disk");
-            throw new RuntimeException(e);
+            Logger.e("Error, saving file", e);
         } catch (IOException e) {
-            Log.d(IOUtils.class.getName(), "Error on save serializable object");
-            throw new RuntimeException(e);
+            Logger.e("Error, saving file", e);
         }
     }
 
@@ -79,12 +77,11 @@ public class IOUtils {
                 result = (T) in.readObject();
                 in.close();
             } catch (FileNotFoundException e) {
-                Log.d(IOUtils.class.getName(), "Error, file not found for load serializable object from disk");
-                throw new RuntimeException(e);
+                Logger.e("Error, loading file", e);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Logger.e("Error, loading file", e);
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                Logger.e("Error, loading file", e);
             }
         }
         return result;

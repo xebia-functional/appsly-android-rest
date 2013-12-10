@@ -28,27 +28,37 @@ public class CacheInfo {
     /**
      * Represents a non cached request
      */
-    public static final CacheInfo NONE = new CacheInfo(false, null);
+    public static final CacheInfo NONE = new CacheInfo(CachePolicy.NEVER, 0);
+
+    /**
+     * The request cache key
+     */
+    private String key;
+
+    /**
+     * The request cache policy
+     */
+    private CachePolicy policy;
+
+    /**
+     * The request time to live value
+     */
+    private long timeToLive;
 
     /**
      * true if the current results have been loaded from the cache
      */
     private boolean loadedFromCache;
 
-    /**
-     * the last time the results for this request were last updated
-     */
-    private Date lastRefreshed;
+    public CacheInfo(String key, CachePolicy policy, long timeToLive) {
+        this.key = key;
+        this.policy = policy;
+        this.timeToLive = timeToLive;
+    }
 
-    /**
-     * Construct a cache info object based on the values for loadedFromCache and lastRefreshed
-     *
-     * @param loadedFromCache true if the current results have been loaded from the cache
-     * @param lastRefreshed   the last time the results for this request were last updated
-     */
-    public CacheInfo(boolean loadedFromCache, Date lastRefreshed) {
-        this.loadedFromCache = loadedFromCache;
-        this.lastRefreshed = lastRefreshed;
+    public CacheInfo(CachePolicy policy, long timeToLive) {
+        this.policy = policy;
+        this.timeToLive = timeToLive;
     }
 
     /**
@@ -60,12 +70,32 @@ public class CacheInfo {
         return loadedFromCache;
     }
 
-    /**
-     * The last time the results for this request were updated
-     *
-     * @return the last time the results for this request were last updated
-     */
-    public Date getLastRefreshed() {
-        return lastRefreshed;
+    public String getKey() {
+        return key;
     }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public CachePolicy getPolicy() {
+        return policy;
+    }
+
+    public void setPolicy(CachePolicy policy) {
+        this.policy = policy;
+    }
+
+    public long getTimeToLive() {
+        return timeToLive;
+    }
+
+    public void setTimeToLive(long timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
+    public void setLoadedFromCache(boolean loadedFromCache) {
+        this.loadedFromCache = loadedFromCache;
+    }
+
 }

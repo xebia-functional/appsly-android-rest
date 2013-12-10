@@ -1,5 +1,6 @@
 package ly.apps.android.rest.converters.impl;
 
+import ly.apps.android.rest.cache.CacheAwareCallback;
 import ly.apps.android.rest.client.Callback;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.exceptions.SerializationException;
@@ -36,7 +37,9 @@ public class JacksonBodyConverter implements BodyConverter {
     public <T> HttpEntity toRequestBody(T object, String contentType) {
         Logger.d("JacksonBodyConverter.toRequestBody: object: " + object);
         try {
-            HttpEntity result = new StringEntity(mapper.writeValueAsString(object), "UTF-8");
+            String json = mapper.writeValueAsString(object);
+            Logger.d("JacksonHttpFormValuesConverter.toRequestBody: json: " + json);
+            HttpEntity result = new StringEntity(json, "UTF-8");
             Logger.d("JacksonBodyConverter.toRequestBody: result: " + result);
             return result;
         } catch (UnsupportedEncodingException e) {
@@ -52,7 +55,7 @@ public class JacksonBodyConverter implements BodyConverter {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, Callback<T> callback) {
+    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, CacheAwareCallback<T> callback) {
         Logger.d("JacksonBodyConverter.fromResponseBody: target: " + target + " responseBody: " + responseBody);
         try {
             T result;

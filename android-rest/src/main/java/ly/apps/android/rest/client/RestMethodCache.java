@@ -1,10 +1,12 @@
 package ly.apps.android.rest.client;
 
+import ly.apps.android.rest.cache.CacheInfo;
 import ly.apps.android.rest.client.annotations.*;
 import ly.apps.android.rest.utils.HeaderUtils;
 import ly.apps.android.rest.utils.Logger;
 import ly.apps.android.rest.utils.ResponseTypeUtil;
 
+import ly.apps.android.rest.utils.StringUtils;
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
@@ -22,6 +24,7 @@ public class RestMethodCache {
         this.method = method;
         this.restClient = restClient;
         parseMethod();
+        parseCacheInfo();
         parseParameters();
     }
 
@@ -57,9 +60,15 @@ public class RestMethodCache {
 
     private Type targetType;
 
+    private Type rawContainer;
+
+    private Type containerTarget;
+
     private RestClient restClient;
 
     private boolean isList;
+
+    private Cached cached;
 
     public Type getTargetType() {
         return targetType;
@@ -67,7 +76,14 @@ public class RestMethodCache {
 
     @SuppressWarnings("unchecked")
     private void parseMethod() {
-        targetType = ResponseTypeUtil.parseResponseType(method);
+        Type type = ResponseTypeUtil.parseResponseType(method);
+        if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            rawContainer = parameterizedType.getRawType();
+            containerTarget = parameterizedType.getActualTypeArguments()[0];
+        } else {
+            targetType = type;
+        }
         if (method.isAnnotationPresent(GET.class)) {
             requestType = RequestType.GET;
             path = method.getAnnotation(GET.class).value();
@@ -88,6 +104,12 @@ public class RestMethodCache {
             path = method.getAnnotation(HEAD.class).value();
         } else {
             throw new IllegalStateException("No http annotation (GET, POST, PUT, DELETE, PATCH, HEAD) found on method" + method);
+        }
+    }
+
+    private void parseCacheInfo() {
+        if (method.isAnnotationPresent(Cached.class)) {
+            cached = method.getAnnotation(Cached.class);
         }
     }
 
@@ -171,10 +193,7 @@ public class RestMethodCache {
 
     @SuppressWarnings("unchecked")
     private <T> void prepareDelegate(Callback<T> delegate, Object[] args) {
-        if (targetType instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) targetType;
-            Type rawContainer = parameterizedType.getRawType();
-            Type containerTarget = parameterizedType.getActualTypeArguments()[0];
+        if (containerTarget != null && rawContainer != null) {
             delegate.setResponseIsCollection(Collection.class.isAssignableFrom((Class<?>) rawContainer));
             delegate.setCollectionType((Class<? extends Collection>) rawContainer);
             delegate.setTargetClass((Class<T>) containerTarget);
@@ -191,6 +210,13 @@ public class RestMethodCache {
             }
             delegate.setAdditionalHeaders(headersArray);
         }
+        CacheInfo cacheInfo;
+        if (cached != null && delegate.getCacheInfo() == null) {
+            cacheInfo = new CacheInfo(!cached.key().equals(StringUtils.EMPTY) ? cached.key() : null, cached.policy(), cached.timeToLive());
+        } else {
+            cacheInfo = CacheInfo.NONE;
+        }
+        delegate.setCacheInfo(cacheInfo);
     }
 
 }

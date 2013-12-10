@@ -20,9 +20,10 @@ package ly.apps.android.rest.client;
 
 import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
-import ly.apps.android.rest.cache.CacheService;
+import ly.apps.android.rest.cache.CacheAwareHttpClient;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.QueryParamsConverter;
+import ly.apps.android.rest.utils.Logger;
 import org.apache.http.entity.FileEntity;
 
 import java.io.File;
@@ -39,12 +40,10 @@ public class DefaultRestClientImpl implements RestClient {
 
     private BodyConverter converter;
 
-    private CacheService cacheService;
-
     public DefaultRestClientImpl(AsyncHttpClient client, QueryParamsConverter queryParamsConverter, BodyConverter converter) {
-        this.client = client;
         this.queryParamsConverter = queryParamsConverter;
         this.converter = converter;
+        this.client = client;
     }
 
     @Override
@@ -112,14 +111,6 @@ public class DefaultRestClientImpl implements RestClient {
         this.converter = converter;
     }
 
-    public CacheService getCacheService() {
-        return cacheService;
-    }
-
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
     public void setDefaultHeaders(Map<String, String> defaultHeaders) {
         for (Map.Entry<String, String> header : defaultHeaders.entrySet()) {
             client.removeHeader(header.getKey());
@@ -130,4 +121,7 @@ public class DefaultRestClientImpl implements RestClient {
     public QueryParamsConverter getQueryParamsConverter() {
         return queryParamsConverter;
     }
+
+
+
 }

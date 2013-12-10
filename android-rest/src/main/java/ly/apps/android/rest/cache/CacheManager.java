@@ -6,26 +6,18 @@ package ly.apps.android.rest.cache;
 public interface CacheManager {
 
     /**
-     * Calculates a cache key based on a array of params
-     *
-     * @param args the params
-     * @return the unique cache key
-     */
-    String getCacheKey(Object... args);
-
-    /**
      * Adds an object to the cache given a cache key
      * @param key the key
      * @param object the value
      */
-    <T> void put(String key, T object);
+    <T> void put(String key, T object, CacheInfo cacheInfo);
 
     /**
      * Retrieves an object from the cache given a cache key
      * @param key the key
      * @return the value if found
      */
-    <T> T get(String key);
+    <T> T get(String key, CacheInfo cacheInfo);
 
     /**
      * Invalidates a set of entries in the cache

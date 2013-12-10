@@ -1,6 +1,7 @@
 package ly.apps.android.rest.client;
 
 
+import ly.apps.android.rest.cache.CacheInfo;
 import org.apache.http.Header;
 
 public class Response<Result> {
@@ -15,19 +16,15 @@ public class Response<Result> {
 
     private Throwable error;
 
-    public Response(int statusCode, Header[] headers, String rawData, Result result) {
-        this.statusCode = statusCode;
-        this.headers = headers;
-        this.rawData = rawData;
-        this.result = result;
-    }
+    private CacheInfo cacheInfo;
 
-    public Response(int statusCode, Header[] headers, String rawData, Result result, Throwable error) {
+    public Response(int statusCode, Header[] headers, String rawData, Result result, Throwable error, CacheInfo cacheInfo) {
         this.statusCode = statusCode;
         this.headers = headers;
         this.rawData = rawData;
         this.result = result;
         this.error = error;
+        this.cacheInfo = cacheInfo;
     }
 
     public Result getResult() {
@@ -68,5 +65,13 @@ public class Response<Result> {
 
     public void setResult(Result result) {
         this.result = result;
+    }
+
+    public CacheInfo getCacheInfo() {
+        return cacheInfo;
+    }
+
+    public void setCacheInfo(CacheInfo cacheInfo) {
+        this.cacheInfo = cacheInfo;
     }
 }

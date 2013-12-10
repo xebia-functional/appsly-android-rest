@@ -1,5 +1,6 @@
 package ly.apps.android.rest.converters.impl;
 
+import ly.apps.android.rest.cache.CacheAwareCallback;
 import ly.apps.android.rest.client.Callback;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.exceptions.SerializationException;
@@ -53,7 +54,7 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, Callback<T> callback) {
+    public <T> T fromResponseBody(Type target, String contentType, HttpEntity responseBody, CacheAwareCallback<T> callback) {
         throw new UnsupportedOperationException("JacksonHttpFormValuesConverter only serializes request objects for " + HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
     }
 
