@@ -1,14 +1,12 @@
 package ly.apps.android.rest.tests.tests;
 
 import junit.framework.TestCase;
-import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
+import ly.apps.android.rest.utils.FileUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
-import ly.apps.android.rest.utils.IOUtils;
 import ly.apps.android.rest.tests.models.request.TestEntity;
 import ly.apps.android.rest.tests.models.request.TestNestedEntity;
 import ly.apps.android.rest.tests.models.request.ThirdEntity;
-import ly.apps.android.rest.tests.models.response.TestResponse;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,7 +75,7 @@ public class JSONSerializableTest extends TestCase {
     public void testJSONSerialization() throws JSONException, IOException {
         TestEntity testEntity = getTestEntity();
         StringEntity serialized = (StringEntity) new JacksonBodyConverter().toRequestBody(testEntity, HeaderUtils.CONTENT_TYPE_JSON);
-        String json = IOUtils.convertStreamToString(serialized.getContent());
+        String json = FileUtils.convertStreamToString(serialized.getContent());
         System.out.printf("Evaluating : %s%n", json);
         JSONObject jsonObject = new JSONObject(json);
         assertNotNull(jsonObject);
@@ -95,7 +93,7 @@ public class JSONSerializableTest extends TestCase {
 //        String id = testEntity.getObjectId();
 //        BodyConverter converter = new JacksonBodyConverter();
 //        StringEntity serialized = (StringEntity) converter.toRequestBody(testEntity, HeaderUtils.CONTENT_TYPE_JSON);
-//        String json = IOUtils.convertStreamToString(serialized.getContent());
+//        String json = FileUtils.convertStreamToString(serialized.getContent());
 //        JSONObject jsonObject = new JSONObject(json);
 //        assertNotNull(jsonObject);
 //        assertNotNull(jsonObject.opt("_id"));

@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class CacheAwareHttpClient extends AsyncHttpClient {
@@ -75,10 +76,22 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                     if (Callback.class.isAssignableFrom(responseHandler.getClass())) {
                         switch (callback.getCacheInfo().getPolicy()) {
                             case ENABLED:
-                                cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                try {
+                                    cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                } catch (IOException e) {
+                                    Logger.e("cache error", e);
+                                } catch (ClassNotFoundException e) {
+                                    Logger.e("cache error", e);
+                                }
                                 break;
                             case NETWORK_ENABLED:
-                                cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                try {
+                                    cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                } catch (IOException e) {
+                                    Logger.e("cache error", e);
+                                } catch (ClassNotFoundException e) {
+                                    Logger.e("cache error", e);
+                                }
                                 break;
                             case LOAD_IF_OFFLINE:
                                 if (callback.getContext() == null) {
@@ -86,7 +99,13 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                                 }
                                 ConnectivityManager connectivityManager = (ConnectivityManager) callback.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                                    cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                    try {
+                                        cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                    } catch (IOException e) {
+                                        Logger.e("cache error", e);
+                                    } catch (ClassNotFoundException e) {
+                                        Logger.e("cache error", e);
+                                    }
                                 }
                                 break;
                             default:

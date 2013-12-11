@@ -243,7 +243,7 @@ public class RequestCache {
 //     */
 //    public static void put(Context context, Serializable result, Object... params) {
 //        File file = getCacheFile(context, cacheKey(params));
-//        IOUtils.saveSerializableObjectToDisk(result, file);
+//        FileUtils.saveSerializableObjectToDisk(result, file);
 //    }
 //
 //    /**
@@ -256,7 +256,7 @@ public class RequestCache {
 //     */
 //    public static <T extends Serializable> T get(Context context, Object... params) {
 //        File file = getCacheFile(context, cacheKey(params));
-//        return IOUtils.loadSerializableObjectFromDisk(file);
+//        return FileUtils.loadSerializableObjectFromDisk(file);
 //    }
 //
 //    /**
@@ -270,7 +270,7 @@ public class RequestCache {
 //    public static <T extends Serializable> T get(CacheRequestInfoProvider<T> cacheRequestInfoProvider, Object... params) {
 //        File file = getCacheFile(cacheRequestInfoProvider.getContextProvider().getContext(), cacheKey(params));
 //        cacheRequestInfoProvider.setCacheInfo(new CacheInfo(true, new Date(file.lastModified())));
-//        return IOUtils.loadSerializableObjectFromDisk(file);
+//        return FileUtils.loadSerializableObjectFromDisk(file);
 //    }
 //
 //    /**

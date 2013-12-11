@@ -12,6 +12,7 @@ import org.apache.http.Header;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.Collection;
 
@@ -144,7 +145,11 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
             @Override
             protected Result doInBackground(Void... voids) {
                 if (response != null && shouldCache()) {
-                    getCacheManager().put(getCacheInfo().getKey(), response, getCacheInfo());
+                    try {
+                        getCacheManager().put(getCacheInfo().getKey(), response, getCacheInfo());
+                    } catch (IOException e) {
+                        Logger.e("cache error", e);
+                    }
                 }
                 return response;
             }
@@ -182,7 +187,13 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
 
                 }
                 if (loadFromCache) {
-                    cachedResponse = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                    try {
+                        cachedResponse = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                    } catch (IOException e1) {
+                        Logger.e("cache error", e);
+                    } catch (ClassNotFoundException e1) {
+                        Logger.e("cache error", e);
+                    }
                 }
                 return cachedResponse;
             }

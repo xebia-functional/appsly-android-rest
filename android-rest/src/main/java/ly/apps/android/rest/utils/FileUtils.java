@@ -18,6 +18,9 @@
 
 package ly.apps.android.rest.utils;
 
+import android.content.Context;
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,12 +32,12 @@ import java.util.zip.GZIPOutputStream;
 /**
  * IO Utils to save and retrieve serialized objects from disk
  */
-public class IOUtils {
+public class FileUtils {
 
     /**
      * Prevents from instantiation
      */
-    private IOUtils() {
+    private FileUtils() {
     }
 
     /**
@@ -130,6 +133,28 @@ public class IOUtils {
             throw new RuntimeException(e);
         }
         return json;
+    }
+
+
+    public static boolean isExternalStorageRemovable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            return Environment.isExternalStorageRemovable();
+        }
+        return true;
+    }
+
+    public static File getExternalCacheDir(Context context) {
+        if (hasExternalCacheDir()) {
+            return context.getExternalCacheDir();
+        }
+
+        // Before Froyo we need to construct the external cache dir ourselves
+        final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
+        return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
+    }
+
+    public static boolean hasExternalCacheDir() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }
 
 }

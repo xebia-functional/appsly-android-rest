@@ -2,48 +2,30 @@ package ly.apps.android.rest.cache;
 
 
 import android.content.Context;
-import com.integralblue.httpresponsecache.compat.MD5;
-import ly.apps.android.rest.utils.Base64;
-import ly.apps.android.rest.utils.IOUtils;
 import ly.apps.android.rest.utils.Logger;
+import ly.apps.android.rest.utils.ObjectCache;
+import ly.apps.android.rest.utils.StringUtils;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 public class ContextPersistentCacheManager implements CacheManager {
 
-    private static final String CACHE_EXTENSION = ".obj.cache";
+    private ObjectCache objectCache;
 
     private Context context;
 
     public ContextPersistentCacheManager(Context context) {
         this.context = context;
-    }
-
-    /**
-     * Gets the cache file based on the requesting context, the cache key and the cache file extension
-     *
-     * @param context  the requesting context
-     * @param cacheKey the cache key
-     * @return the cache file
-     */
-    private static File getCacheFile(Context context, String cacheKey) {
-        String md5 = Base64.encode(cacheKey.getBytes());
-        return new File(String.format("%s/%s%s", context.getCacheDir(), md5, CACHE_EXTENSION));
+        objectCache = new ObjectCache(context, "android-rest", 20971520);
     }
 
     /**
      * Invalidates the cache for this context by removing all files associated with it
      */
     @Override
-    public void invalidateAll() {
-        if (context.getCacheDir() != null) {
-            for (File file : context.getCacheDir().listFiles()) {
-                if (file.getName().endsWith(CACHE_EXTENSION)) {
-                    file.delete();
-                }
-            }
-        }
+    public void invalidateAll() throws IOException {
+        objectCache.clearCache();
     }
 
     /**
@@ -53,9 +35,8 @@ public class ContextPersistentCacheManager implements CacheManager {
      * @param object the object to be cached
      */
     @Override
-    public <T> void put(String key, T object, CacheInfo cacheInfo) {
-        File file = getCacheFile(context, key);
-        IOUtils.saveSerializableObjectToDisk(object, file);
+    public <T> void put(String key, T object, CacheInfo cacheInfo) throws IOException {
+        objectCache.put(StringUtils.md5(key), new CacheEntry(object, new Date().getTime()));
     }
 
     /**
@@ -64,33 +45,22 @@ public class ContextPersistentCacheManager implements CacheManager {
      * @return the in memory original object
      */
     @Override
-    public <T> T get(final String key, CacheInfo cacheInfo) {
-        File file = getCacheFile(context, key);
+    @SuppressWarnings("unchecked")
+    public <T> T get(final String key, CacheInfo cacheInfo) throws IOException, ClassNotFoundException {
         T result = null;
-        long expiresOn = file.lastModified() + cacheInfo.getTimeToLive();
-        long now = new Date().getTime();
-        if (expiresOn >= now) {
-            result = IOUtils.loadSerializableObjectFromDisk(file);
-            Logger.d(String.format("Loading from cache because expiresOn : %d > now : %d", expiresOn, now));
-        } else {
-            invalidate(key);
-            Logger.d(String.format("Invalidated key : %s from cache because expiresOn : %d < now : %d", key, expiresOn, now));
+        CacheEntry cacheEntry = (CacheEntry) objectCache.getObject(StringUtils.md5(key));
+        if (cacheEntry != null) {
+            long expiresOn = cacheEntry.getLastUpdated() + cacheInfo.getTimeToLive();
+            long now = new Date().getTime();
+            if (expiresOn >= now) {
+                result = (T) cacheEntry.getData();
+                Logger.d(String.format("Loading from cache because expiresOn : %d > now : %d", expiresOn, now));
+            } else {
+                Logger.d(String.format("Invalidated key : %s from cache because expiresOn : %d < now : %d", key, expiresOn, now));
+            }
         }
         return result;
     }
 
-
-    /**
-     * Invalidates a cache entry
-     */
-    @Override
-    public void invalidate(String... keys) {
-        for (String key : keys) {
-            File file = getCacheFile(context, key);
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-    }
 
 }
