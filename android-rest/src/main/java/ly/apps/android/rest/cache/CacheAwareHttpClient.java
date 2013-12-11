@@ -3,6 +3,7 @@ package ly.apps.android.rest.cache;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.util.Pair;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
@@ -54,7 +55,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
         responseHandler.setRequestHeaders(uriRequest.getAllHeaders());
         responseHandler.setRequestURI(uriRequest.getURI());
 
-        AsyncTask<Void, Void, Object> task;
+        AsyncTask<Void, Void, Pair<Object, Boolean>> task;
 
         if (Callback.class.isAssignableFrom(responseHandler.getClass())) {
             final Callback<Object> callback = (Callback<Object>) responseHandler;
@@ -68,16 +69,16 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                 }
             }
 
-            task = new AsyncTask<Void, Void, Object>() {
+            task = new AsyncTask<Void, Void, Pair<Object, Boolean>>() {
 
                 @Override
-                public Object doInBackground(Void... params) {
-                    Object cachedResult = null;
+                public Pair<Object, Boolean> doInBackground(Void... params) {
+                    Pair<Object, Boolean> cachedResult = null;
                     if (Callback.class.isAssignableFrom(responseHandler.getClass())) {
                         switch (callback.getCacheInfo().getPolicy()) {
                             case ENABLED:
                                 try {
-                                    cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                    cachedResult = new Pair<Object, Boolean>(cacheManager.get(cacheInfo.getKey(), cacheInfo), false);
                                 } catch (IOException e) {
                                     Logger.e("cache error", e);
                                 } catch (ClassNotFoundException e) {
@@ -86,7 +87,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                                 break;
                             case NETWORK_ENABLED:
                                 try {
-                                    cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                    cachedResult = new Pair<Object, Boolean>(cacheManager.get(cacheInfo.getKey(), cacheInfo), true);
                                 } catch (IOException e) {
                                     Logger.e("cache error", e);
                                 } catch (ClassNotFoundException e) {
@@ -100,7 +101,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                                 ConnectivityManager connectivityManager = (ConnectivityManager) callback.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected()) {
                                     try {
-                                        cachedResult = cacheManager.get(cacheInfo.getKey(), cacheInfo);
+                                        cachedResult = new Pair<Object, Boolean>(cacheManager.get(cacheInfo.getKey(), cacheInfo), false);
                                     } catch (IOException e) {
                                         Logger.e("cache error", e);
                                     } catch (ClassNotFoundException e) {
@@ -117,11 +118,14 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                 }
 
                 @Override
-                public void onPostExecute(Object result) {
-                    if (result != null) {
+                public void onPostExecute(Pair<Object, Boolean> result) {
+                    if (result != null && result.first != null) {
                         Logger.d("CacheAwareHttpClient.sendRequest.onPostExecute proceeding with cache: " + result);
                         callback.getCacheInfo().setLoadedFromCache(true);
-                        callback.onSuccess(HttpStatus.SC_OK, null, null, result);
+                        callback.onSuccess(HttpStatus.SC_OK, null, null, result.first);
+                        if (result.second != null && result.second) { //retry request if necessary even if loaded fron cache such as in NETWORK_ENABLED
+                            CacheAwareHttpClient.super.sendRequest(client, httpContext, uriRequest, contentType, responseHandler, context);
+                        }
                     } else {
                         Logger.d("CacheAwareHttpClient.sendRequest.onPostExecute proceeding uncached");
                         CacheAwareHttpClient.super.sendRequest(client, httpContext, uriRequest, contentType, responseHandler, context);

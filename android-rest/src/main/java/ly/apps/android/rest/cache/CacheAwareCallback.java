@@ -18,6 +18,8 @@ import java.util.Collection;
 
 public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHandler<Result> {
 
+    private int timesProcessed;
+
     private Class<Result> targetClass;
 
     private BodyConverter bodyConverter;
@@ -41,6 +43,10 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
 
     protected CacheAwareCallback(Class<Result> targetClass) {
         this.targetClass = targetClass;
+    }
+
+    public int getTimesProcessed() {
+        return timesProcessed;
     }
 
     public void setTargetClass(Class<Result> targetClass) {
@@ -96,6 +102,7 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
         Logger.d("onFailure: status" + statusCode + " rawResponse: " + rawData);
         Response<Result> httpResponse = new Response<Result>(statusCode, headers, rawData, errorResponse, e, getCacheInfo());
         if (proceedWithResponse()) {
+            timesProcessed++;
             onResponse(httpResponse);
         }
     }
@@ -158,6 +165,7 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
             protected void onPostExecute(Result result) {
                 Response<Result> httpResponse = new Response<Result>(statusCode, headers, rawResponse, result, null, getCacheInfo());
                 if (proceedWithResponse()) {
+                    timesProcessed++;
                     onResponse(httpResponse);
                 }
             }
