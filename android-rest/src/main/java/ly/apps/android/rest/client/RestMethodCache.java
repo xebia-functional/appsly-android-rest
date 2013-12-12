@@ -222,8 +222,10 @@ public class RestMethodCache {
             delegate.setAdditionalHeaders(headersArray);
         }
         CacheInfo cacheInfo;
-        if (cached != null && delegate.getCacheInfo() == null) {
+        if (cached != null) {
             cacheInfo = new CacheInfo(!cached.key().equals(StringUtils.EMPTY) ? cached.key() : null, cached.policy(), cached.timeToLive());
+        } else if (delegate.getCacheInfo() != null) {
+            cacheInfo =  delegate.getCacheInfo();
         } else {
             cacheInfo = CacheInfo.NONE;
         }
