@@ -2,22 +2,27 @@ package ly.apps.android.rest.tests.tests;
 
 import junit.framework.TestCase;
 import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
+import ly.apps.android.rest.converters.impl.JacksonDotNetDateDeserializer;
+import ly.apps.android.rest.converters.impl.JacksonDotNetDateSerializer;
 import ly.apps.android.rest.utils.FileUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
 import ly.apps.android.rest.tests.models.request.TestEntity;
 import ly.apps.android.rest.tests.models.request.TestNestedEntity;
 import ly.apps.android.rest.tests.models.request.ThirdEntity;
 import org.apache.http.entity.StringEntity;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.Version;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.module.SimpleModule;
+import org.codehaus.jackson.util.TokenBuffer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 
 public class JSONSerializableTest extends TestCase {
@@ -46,6 +51,7 @@ public class JSONSerializableTest extends TestCase {
             setAnInt(getRandomInt());
             setaDouble(getRandomDouble());
             setaBoolean(getRandomBoolean());
+            setSomeDate(new Date());
             setNestedEntity(new TestNestedEntity() {{
                 setString(getRandomString());
                 setAnInt(getRandomInt());
@@ -101,5 +107,25 @@ public class JSONSerializableTest extends TestCase {
 //        assertEquals("Deserialization based on @JsonProperty failed", id, deserialized.getObjectId());
 //
 //    }
+
+    public void testDotNetSerializer() throws IOException, JSONException {
+
+        ObjectMapper mapper = new ObjectMapper() {{
+            registerModule(
+                    new SimpleModule("DotNetDateSerializationModule",
+                            new Version(1, 0, 0, null)){{
+                        addSerializer(Date.class, new JacksonDotNetDateSerializer());
+                        addDeserializer(Date.class, new JacksonDotNetDateDeserializer());
+                    }}
+            );
+        }};
+        TestEntity testEntity = getTestEntity();
+        String json = mapper.writeValueAsString(testEntity);
+        JSONObject jsonObject = new JSONObject(json);
+        assertEquals(jsonObject.getString("someDate"), "/Date(" + testEntity.getSomeDate().getTime() + ")/");
+        TestEntity testEntity2 = mapper.readValue(json, TestEntity.class);
+        assertNotNull(testEntity2.getSomeDate());
+        assertEquals(testEntity.getSomeDate(), testEntity2.getSomeDate());
+    }
 
 }

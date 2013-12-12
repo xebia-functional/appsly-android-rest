@@ -3,6 +3,8 @@ package ly.apps.android.rest.tests.models.request;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.Date;
+
 public class TestEntity {
 
     @JsonProperty("_id")
@@ -17,6 +19,8 @@ public class TestEntity {
     private boolean aBoolean;
 
     private TestNestedEntity nestedEntity;
+
+    private Date someDate;
 
     public boolean isaBoolean() {
         return aBoolean;
@@ -64,5 +68,13 @@ public class TestEntity {
 
     public void setObjectId(String objectId) {
         this.objectId = objectId;
+    }
+
+    public Date getSomeDate() {
+        return someDate;
+    }
+
+    public void setSomeDate(Date someDate) {
+        this.someDate = someDate;
     }
 }

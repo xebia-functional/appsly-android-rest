@@ -15,33 +15,33 @@ import static org.junit.Assert.assertEquals;
 
 public class RestServiceFactoryTest {
 
-    public static final String BASEURL = "http://awesome.io/api";
-
-    private static TestRestService service() {
-        return RestServiceFactory.getService(BASEURL, TestRestService.class);
-    }
-
-    private static RestMethodCache get(String methodName) {
-        RestMethodCache cache = null;
-        for (Method method : TestRestService.class.getMethods()) {
-            if (method.getName().equals(methodName)) {
-                cache = RestServiceFactory.getMethodCache(method);
-                break;
-            }
-        }
-        return cache;
-    }
-
-    @Test
-    public void testProxyGeneration() {
-        Assert.assertNotNull(service());
-    }
-
-    @Test
-    public void testResponseTypeInstrospected() {
-        RestMethodCache methodCache = get("sampleGet");
-        assertEquals(TestResponse.class, methodCache.getTargetType());
-    }
+//    public static final String BASEURL = "http://awesome.io/api";
+//
+//    private static TestRestService service() {
+//        return RestServiceFactory.getService(BASEURL, TestRestService.class);
+//    }
+//
+//    private static RestMethodCache get(String methodName) {
+//        RestMethodCache cache = null;
+//        for (Method method : TestRestService.class.getMethods()) {
+//            if (method.getName().equals(methodName)) {
+//                cache = RestServiceFactory.getMethodCache(method);
+//                break;
+//            }
+//        }
+//        return cache;
+//    }
+//
+//    @Test
+//    public void testProxyGeneration() {
+//        Assert.assertNotNull(service());
+//    }
+//
+//    @Test
+//    public void testResponseTypeInstrospected() {
+//        RestMethodCache methodCache = get("sampleGet");
+//        assertEquals(TestResponse.class, methodCache.getTargetType());
+//    }
 
 
 
