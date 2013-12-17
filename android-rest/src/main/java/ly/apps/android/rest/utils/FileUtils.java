@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2012 47 Degrees, LLC
+ * Copyright (C) 2013 47 Degrees, LLC
  * http://47deg.com
+ * http://apps.ly
  * hello@47deg.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,13 +22,8 @@ package ly.apps.android.rest.utils;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.*;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * IO Utils to save and retrieve serialized objects from disk
@@ -38,56 +34,6 @@ public class FileUtils {
      * Prevents from instantiation
      */
     private FileUtils() {
-    }
-
-    /**
-     * Serializes ans saves a Serializable object to a file
-     *
-     * @param object the source object
-     * @param file   the target file
-     */
-    static public void saveSerializableObjectToDisk(Object object, File file) {
-        try {
-            file.delete();
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            GZIPOutputStream gzos = new GZIPOutputStream(fos);
-            ObjectOutputStream out = new ObjectOutputStream(gzos);
-            out.writeObject(object);
-            out.flush();
-            out.close();
-        } catch (FileNotFoundException e) {
-            Logger.e("Error, saving file", e);
-        } catch (IOException e) {
-            Logger.e("Error, saving file", e);
-        }
-    }
-
-    /**
-     * Loads a serialized object from a file
-     *
-     * @param file the file where the object was serialized
-     * @return the serialized object in its real in memory object representation
-     */
-    @SuppressWarnings("unchecked")
-    static public <T> T loadSerializableObjectFromDisk(File file) {
-        T result = null;
-        if (file.exists()) {
-            try {
-                FileInputStream fis = new FileInputStream(file);
-                GZIPInputStream gzis = new GZIPInputStream(fis);
-                ObjectInputStream in = new ObjectInputStream(gzis);
-                result = (T) in.readObject();
-                in.close();
-            } catch (FileNotFoundException e) {
-                Logger.e("Error, loading file", e);
-            } catch (IOException e) {
-                Logger.e("Error, loading file", e);
-            } catch (ClassNotFoundException e) {
-                Logger.e("Error, loading file", e);
-            }
-        }
-        return result;
     }
 
     /**
@@ -115,26 +61,6 @@ public class FileUtils {
         }
         return resultBuilder.toString();
     }
-
-    /**
-     * Converts a string response body into a JSONObject
-     *
-     * @param responseBody the response body
-     * @return the json object
-     */
-    public static JSONObject stringToJSON(String responseBody) {
-        JSONObject json = null;
-        try {
-            // A Simple JSONObject Creation
-            if (responseBody != null && !responseBody.equals("")) {
-                json = new JSONObject(responseBody);
-            }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        return json;
-    }
-
 
     public static boolean isExternalStorageRemovable() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {

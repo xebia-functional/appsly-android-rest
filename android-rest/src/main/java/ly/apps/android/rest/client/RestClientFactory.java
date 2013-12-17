@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2012 47 Degrees, LLC
+ * Copyright (C) 2013 47 Degrees, LLC
  * http://47deg.com
+ * http://apps.ly
  * hello@47deg.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,9 @@ import ly.apps.android.rest.converters.impl.*;
 import java.io.File;
 
 /**
- * Factory to obtain @see RestClient instances
+ * Factory to obtain default @see RestClient instances
+ * You may want to skip and create instances of the restclient yourself if you want to customize aspect such as serialization
+ * and service overrides.
  */
 public class RestClientFactory {
 

@@ -1,20 +1,32 @@
+/*
+ * Copyright (C) 2013 47 Degrees, LLC
+ * http://47deg.com
+ * http://apps.ly
+ * hello@47deg.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ly.apps.android.rest.client;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import ly.apps.android.rest.cache.CacheAwareCallback;
 import ly.apps.android.rest.cache.CacheInfo;
-import ly.apps.android.rest.converters.BodyConverter;
-import ly.apps.android.rest.converters.QueryParamsConverter;
-import ly.apps.android.rest.utils.HeaderUtils;
-import ly.apps.android.rest.utils.Logger;
-import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
 
-import java.util.Collection;
-
-
+/**
+ * A callback toa request on a Rest Service
+ * @param <Result>
+ */
 public abstract class Callback<Result> extends CacheAwareCallback<Result> {
 
     protected Callback(CacheInfo cacheInfo) {
@@ -34,29 +46,5 @@ public abstract class Callback<Result> extends CacheAwareCallback<Result> {
 
     protected Callback(Context context) {
         super(context);
-    }
-
-    @Override
-    public void onStart() {
-        Logger.d("Callback.onStart");
-        super.onStart();
-    }
-
-    @Override
-    public void onFinish() {
-        Logger.d("Callback.onFinish");
-        super.onFinish();
-    }
-
-    @Override
-    public void onProgress(int bytesWritten, int totalSize) {
-        Logger.d("Callback.onProgress");
-        super.onProgress(bytesWritten, totalSize);
-    }
-
-    @Override
-    public void onRetry() {
-        Logger.d("Callback.onRetry");
-        super.onRetry();
     }
 }

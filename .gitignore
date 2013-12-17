@@ -15,7 +15,7 @@ atlassian-ide-plugin.xml
 target/
 
 # gradle
-build/
+*/build/**
 
 # built application files
 *.apk

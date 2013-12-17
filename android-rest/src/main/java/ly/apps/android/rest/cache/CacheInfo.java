@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2012 47 Degrees, LLC
+ * Copyright (C) 2013 47 Degrees, LLC
  * http://47deg.com
+ * http://apps.ly
  * hello@47deg.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

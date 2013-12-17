@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2012 47 Degrees, LLC
+ * Copyright (C) 2013 47 Degrees, LLC
  * http://47deg.com
+ * http://apps.ly
  * hello@47deg.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,9 +91,16 @@ public interface RestClient {
      */
     <T> void head(String url, Callback<T> delegate);
 
-
+    /**
+     * Converter used to serialize params to the query string
+     */
     QueryParamsConverter getQueryParamsConverter();
 
+    /**
+     * Allows for programmatic shutdown of all requests incoming to a given context
+     * Alternatively @see ly.apps.android.rest.client.RequestAwareContext
+     * @param context the context
+     */
     void cancelRequests(Context context, boolean mayInterruptIfRunning);
 
 }
