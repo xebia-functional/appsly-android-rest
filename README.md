@@ -1,19 +1,25 @@
 # Appsly Android REST
 
-Android client library for [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services
+Async Android client library for [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services.
 
 # Introduction
 
-Appsly Android REST is a client library for RESTful services with an emphasis in simplicity and performance
+Do you have the need to connect to a REST api with you Android Application and have the responses automatically serialized to Java beans.
+Look no more! You found it.
+
+Appsly Android REST is a annotation based client library for RESTful services with an emphasis in simplicity and performance that automatically handles the
+implementation for most common REST use cases. Easily handle GET, POST, PUT and DELETE requests in an elegant way.
 
 # Usage
 
 Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface.
-For example if we were implementing the Open Weather Forecast API to get the weather forecast for our office in Ballard, Seattle.
+The interface is used to generate a automatically a proxy instance that does the actual work and taking care of all the implementation details.
+
+Let's say we were implementing the Open Weather Forecast API to get the weather forecast for the [47 Degrees]() office in Ballard, Seattle.
+We would need to fetch json from this http endpoint and convert it's response to our Java model.
+This is how we'd do it.
 
 http://api.openweathermap.org/data/2.5/weather?lat=47.663267&lon=-122.384187
-
-## Service Definition
 
 ```java
 
@@ -27,8 +33,6 @@ public interface OpenWeatherAPI {
 
 ```
 
-## Response Objects
-
 ```java
 
 public class ForecastResponse {
@@ -40,8 +44,6 @@ public class ForecastResponse {
 }
 
 ```
-
-## Runtime
 
 ```java
 
@@ -65,14 +67,20 @@ api.getForecast(47.663267, -122.384187, new Callback<WeatherResponse>() {
 
 ```
 
+
+
 # Advanced Usage
 
 ## Cache
 
-Appsly Android REST includes a cache mechanism to help with fast retrieval of GET responses.
-Appsly Android REST uses the request parameters and components to create a unique ID used as the cache key.
+Appsly Android REST is built with performance and flexibility in mind.
+It includes a cache mechanism to help with fast retrieval, caching and reusing of serialized responses.
 
-To mark a method as @Cached you can simply annotate it providing the type of cache and time to live for the cached serialized response.
+To mark a method as @Cached you can simply annotate it providing the optional type of cache and time to live for the cached serialized response.
+
+In the following example the Forecast information will be loaded from the cache not hitting the server if requested within 10 minutes of the first time it was requested.
+After the 10 minutes pass the cache will be invalidated and reloaded. This means your users will not have to wait for your Activity to load and connect to the internet each
+time a user visits the weather forecast for that location. Think battery saving on your application and a better end user experience.
 
 ```java
 
@@ -92,6 +100,9 @@ The cache policies available are:
 * ENABLED - Load always from the cache if available.
 * LOAD_IF_TIMEOUT - Load from the cache when the request times out.
 * NETWORK_ENABLED - Load from the cache then refresh the cache with a network call (may call onResponse in the callback twice)
+
+The NETWORK_ENABLED policy is particularly useful for use cases where you may display stale data on a Activity or Fragment but immediately refresh it
+if the content has changed since it was last requested.
 
 ## Serialization
 
@@ -161,10 +172,12 @@ to get progress notifications, intercepting serialization at a lower level, mani
 ## Gradle or Maven Dependency
 
 Appsly Android REST may be automatically imported into your project if you already use [Maven](http://maven.apache.org/) or the [Android Gradle Build System](http://tools.android.com/tech-docs/new-build-system/user-guide). Just declare Appsly Android REST as a maven dependency.
-If you wish to always use the latest unstable snapshots, add the Sonatype repository where the Appsly Android REST snapshot artifacts are being deployed.
-Appsly Android REST official releases will be made available at Clinker.
+If you wish to always use the latest unstable snapshots, add the Clinker Snapshots repository where the Appsly Android REST snapshot artifacts are being deployed.
+Appsly Android REST official releases will be made available at Clinker and Maven Central as they become available
 
-Maven
+**LATEST STABLE**
+
+*Maven*
 
 ```xml
 <repository>
@@ -184,21 +197,26 @@ Maven
 </dependency>
 ```
 
-Snapshots
+*Gradle*
+
+```groovy
+dependencies {
+    compile group: 'ly.apps', name: 'android-rest', version: '1.2'
+}
+```
+
+**SNAPSHOTS**
+
+*Maven*
 
 ```xml
 <repository>
-    <id>sonatype</id>
-    <url>https://oss.sonatype.org/content/groups/public/</url>
-    <releases>
+    <id>public-snapshots</id>
+    <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
+    <snapshots>
         <enabled>true</enabled>
         <updatePolicy>daily</updatePolicy>
         <checksumPolicy>fail</checksumPolicy>
-    </releases>
-    <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>ignore</checksumPolicy>
     </snapshots>
 </repository>
 
@@ -208,6 +226,15 @@ Snapshots
     <version>1.2-SNAPSHOT</version>
 </dependency>
 ```
+
+*Gradle*
+
+```groovy
+dependencies {
+    compile group: 'ly.apps', name: 'android-rest', version: '1.2-SNAPSHOT'
+}
+```
+
 
 # Credits
 
