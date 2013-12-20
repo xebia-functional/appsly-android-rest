@@ -11,7 +11,7 @@ Appsly Android REST is a client library for RESTful services with an emphasis in
 Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface.
 For example if we were implementing the Open Weather Forecast API to get the weather forecast for our office in Ballard, Seattle.
 
-http://api.openweathermap.org/data/2.5/weather?lat=47.663267&amp;lon=-122.384187
+http://api.openweathermap.org/data/2.5/weather?lat=47.663267&lon=-122.384187
 
 ## Service Definition
 
