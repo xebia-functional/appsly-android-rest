@@ -148,6 +148,7 @@ Indicates an interface is to be proxied and its methods mapped to rest operation
 public interface MyAwesomeService {
 ...
 }
+```
 
 ### @GET
 
