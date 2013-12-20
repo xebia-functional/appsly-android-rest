@@ -10,7 +10,7 @@ Look no more! You found it.
 Appsly Android REST is a annotation based client library for RESTful services with an emphasis in simplicity and performance that automatically handles the
 implementation for most common REST use cases. Easily handle GET, POST, PUT and DELETE requests in an elegant way.
 
-# Usage
+# Getting Started
 
 Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface that you don't have to implement yourself.
 The interface is used to generate a automatically a proxy instance that does the actual work and taking care of all the implementation details.
@@ -135,7 +135,7 @@ dependencies {
 }
 ```
 
-# Advanced Usage
+# Configuration
 
 ## Annotations
 
