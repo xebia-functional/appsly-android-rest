@@ -4,7 +4,7 @@ Async Android client library for [RESTful](http://en.wikipedia.org/wiki/Represen
 
 # Introduction
 
-Do you have the need to connect to a REST api with you Android Application and have the responses automatically serialized to Java beans.
+Do you have the need to connect to a REST api with you Android Application and have the responses automatically serialized to Java beans?
 Look no more! You found it.
 
 Appsly Android REST is a annotation based client library for RESTful services with an emphasis in simplicity and performance that automatically handles the
