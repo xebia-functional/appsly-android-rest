@@ -33,6 +33,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -105,7 +106,7 @@ public class RestMethodCache {
             ParameterizedType parameterizedType = (ParameterizedType) type;
             rawContainer = parameterizedType.getRawType();
             containerTarget = parameterizedType.getActualTypeArguments()[0];
-        } else {
+        } else if (!(type instanceof TypeVariable)) {
             targetType = type;
         }
         if (method.isAnnotationPresent(GET.class)) {
@@ -227,11 +228,11 @@ public class RestMethodCache {
 
     @SuppressWarnings("unchecked")
     private <T> void prepareDelegate(Callback<T> delegate, Object[] args) {
-        if (containerTarget != null && rawContainer != null) {
+        if (delegate.getTargetClass() == null && containerTarget != null && rawContainer != null) {
             delegate.setResponseIsCollection(Collection.class.isAssignableFrom((Class<?>) rawContainer));
             delegate.setCollectionType((Class<? extends Collection>) rawContainer);
             delegate.setTargetClass((Class<T>) containerTarget);
-        } else {
+        } else if (targetType != null) {
             delegate.setTargetClass((Class<T>) targetType);
         }
         if (headers.size() > 0) {

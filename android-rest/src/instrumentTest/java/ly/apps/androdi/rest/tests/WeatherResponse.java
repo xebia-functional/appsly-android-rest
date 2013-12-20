@@ -17,34 +17,20 @@
  * limitations under the License.
  */
 
-package ly.apps.android.rest.client;
-
-import android.content.Context;
-import ly.apps.android.rest.cache.CacheAwareCallback;
-import ly.apps.android.rest.cache.CacheInfo;
+package ly.apps.androdi.rest.tests;
 
 /**
- * A callback to a request on a Rest Service
- * @param <Result>
+ * Created by raulraja on 12/19/13.
  */
-public abstract class Callback<Result> extends CacheAwareCallback<Result> {
+public class WeatherResponse {
 
-    protected Callback(CacheInfo cacheInfo) {
-        super(cacheInfo);
+    private String name;
+
+    public String getName() {
+        return name;
     }
 
-    protected Callback(Context context, Class<Result> targetClass) {
-        super(context, targetClass);
-    }
-
-    protected Callback(Class<Result> targetClass) {
-        super(targetClass);
-    }
-
-    protected Callback() {
-    }
-
-    protected Callback(Context context) {
-        super(context);
+    public void setName(String name) {
+        this.name = name;
     }
 }
