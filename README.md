@@ -12,7 +12,7 @@ implementation for most common REST use cases. Easily handle GET, POST, PUT and 
 
 # Usage
 
-Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface.
+Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface that you don't have to implement yourself.
 The interface is used to generate a automatically a proxy instance that does the actual work and taking care of all the implementation details.
 
 Let's say we were implementing the Open Weather Forecast API to get the weather forecast for the [47 Degrees]() office in Ballard, Seattle.
@@ -67,9 +67,188 @@ api.getForecast(47.663267, -122.384187, new Callback<WeatherResponse>() {
 
 ```
 
+# Download
 
+## Gradle or Maven Dependency
+
+Appsly Android REST may be automatically imported into your project if you already use [Maven](http://maven.apache.org/) or the [Android Gradle Build System](http://tools.android.com/tech-docs/new-build-system/user-guide). Just declare Appsly Android REST as a maven dependency.
+If you wish to always use the latest unstable snapshots, add the Clinker Snapshots repository where the Appsly Android REST snapshot artifacts are being deployed.
+Appsly Android REST official releases will be made available at Clinker and Maven Central as they become available
+
+**LATEST STABLE**
+
+*Maven*
+
+```xml
+<repository>
+    <id>public-releases</id>
+    <url>http://clinker.47deg.com/nexus/content/repositories/releases</url>
+    <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+    </releases>
+</repository>
+
+<dependency>
+    <groupId>ly.apps</groupId>
+    <artifactId>android-rest</artifactId>
+    <version>1.2</version>
+</dependency>
+```
+
+*Gradle*
+
+```groovy
+dependencies {
+    compile group: 'ly.apps', name: 'android-rest', version: '1.2'
+}
+```
+
+**SNAPSHOTS**
+
+*Maven*
+
+```xml
+<repository>
+    <id>public-snapshots</id>
+    <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
+    <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+    </snapshots>
+</repository>
+
+<dependency>
+    <groupId>ly.apps</groupId>
+    <artifactId>android-rest</artifactId>
+    <version>1.2-SNAPSHOT</version>
+</dependency>
+```
+
+*Gradle*
+
+```groovy
+dependencies {
+    compile group: 'ly.apps', name: 'android-rest', version: '1.2-SNAPSHOT'
+}
+```
 
 # Advanced Usage
+
+## Annotations
+
+### @RestService
+
+Indicates an interface is to be proxied and its methods mapped to rest operations
+
+```java
+@RestService
+public interface MyAwesomeService {
+...
+}
+
+### @GET
+
+Indicates a method is mapped to an HTTP GET request
+
+```java
+@GET("/resource/{id}")
+void fetch(@Path("id") String id);
+```
+
+### @POST
+
+Indicates a method is mapped to an HTTP POST request
+
+```java
+@POST("/resource")
+void add(@Body MyRequest request);
+```
+
+### @PUT
+
+Indicates a method is mapped to an HTTP PUT request
+
+```java
+@PUT("/resource")
+void fetch(@Body MyRequest request);
+```
+
+### @DELETE
+
+Indicates a method is mapped to an HTTP DELETE request
+
+```java
+@DELETE("/resource/{id}")
+void remove(@Path("id") String id);
+```
+
+### @Path
+
+Indicates a method arg is a path parameter in the url
+
+```java
+@GET("/resource/{id}")
+void fetc(@Path("id") String id);
+```
+
+### @QueryParam
+
+Indicates a method arg is a query parameter in the url query string
+
+```java
+@GET("/resource/list")
+void list(@QueryParam("limit") int limit);
+```
+
+### @QueryParams
+
+Indicates a method arg is a bean including properties that will be mapped to query parameters in the url query string
+
+```java
+@GET("/resource/list")
+void list(@QueryParams PaginationInfo paginationInfo);
+```
+
+### @FormField
+
+Indicates a method arg is mapped to a post parameter
+
+```java
+@POST("/account")
+void update(@FormField String username);
+```
+
+### @FormData
+
+Indicates a method arg is a bean including properties that will be mapped to post parameters
+
+```java
+@POST("/account/settings")
+void updateSettings(@FormData AccountSettings settings);
+```
+
+### @Header
+
+Indicates a method arg should be sent as a request header
+
+```java
+@GET("/resource/list")
+void list(@Header("X-AuthToken") String token);
+```
+
+### @Cached
+
+Indicates a method is mapped to a REST operation whose response may be cached.
+For more details on caching see [Cache](#Cache)
+
+```java
+@Cached
+@GET("/resource/list")
+void list();
+```
 
 ## Cache
 
@@ -166,74 +345,6 @@ RestClient client = new DefaultRestClientImpl(
 
 Callback are instances of the [ResponseHandlerInterface]() and as such they allow for overriding the response lifecycle methods
 to get progress notifications, intercepting serialization at a lower level, manipulating headers, results and failures.
-
-# Download
-
-## Gradle or Maven Dependency
-
-Appsly Android REST may be automatically imported into your project if you already use [Maven](http://maven.apache.org/) or the [Android Gradle Build System](http://tools.android.com/tech-docs/new-build-system/user-guide). Just declare Appsly Android REST as a maven dependency.
-If you wish to always use the latest unstable snapshots, add the Clinker Snapshots repository where the Appsly Android REST snapshot artifacts are being deployed.
-Appsly Android REST official releases will be made available at Clinker and Maven Central as they become available
-
-**LATEST STABLE**
-
-*Maven*
-
-```xml
-<repository>
-    <id>public-releases</id>
-    <url>http://clinker.47deg.com/nexus/content/repositories/releases</url>
-    <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </releases>
-</repository>
-
-<dependency>
-    <groupId>ly.apps</groupId>
-    <artifactId>android-rest</artifactId>
-    <version>1.2</version>
-</dependency>
-```
-
-*Gradle*
-
-```groovy
-dependencies {
-    compile group: 'ly.apps', name: 'android-rest', version: '1.2'
-}
-```
-
-**SNAPSHOTS**
-
-*Maven*
-
-```xml
-<repository>
-    <id>public-snapshots</id>
-    <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
-    <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </snapshots>
-</repository>
-
-<dependency>
-    <groupId>ly.apps</groupId>
-    <artifactId>android-rest</artifactId>
-    <version>1.2-SNAPSHOT</version>
-</dependency>
-```
-
-*Gradle*
-
-```groovy
-dependencies {
-    compile group: 'ly.apps', name: 'android-rest', version: '1.2-SNAPSHOT'
-}
-```
 
 
 # Credits
