@@ -47,8 +47,13 @@ public class FileUtils {
         StringBuilder resultBuilder = new StringBuilder();
         String line;
         try {
+            int lines = 0;
             while ((line = reader.readLine()) != null) {
-                resultBuilder.append(line).append("\n");
+                resultBuilder.append(line);
+                if (lines > 0) {
+                    resultBuilder.append("\n");
+                }
+                lines++;
             }
         } catch (IOException e) {
             e.printStackTrace();
