@@ -93,14 +93,14 @@ public class APITests extends InstrumentationTestCase {
 
     }
 
-    public void testWeatherForecast() throws Throwable    {
-        Response<WeatherResponse> response = expectSuccess(new CallbackRunnable<WeatherResponse>() {
-            @Override
-            public void run(final CountDownLatch signal, final Response<WeatherResponse>[] expectedResponse) {
-                api.fetchForecastTypeVar("Seattle", new TestCallback<WeatherResponse>(WeatherResponse.class, signal, expectedResponse));
-            }
-        });
-    }
+//    public void testWeatherForecast() throws Throwable    {
+//        Response<WeatherResponse> response = expectSuccess(new CallbackRunnable<WeatherResponse>() {
+//            @Override
+//            public void run(final CountDownLatch signal, final Response<WeatherResponse>[] expectedResponse) {
+//                api.fetchForecastTypeVar("Seattle", new TestCallback<WeatherResponse>(WeatherResponse.class, signal, expectedResponse));
+//            }
+//        });
+//    }
 
 
 }
