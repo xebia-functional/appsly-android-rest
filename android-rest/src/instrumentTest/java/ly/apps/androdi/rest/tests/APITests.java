@@ -93,7 +93,6 @@ public class APITests extends InstrumentationTestCase {
 
     }
 
-    @Test
     public void testWeatherForecast() throws Throwable    {
         Response<WeatherResponse> response = expectSuccess(new CallbackRunnable<WeatherResponse>() {
             @Override

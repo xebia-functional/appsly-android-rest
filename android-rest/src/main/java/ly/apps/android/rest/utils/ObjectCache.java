@@ -47,7 +47,7 @@ public class ObjectCache {
     }
 
     private boolean writeObjectToFile(Object object, DiskLruCache.Editor editor)
-            throws IOException, FileNotFoundException {
+            throws IOException {
         ObjectOutputStream out = null;
         try {
             out = new ObjectOutputStream(editor.newOutputStream(0));
@@ -61,12 +61,11 @@ public class ObjectCache {
     }
 
     private File getDiskCacheDir(Context context, String uniqueName) {
-
+        Logger.d("context.getCacheDir(): " + context.getCacheDir());
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
         final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
-                        !FileUtils.isExternalStorageRemovable() ?
+                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ?
                         FileUtils.getExternalCacheDir(context).getPath() :
                         context.getCacheDir().getPath();
 
