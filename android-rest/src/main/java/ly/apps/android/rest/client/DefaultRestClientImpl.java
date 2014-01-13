@@ -24,7 +24,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import ly.apps.android.rest.cache.CacheAwareHttpClient;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.QueryParamsConverter;
+import ly.apps.android.rest.converters.impl.MultipartEntity;
 import ly.apps.android.rest.utils.Logger;
+import org.apache.http.HttpEntity;
 import org.apache.http.entity.FileEntity;
 
 import java.io.File;
@@ -71,7 +73,11 @@ public class DefaultRestClientImpl implements RestClient {
     @Override
     public <T> void post(String url, Object body, Callback<T> delegate) {
         prepareRequest(delegate);
-        client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), converter.toRequestBody(body, delegate.getRequestContentType()), delegate.getRequestContentType(), delegate);
+        HttpEntity entity = converter.toRequestBody(body, delegate.getRequestContentType());
+        if (entity instanceof MultipartEntity) {
+            ((MultipartEntity)entity).setProgressHandler(delegate);
+        }
+        client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), entity , delegate.getRequestContentType(), delegate);
     }
 
     @Override

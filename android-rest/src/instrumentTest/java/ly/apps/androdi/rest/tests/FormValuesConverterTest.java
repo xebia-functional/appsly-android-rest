@@ -23,10 +23,12 @@ import android.test.InstrumentationTestCase;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
 import ly.apps.android.rest.converters.impl.JacksonHttpFormValuesConverter;
+import ly.apps.android.rest.converters.impl.MultipartEntity;
 import ly.apps.android.rest.utils.FileUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
 import org.apache.http.entity.StringEntity;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
@@ -52,7 +54,7 @@ public class FormValuesConverterTest extends InstrumentationTestCase {
                 "a=b&c=d&e=x",
                 FileUtils.convertStreamToString(converter.toRequestBody(
                         testParams,
-                        HeaderUtils.CONTENT_TYPE_JSON
+                        HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED
                 ).getContent())
         );
     }
@@ -66,6 +68,17 @@ public class FormValuesConverterTest extends InstrumentationTestCase {
         }
         assertNotNull(ne);
         assertEquals(UnsupportedOperationException.class, ne.getClass());
+    }
+
+    public void testFromResponseBodyMultipartWithFile() throws IOException {
+        final File file = new File(".");
+        Map<String, Object> testParams = new LinkedHashMap<String, Object>() {{
+            put("file", file);
+            put("c", "d");
+        }};
+        MultipartEntity entity = (MultipartEntity) converter.toRequestBody(testParams, HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA);
+        assertNotNull(entity);
+        assertEquals(file, entity.getFileParts().get(0).getFile());
     }
 
     public void testSupportsRequestContentType() {

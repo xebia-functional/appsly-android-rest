@@ -28,14 +28,22 @@ import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.Version;
+import org.codehaus.jackson.map.*;
+import org.codehaus.jackson.map.module.SimpleModule;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Jackson body converter that converts beans into form data variables
@@ -47,6 +55,23 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
     public JacksonHttpFormValuesConverter() {
         this(new ObjectMapper());
         mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.registerModule(
+                new SimpleModule("PassThruFileProperties",
+                        new Version(1, 0, 0, null)) {{
+                    addSerializer(File.class, new JsonSerializer<File>() {
+                        @Override
+                        public void serialize(File file, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                            jsonGenerator.writeObject(file);
+                        }
+                    });
+                    addDeserializer(File.class, new JsonDeserializer<File>() {
+                        @Override
+                        public File deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+                            return (File) jsonParser.getInputSource();
+                        }
+                    });
+                }}
+        );
     }
 
     public JacksonHttpFormValuesConverter(ObjectMapper mapper) {
@@ -59,14 +84,31 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
     public <T> HttpEntity toRequestBody(T object, String contentType) {
         Logger.d("JacksonHttpFormValuesConverter.toRequestBody: object: " + object);
         try {
-            Map<String,Object> props = mapper.convertValue(object, Map.class);
+            HttpEntity entity = null;
             List<NameValuePair> vals = new ArrayList<NameValuePair>();
-            for (Map.Entry<String, Object> queryParamEntry : props.entrySet()) {
-                if (queryParamEntry.getValue() != null) {
-                    vals.add(new BasicNameValuePair(queryParamEntry.getKey(), queryParamEntry.getValue().toString()));
+            if (HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED.startsWith(contentType)) {
+                Map<String,Object> props = mapper.convertValue(object, Map.class);
+                for (Map.Entry<String, Object> formPartEntry : props.entrySet()) {
+                    if (formPartEntry.getValue() != null) {
+                        vals.add(new BasicNameValuePair(formPartEntry.getKey(), formPartEntry.getValue().toString()));
+                    }
                 }
+                entity =  new UrlEncodedFormEntity(vals);
+            } else if (HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA.startsWith(contentType)) {
+                Map<String,Object> props = mapper.convertValue(object, Map.class);
+                MultipartEntity multipartEntity = new MultipartEntity(null);
+                for (Map.Entry<String, Object> formPartEntry : props.entrySet()) {
+                    if (formPartEntry.getValue() != null) {
+                        if (formPartEntry.getValue() instanceof File) {
+                            multipartEntity.addPart(formPartEntry.getKey(), (File) formPartEntry.getValue());
+                        } else {
+                            multipartEntity.addPart(formPartEntry.getKey(), formPartEntry.getValue().toString());
+                        }
+                    }
+                }
+                entity = multipartEntity;
             }
-            return new UrlEncodedFormEntity(vals);
+            return entity;
         } catch (UnsupportedEncodingException e) {
             throw new SerializationException(e);
         }
@@ -80,7 +122,7 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
 
     @Override
     public boolean supportsRequestContentType(String contentType) {
-        return HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED.startsWith(contentType);
+        return HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED.startsWith(contentType) || HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA.startsWith(contentType) ;
     }
 
     @Override

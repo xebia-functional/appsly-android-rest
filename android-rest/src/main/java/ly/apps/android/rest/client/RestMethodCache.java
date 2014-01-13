@@ -186,10 +186,14 @@ public class RestMethodCache {
         Object body = null;
         if (bodyPresent) {
             body = args[bodyPosition];
-            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_JSON);
+            if (delegate.getRequestContentType() != null) {
+                delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_JSON);
+            }
         } else if (formDataPresent) {
             body = args[formDataPosition];
-            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
+            if (delegate.getRequestContentType() != null) {
+                delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
+            }
         } else if (formFields.size() > 0) {
             Map<String, Object> formBody = new LinkedHashMap<String, Object>();
             for (Map.Entry<Integer, String> formFieldEntry : formFields.entrySet()) {
@@ -199,7 +203,9 @@ public class RestMethodCache {
                 }
             }
             body = formBody;
-            delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
+            if (delegate.getRequestContentType() != null) {
+                delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
+            }
         }
         Logger.d("invoking: " + url + " with body: " + body + " and request content type: " + delegate.getRequestContentType());
         switch (requestType) {
