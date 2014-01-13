@@ -28,6 +28,7 @@ import ly.apps.android.rest.utils.ResponseTypeUtil;
 import ly.apps.android.rest.utils.StringUtils;
 import org.apache.http.message.BasicHeader;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -206,7 +207,10 @@ public class RestMethodCache {
                 restClient.get(url, delegate);
                 break;
             case POST:
-                restClient.post(url, body, delegate);
+                if (body instanceof File)
+                    restClient.postFile(url, (File) body, delegate);
+                else
+                    restClient.post(url, body, delegate);
                 break;
             case PUT:
                 restClient.put(url, body, delegate);

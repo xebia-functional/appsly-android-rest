@@ -69,7 +69,7 @@ public interface RestClient {
      * @param file       the file to be posted. If not null the request will become a multipart request
      * @param delegate   the APIDelegate that will handle results, error and request and response interception if necessary
      */
-    <T> void post(String url, File file, Callback<T> delegate);
+    <T> void postFile(String url, File file, Callback<T> delegate);
 
     /**
      * Performs an asynchronous PUT request delegating results to a @see APIDelegate replacing url placeholder based

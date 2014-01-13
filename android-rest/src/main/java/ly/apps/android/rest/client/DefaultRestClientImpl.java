@@ -75,7 +75,7 @@ public class DefaultRestClientImpl implements RestClient {
     }
 
     @Override
-    public <T> void post(String url, File file, Callback<T> delegate) {
+    public <T> void postFile(String url, File file, Callback<T> delegate) {
         prepareRequest(delegate);
         client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), new FileEntity(file, delegate.getRequestContentType()), delegate.getRequestContentType(), delegate);
     }
