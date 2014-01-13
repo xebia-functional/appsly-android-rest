@@ -195,16 +195,20 @@ public class RestMethodCache {
                 delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
             }
         } else if (formFields.size() > 0) {
+            boolean multipart = false;
             Map<String, Object> formBody = new LinkedHashMap<String, Object>();
             for (Map.Entry<Integer, String> formFieldEntry : formFields.entrySet()) {
                 Object value = args[formFieldEntry.getKey()];
                 if (value != null) {
+                    if (value instanceof File) {
+                        multipart = true;
+                    }
                     formBody.put(formFieldEntry.getValue(), value);
                 }
             }
             body = formBody;
             if (delegate.getRequestContentType() != null) {
-                delegate.setRequestContentType(HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
+                delegate.setRequestContentType(multipart ? HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA : HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
             }
         }
         Logger.d("invoking: " + url + " with body: " + body + " and request content type: " + delegate.getRequestContentType());
