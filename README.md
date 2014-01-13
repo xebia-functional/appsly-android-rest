@@ -1,3 +1,4 @@
+[![Build Status][3]][4]
 # Appsly Android REST
 
 Async Android client library for [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services.
@@ -353,9 +354,15 @@ to get progress notifications, intercepting serialization at a lower level, mani
 Appsly Android REST is a library maintained by the [47 Degrees] team and part of the OS Framework [apps.ly Reaktor](http://reaktor.apps.ly)
 Appsly Android REST is inspired by other libs and projects such as [Android Async Http Client](), [Jackson](Jackson), [Retrofit](), [LRUDiskCache](), etc.
 
+# Continuous Integration
+
+CI and Artifact Repository hosted in ClinkerHQ.com 
+
+[![ClinkerHQ][1]][2]
+
 # License
 
-Copyright (C) 2013 47 Degrees, LLC
+Copyright (C) 2014 47 Degrees, LLC
 http://47deg.com
 hello@47deg.com
 
@@ -370,6 +377,11 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+[1]: http://dl.clinkerhq.com/assets/badge/clinker-badge_125x125.png
+[2]: http://clinkerhq.com
+[3]: https://clinker.47deg.com/desktop/plugin/public/status/appsly-android-rest
+[4]: https://clinker.47deg.com/jenkins/view/Appsly/job/appsly-android-rest/
 
 
 
