@@ -19,8 +19,10 @@
 
 package ly.apps.android.rest.client;
 
+import android.text.TextUtils;
 import ly.apps.android.rest.cache.CacheInfo;
 import ly.apps.android.rest.client.annotations.*;
+import ly.apps.android.rest.converters.impl.FileFormField;
 import ly.apps.android.rest.utils.HeaderUtils;
 import ly.apps.android.rest.utils.Logger;
 import ly.apps.android.rest.utils.ResponseTypeUtil;
@@ -67,6 +69,8 @@ public class RestMethodCache {
     private Map<Integer, String> queryParams = new HashMap<Integer, String>();
 
     private Map<Integer, String> formFields = new HashMap<Integer, String>();
+
+    private Map<Integer, String> formFieldsContentTypes = new HashMap<Integer, String>();
 
     private Map<Integer, String> headers = new HashMap<Integer, String>();
 
@@ -162,7 +166,9 @@ public class RestMethodCache {
                         bodyPresent = true;
                         bodyPosition = i;
                     } else if (annotationType == FormField.class) {
-                        formFields.put(i,((FormField) parameterAnnotation).value());
+                        FormField formField = (FormField) parameterAnnotation;
+                        formFields.put(i,formField.value());
+                        formFieldsContentTypes.put(i,(formField.contentType()));
                     }
                 }
             }
@@ -202,8 +208,12 @@ public class RestMethodCache {
                 if (value != null) {
                     if (value instanceof File) {
                         multipart = true;
+                        String contentType = formFieldsContentTypes.get(formFieldEntry.getKey());
+                        formBody.put(formFieldEntry.getValue(), new FileFormField((File) value, TextUtils.isEmpty(contentType) ? null : contentType));
+                    } else {
+                        formBody.put(formFieldEntry.getValue(), value);
                     }
-                    formBody.put(formFieldEntry.getValue(), value);
+
                 }
             }
             body = formBody;
@@ -211,7 +221,7 @@ public class RestMethodCache {
                 delegate.setRequestContentType(multipart ? HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA : HeaderUtils.CONTENT_TYPE_FORM_URL_ENCODED);
             }
         }
-        Logger.d("invoking: " + url + " with body: " + body + " and request content type: " + delegate.getRequestContentType());
+        Logger.d("invoking: " + url + " with body: " + body + " and temporary request content type: " + delegate.getRequestContentType());
         switch (requestType) {
             case GET:
                 restClient.get(url, delegate);

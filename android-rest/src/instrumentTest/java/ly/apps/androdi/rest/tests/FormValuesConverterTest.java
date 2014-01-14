@@ -21,6 +21,7 @@ package ly.apps.androdi.rest.tests;
 
 import android.test.InstrumentationTestCase;
 import ly.apps.android.rest.converters.BodyConverter;
+import ly.apps.android.rest.converters.impl.FileFormField;
 import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
 import ly.apps.android.rest.converters.impl.JacksonHttpFormValuesConverter;
 import ly.apps.android.rest.converters.impl.MultipartEntity;
@@ -73,7 +74,7 @@ public class FormValuesConverterTest extends InstrumentationTestCase {
     public void testFromResponseBodyMultipartWithFile() throws IOException {
         final File file = new File(".");
         Map<String, Object> testParams = new LinkedHashMap<String, Object>() {{
-            put("file", file);
+            put("file", new FileFormField(file, null));
             put("c", "d");
         }};
         MultipartEntity entity = (MultipartEntity) converter.toRequestBody(testParams, HeaderUtils.CONTENT_TYPE_MULTIPART_FORM_DATA);

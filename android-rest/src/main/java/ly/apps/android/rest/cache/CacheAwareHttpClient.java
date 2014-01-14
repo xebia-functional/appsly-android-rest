@@ -79,7 +79,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
 
         Logger.d("CacheAwareHttpClient.sendRequest");
 
-        if (contentType != null) {
+        if (contentType != null && !uriRequest.containsHeader("Content-Type")) {
             uriRequest.addHeader("Content-Type", contentType);
         }
 

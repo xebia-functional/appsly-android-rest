@@ -75,7 +75,9 @@ public class DefaultRestClientImpl implements RestClient {
         prepareRequest(delegate);
         HttpEntity entity = converter.toRequestBody(body, delegate.getRequestContentType());
         if (entity instanceof MultipartEntity) {
-            ((MultipartEntity)entity).setProgressHandler(delegate);
+            MultipartEntity multipartEntity = ((MultipartEntity)entity);
+            multipartEntity.setProgressHandler(delegate);
+            delegate.setRequestContentType(multipartEntity.getContentType().getValue());
         }
         client.post(delegate.getContext(), url, delegate.getAdditionalHeaders(), entity , delegate.getRequestContentType(), delegate);
     }

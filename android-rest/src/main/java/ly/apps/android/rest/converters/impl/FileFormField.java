@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 47 Degrees, LLC
+ * Copyright (C) 2014 47 Degrees, LLC
  * http://47deg.com
  * http://apps.ly
  * hello@47deg.com
@@ -17,23 +17,34 @@
  * limitations under the License.
  */
 
-package ly.apps.android.rest.client.annotations;
+package ly.apps.android.rest.converters.impl;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import java.io.File;
 
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+public class FileFormField {
 
-/**
- * An individual form data style key par sent in the body
- */
-@Documented
-@Target(PARAMETER)
-@Retention(RUNTIME)
-public @interface FormField {
-    String value();
+    private File file;
 
-    String contentType() default "";
+    private String contentType;
+
+    public FileFormField(File file, String contentType) {
+        this.file = file;
+        this.contentType = contentType;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 }

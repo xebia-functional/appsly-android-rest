@@ -58,16 +58,16 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
         mapper.registerModule(
                 new SimpleModule("PassThruFileProperties",
                         new Version(1, 0, 0, null)) {{
-                    addSerializer(File.class, new JsonSerializer<File>() {
+                    addSerializer(FileFormField.class, new JsonSerializer<FileFormField>() {
                         @Override
-                        public void serialize(File file, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                        public void serialize(FileFormField file, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
                             jsonGenerator.writeObject(file);
                         }
                     });
-                    addDeserializer(File.class, new JsonDeserializer<File>() {
+                    addDeserializer(FileFormField.class, new JsonDeserializer<FileFormField>() {
                         @Override
-                        public File deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-                            return (File) jsonParser.getInputSource();
+                        public FileFormField deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+                            return (FileFormField) jsonParser.getInputSource();
                         }
                     });
                 }}
@@ -99,8 +99,9 @@ public class JacksonHttpFormValuesConverter implements BodyConverter {
                 MultipartEntity multipartEntity = new MultipartEntity(null);
                 for (Map.Entry<String, Object> formPartEntry : props.entrySet()) {
                     if (formPartEntry.getValue() != null) {
-                        if (formPartEntry.getValue() instanceof File) {
-                            multipartEntity.addPart(formPartEntry.getKey(), (File) formPartEntry.getValue());
+                        if (formPartEntry.getValue() instanceof FileFormField) {
+                            FileFormField fileFormField = (FileFormField) formPartEntry.getValue();
+                            multipartEntity.addPart(formPartEntry.getKey(), fileFormField.getFile(), fileFormField.getContentType());
                         } else {
                             multipartEntity.addPart(formPartEntry.getKey(), formPartEntry.getValue().toString());
                         }
