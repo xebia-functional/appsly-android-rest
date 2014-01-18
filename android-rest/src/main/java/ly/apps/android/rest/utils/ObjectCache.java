@@ -20,6 +20,7 @@
 package ly.apps.android.rest.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import com.jakewharton.disklrucache.DiskLruCache;
@@ -38,11 +39,16 @@ public class ObjectCache {
     public ObjectCache(Context context, String uniqueName, int diskCacheSize) {
         try {
             final File diskCacheDir = getDiskCacheDir(context, uniqueName);
-            mDiskCache = DiskLruCache.open(diskCacheDir, context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode, VALUE_COUNT, diskCacheSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            PackageManager packageManager = context.getPackageManager();
+            if (packageManager != null) {
+                PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+                mDiskCache = DiskLruCache.open(diskCacheDir, packageInfo.versionCode, VALUE_COUNT, diskCacheSize);
+            }
+            if (mDiskCache == null) {
+                Logger.w("Could not initialize diskCache");
+            }
+        } catch (Exception e) {
+            Logger.e("Cache will be disabled", e);
         }
     }
 
@@ -89,7 +95,7 @@ public class ObjectCache {
                 editor.abort();
                 Logger.d("ERROR object put on disk cache " + key);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             Logger.e("ERROR object put on disk cache " + key, e);
             try {
                 if (editor != null) {
@@ -117,11 +123,9 @@ public class ObjectCache {
                         new ObjectInputStream(in);
                 object = buffIn.readObject();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
+        } catch (Exception e) {
+            Logger.e("Cache is disabled", e);
+        }  finally {
             if (snapshot != null) {
                 snapshot.close();
             }
@@ -130,25 +134,6 @@ public class ObjectCache {
         Logger.d(object == null ? "" : "image read from disk " + key);
 
         return object;
-
-    }
-
-    public boolean containsKey(String key) {
-
-        boolean contained = false;
-        DiskLruCache.Snapshot snapshot = null;
-        try {
-            snapshot = mDiskCache.get(key);
-            contained = snapshot != null;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (snapshot != null) {
-                snapshot.close();
-            }
-        }
-
-        return contained;
 
     }
 
@@ -161,11 +146,4 @@ public class ObjectCache {
         }
     }
 
-    public File getCacheFolder() {
-        return mDiskCache.getDirectory();
-    }
-
-    public void clear(String key) {
-        throw new UnsupportedOperationException();
-    }
 }
