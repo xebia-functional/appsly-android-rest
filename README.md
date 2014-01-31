@@ -76,7 +76,7 @@ Appsly Android REST may be automatically imported into your project if you alrea
 If you wish to always use the latest unstable snapshots, add the Clinker Snapshots repository where the Appsly Android REST snapshot artifacts are being deployed.
 Appsly Android REST official releases will be made available at Clinker and Maven Central as they become available
 
-**LATEST STABLE**
+**LATEST STABLE (Not yet available)**
 
 *Maven*
 
