@@ -102,7 +102,9 @@ Appsly Android REST official releases will be made available at Clinker and Mave
 
 ```groovy
 dependencies {
-    compile group: 'ly.apps', name: 'android-rest', version: '1.2'
+    compile ('ly.apps:android-rest:1.2@aar') {
+        transitive = true
+    }
 }
 ```
 
@@ -132,7 +134,9 @@ dependencies {
 
 ```groovy
 dependencies {
-    compile group: 'ly.apps', name: 'android-rest', version: '1.2-SNAPSHOT'
+    compile ('ly.apps:android-rest:1.2-SNAPSHOT@aar') {
+        transitive = true
+    }
 }
 ```
 
