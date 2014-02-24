@@ -1,4 +1,4 @@
-[![Build Status](https://clinker.47deg.com/desktop/plugin/public/status/appsly-android-rest.png?branch=master)][4]
+[![Build Status](https://clinker.47deg.com/desktop/plugin/public/status/appsly-android-rest.png?branch=master)](https://clinker.47deg.com/jenkins/view/Appsly/job/appsly-android-rest/)
 # Appsly Android REST
 
 Async Android client library for [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) services.
@@ -13,7 +13,7 @@ implementation for most common REST use cases. Easily handle GET, POST, PUT and 
 Appsly Android REST allows you to declare your operations as annotated Java methods on a Java interface that you don't have to implement yourself.
 The interface is used to generate a automatically a proxy instance that does the actual work and taking care of all the implementation details.
 
-Let's say we were implementing the Open Weather Forecast API to get the weather forecast for the [47 Degrees]() office in Ballard, Seattle.
+Let's say we were implementing the Open Weather Forecast API to get the weather forecast for the [47 Degrees](http://47deg.com) office in Ballard, Seattle.
 We would need to fetch json from this http endpoint and convert it's response to our Java model.
 This is how we'd do it.
 
