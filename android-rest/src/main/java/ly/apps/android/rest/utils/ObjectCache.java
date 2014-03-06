@@ -146,4 +146,8 @@ public class ObjectCache {
         }
     }
 
+    public boolean isCacheAvailable() {
+        return mDiskCache != null;
+    }
+
 }
