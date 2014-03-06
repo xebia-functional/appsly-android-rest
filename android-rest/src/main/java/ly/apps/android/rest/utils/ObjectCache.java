@@ -68,14 +68,7 @@ public class ObjectCache {
 
     private File getDiskCacheDir(Context context, String uniqueName) {
         Logger.d("context.getCacheDir(): " + context.getCacheDir());
-        // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-        // otherwise use internal cache dir
-        final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ?
-                        FileUtils.getExternalCacheDir(context).getPath() :
-                        context.getCacheDir().getPath();
-
-        return new File(cachePath + File.separator + uniqueName);
+        return new File(context.getCacheDir(), uniqueName);
     }
 
     public void put(String key, Object data) {

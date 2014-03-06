@@ -33,17 +33,17 @@ public class CacheTests extends InstrumentationTestCase {
 
     public void testPut() throws IOException, ClassNotFoundException {
         ObjectCache objectCache = getObjectCache();
-        if (objectCache.isCacheAvailable()) {
+//        if (objectCache.isCacheAvailable()) {
             objectCache.put("a", "b");
             assertEquals("b", objectCache.getObject("a"));
-        }
+//        }
     }
 
     public void testGet() throws IOException, ClassNotFoundException {
         ObjectCache objectCache = getObjectCache();
-        if (objectCache.isCacheAvailable()) {
+//        if (objectCache.isCacheAvailable()) {
             objectCache.put("a", "b");
             assertEquals("b", objectCache.getObject("a"));
-        }
+//        }
     }
 }
