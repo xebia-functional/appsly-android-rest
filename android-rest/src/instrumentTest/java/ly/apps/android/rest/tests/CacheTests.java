@@ -17,33 +17,28 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
-import android.content.Context;
 import android.test.InstrumentationTestCase;
 import ly.apps.android.rest.utils.ObjectCache;
 
 import java.io.IOException;
 import java.util.UUID;
 
-@SuppressWarnings("unchecked")
 public class CacheTests extends InstrumentationTestCase {
 
-    protected String TAG = "android-rest-test";
-
-    private ObjectCache objectCache;
-
-    public synchronized void setUp() {
-        Context context = getInstrumentation().getTargetContext();
-        objectCache = new ObjectCache(context.getApplicationContext(), UUID.randomUUID().toString(), 10000);
+    private ObjectCache getObjectCache() {
+        return new ObjectCache(getInstrumentation().getTargetContext().getApplicationContext(), UUID.randomUUID().toString(), 10000);
     }
 
     public void testPut() throws IOException, ClassNotFoundException {
+        ObjectCache objectCache = getObjectCache();
         objectCache.put("a", "b");
         assertEquals("b", objectCache.getObject("a"));
     }
 
     public void testGet() throws IOException, ClassNotFoundException {
+        ObjectCache objectCache = getObjectCache();
         objectCache.put("a", "b");
         assertEquals("b", objectCache.getObject("a"));
     }

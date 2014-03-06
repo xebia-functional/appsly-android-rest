@@ -17,17 +17,15 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 import android.test.InstrumentationTestCase;
 import ly.apps.android.rest.converters.BodyConverter;
 import ly.apps.android.rest.converters.impl.FileFormField;
-import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
 import ly.apps.android.rest.converters.impl.JacksonHttpFormValuesConverter;
 import ly.apps.android.rest.converters.impl.MultipartEntity;
 import ly.apps.android.rest.utils.FileUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
-import org.apache.http.entity.StringEntity;
 
 import java.io.File;
 import java.io.IOException;

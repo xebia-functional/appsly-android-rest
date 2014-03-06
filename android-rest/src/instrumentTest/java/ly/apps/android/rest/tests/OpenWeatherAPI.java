@@ -17,20 +17,20 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
-/**
- * Created by raulraja on 12/19/13.
- */
-public class WeatherResponse {
+import ly.apps.android.rest.client.Callback;
+import ly.apps.android.rest.client.annotations.GET;
+import ly.apps.android.rest.client.annotations.QueryParam;
+import ly.apps.android.rest.client.annotations.RestService;
 
-    private String name;
+@RestService
+public interface OpenWeatherAPI {
 
-    public String getName() {
-        return name;
-    }
+    @GET("/weather")
+    <Entity> void fetchForecastTypeVar(@QueryParam("q") String query, Callback<Entity> callback);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @GET("/weather")
+    void fetchForecast(@QueryParam("q") String query, Callback<WeatherResponse> callback);
+
 }

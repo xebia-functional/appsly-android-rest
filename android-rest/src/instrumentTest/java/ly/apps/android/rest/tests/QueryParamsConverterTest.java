@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 import android.test.InstrumentationTestCase;
 import ly.apps.android.rest.converters.QueryParamsConverter;

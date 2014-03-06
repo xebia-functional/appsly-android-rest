@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 
 import org.codehaus.jackson.annotate.JsonProperty;

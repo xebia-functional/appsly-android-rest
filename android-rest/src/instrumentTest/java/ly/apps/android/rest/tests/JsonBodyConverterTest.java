@@ -17,23 +17,17 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 import android.test.InstrumentationTestCase;
-import ly.apps.android.rest.cache.CacheAwareCallback;
 import ly.apps.android.rest.converters.BodyConverter;
-import ly.apps.android.rest.converters.QueryParamsConverter;
 import ly.apps.android.rest.converters.impl.JacksonBodyConverter;
-import ly.apps.android.rest.converters.impl.JacksonQueryParamsConverter;
 import ly.apps.android.rest.utils.FileUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.util.LinkedHashMap;
 
 public class JsonBodyConverterTest extends InstrumentationTestCase {
 

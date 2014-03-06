@@ -17,48 +17,38 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 import android.util.Log;
+import ly.apps.android.rest.client.Callback;
+import ly.apps.android.rest.client.Response;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static junit.framework.Assert.fail;
+@SuppressWarnings("unchecked")
+public class TestCallback<T> extends Callback<T> {
 
-public abstract class APIAsyncTest implements Runnable {
+    private APIAsyncTest test;
+
+    private Response<T>[] expected;
 
     private int timeout;
 
     private TimeUnit unit;
 
-    protected APIAsyncTest() {
-        this(100, TimeUnit.SECONDS);
-    }
-
-    protected APIAsyncTest(int timeout, TimeUnit unit) {
-        this.timeout = timeout;
-        this.unit = unit;
-    }
-
     private CountDownLatch signal = new CountDownLatch(1);
 
-    public void complete() {
-        Log.d(getClass().getName(), "complete()");
-        signal.countDown();
+    @Override
+    public void onResponse(Response<T> response) {
+        Log.d(getClass().getName(), "onResponse() : " + response);
+        expected[0] = response;
     }
 
-    public abstract void execute() throws Throwable;
-
-    public void run() {
-        Log.d(getClass().getName(), "run()");
-        try {
-            execute();
-            signal.await(timeout, unit);
-        } catch (Throwable e) {
-            fail(e.getMessage());
-        }
+    @Override
+    public void onFinish() {
+        Log.d(getClass().getName(), "onFinish()");
+        super.onFinish();
+        test.complete();
     }
-
-
 }

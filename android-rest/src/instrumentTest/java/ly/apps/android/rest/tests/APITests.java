@@ -17,14 +17,13 @@
  * limitations under the License.
  */
 
-package ly.apps.androdi.rest.tests;
+package ly.apps.android.rest.tests;
 
 import android.content.Context;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 import ly.apps.android.rest.client.*;
 import ly.apps.android.rest.utils.Logger;
-import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
