@@ -67,69 +67,22 @@ api.getForecast(47.663267, -122.384187, new Callback<WeatherResponse>() {
 
 # Download
 
-## Gradle or Maven Dependency
+## Gradle  Dependency
 
-Appsly Android REST may be automatically imported into your project if you already use [Maven](http://maven.apache.org/) or the [Android Gradle Build System](http://tools.android.com/tech-docs/new-build-system/user-guide). Just declare Appsly Android REST as a maven dependency.
+Appsly Android REST may be automatically imported into your project if you already use the [Android Gradle Build System](http://tools.android.com/tech-docs/new-build-system/user-guide). Just declare Appsly Android REST as a gradle dependency.
 If you wish to always use the latest unstable snapshots, add the Clinker Snapshots repository where the Appsly Android REST snapshot artifacts are being deployed.
 Appsly Android REST official releases will be made available at Clinker and Maven Central as they become available
 
-**LATEST STABLE (Not yet available)**
-
-*Maven*
-
-```xml
-<repository>
-    <id>public-releases</id>
-    <url>http://clinker.47deg.com/nexus/content/repositories/releases</url>
-    <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </releases>
-</repository>
-
-<dependency>
-    <groupId>ly.apps</groupId>
-    <artifactId>android-rest</artifactId>
-    <version>1.2</version>
-</dependency>
-```
-
-*Gradle*
-
-```groovy
-dependencies {
-    compile ('ly.apps:android-rest:1.2@aar') {
-        transitive = true
-    }
-}
-```
 
 **SNAPSHOTS**
 
-*Maven*
-
-```xml
-<repository>
-    <id>public-snapshots</id>
-    <url>http://clinker.47deg.com/nexus/content/repositories/snapshots</url>
-    <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </snapshots>
-</repository>
-
-<dependency>
-    <groupId>ly.apps</groupId>
-    <artifactId>android-rest</artifactId>
-    <version>1.2-SNAPSHOT</version>
-</dependency>
-```
 
 *Gradle*
 
 ```groovy
+
+maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
+
 dependencies {
     compile ('ly.apps:android-rest:1.2-SNAPSHOT@aar') {
         transitive = true
