@@ -86,6 +86,7 @@ maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
 dependencies {
     compile ('ly.apps:android-rest:1.2-SNAPSHOT@aar') {
         transitive = true
+        changing = true
     }
 }
 ```
