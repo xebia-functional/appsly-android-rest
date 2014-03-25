@@ -64,7 +64,7 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
     @SuppressWarnings("unchecked")
     public String parseBundledQueryParams(String path, Object object) throws UnsupportedEncodingException {
         if (object != null) {
-            path = path.contains("?") ? path : path + "?";
+            path += path.contains("?") ? "&" : "?";
             Map<String,Object> props = mapper.convertValue(object, Map.class);
             List<String> vals = new ArrayList<String>();
             for (Map.Entry<String, Object> queryParamEntry : props.entrySet()) {
@@ -81,7 +81,7 @@ public class JacksonQueryParamsConverter implements QueryParamsConverter {
     @Override
     public String parseQueryParams(String path, Map<Integer, String> queryParams, Object[] args) throws UnsupportedEncodingException {
         if (queryParams.size() > 0) {
-            path = path.contains("?") ? path : path + "?";
+            path += path.contains("?") ? "&" : "?";
             List<String> vals = new ArrayList<String>();
             for (Map.Entry<Integer, String> queryParamEntry : queryParams.entrySet()) {
                 Object paramVal = args[queryParamEntry.getKey()];

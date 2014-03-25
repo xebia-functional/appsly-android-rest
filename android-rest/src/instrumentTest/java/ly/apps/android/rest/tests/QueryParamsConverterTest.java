@@ -76,4 +76,29 @@ public class QueryParamsConverterTest extends InstrumentationTestCase {
                 )
         );
     }
+
+    public void testParseQueryParamsWithExistingQueryParam() throws UnsupportedEncodingException {
+        assertEquals(
+                "/api/path/test?id=47&other=other",
+                converter.parseQueryParams(
+                        "/api/path/test?id=47",
+                        new LinkedHashMap<Integer, String>() {{
+                            put(0, "other");
+                        }}
+                        , new Object[]{ "other"}
+                )
+        );
+    }
+
+    public void testParseBundledQueryParamsWithExistingQueryParam() throws UnsupportedEncodingException {
+        assertEquals(
+                "/api/path/test?id=47&other=other",
+                converter.parseBundledQueryParams(
+                        "/api/path/test?id=47",
+                        new LinkedHashMap<String, String>() {{
+                            put("other", "other");
+                        }}
+                )
+        );
+    }
 }
