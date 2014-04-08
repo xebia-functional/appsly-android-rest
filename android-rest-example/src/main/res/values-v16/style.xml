@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBarTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="MyActionBarTheme" parent="android:Widget.ActionBar">
+        <item name="android:background">@color/forty_seven_color</item>
+        <item name="android:titleTextStyle">@style/DescriptionTitle</item>
+    </style>
+
+    <style name="TextTitle" parent="TextTemp">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="TextCity" parent="TextTemp">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="TextTemp" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Description" parent="TextAppearance.AppCompat.Widget.Base.ActionBar.Title">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
+    <style name="DescriptionTitle" parent="TextAppearance.AppCompat.Widget.Base.ActionBar.Title">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
+
+
+</resources>

@@ -1,1 +1,2 @@
-include 'android-rest'
+include ':android-rest'
+include ':android-rest-example'

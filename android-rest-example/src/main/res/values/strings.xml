@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Weather</string>
+    <string name="weather_example">Freezing rain</string>
+    <string name="city">Seattle</string>
+    <string name="action_settings">Settings</string>
+    <string name="errorConnecting">Error connecting</string>
+    <string name="synchronizing">Loading</string>
+    <string name="wind_speed">m/s</string>
+    <string name="temp_example">47º</string>
+    <string name="humidity">Humidity:</string>
+    <string name="example_humidity">49%</string>
+    <string name="wind">Wind:</string>
+    <string name="wind_example">5 m/s</string>
+    <string name="max_temp">Max:</string>
+    <string name="maxtemp_example">5º</string>
+    <string name="min_temp">Min:</string>
+    <string name="mintemp_example">4º</string>
+    <string name="open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="drawer_open">open</string>
+    <string name="base_url">http://api.openweathermap.org/data/2.5</string>
+
+    <string name="about">About</string>
+    <string name="aboutMessage">This is just a simple demo for the Open Source Appsly Android REST Library by 47 Degrees. Find all source, documentation and packaged downloads at GitHub. Cheers!</string>
+    <string name="ok">Ok</string>
+
+    <string name="visit47">Visit 47deg</string>
+    <string name="goToGitHub">Go to GitHub</string>
+
+    <string name="dontShow">Don\'t show this message again</string>
+    <string name="fourty_seven_website">http://47deg.com</string>
+    <string name="android_rest_github_url">https://github.com/47deg/appsly-android-rest</string>
+
+</resources>
