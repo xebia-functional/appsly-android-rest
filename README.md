@@ -5,7 +5,7 @@ Async Android client library for [RESTful](http://en.wikipedia.org/wiki/Represen
 
 # Introduction
 
-Appsly Android REST is a annotation based client library to connect to RESTful services on Android with an emphasis in simplicity and performance that automatically handles the
+Appsly Android REST (AKA RESTrung) is a annotation based client library to connect to RESTful services on Android with an emphasis in simplicity and performance that automatically handles the
 implementation for most common REST use cases. Easily handle GET, POST, PUT and DELETE requests in an elegant way.
 
 # Getting Started
