@@ -25,6 +25,7 @@ import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import ly.apps.android.rest.client.RequestAwareContext;
 import ly.apps.android.rest.client.Response;
 import ly.apps.android.rest.converters.BodyConverter;
+import ly.apps.android.rest.utils.ExecutionUtils;
 import ly.apps.android.rest.utils.HeaderUtils;
 import ly.apps.android.rest.utils.Logger;
 import org.apache.http.Header;
@@ -170,7 +171,7 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
     @Override
     public void onSuccess(final int statusCode, final Header[] headers, final String rawResponse, final Result response) {
         Logger.d("onSuccess: status" + statusCode + " rawResponse: " + rawResponse);
-        new AsyncTask<Void, Void, Result>() {
+        ExecutionUtils.execute(new AsyncTask<Void, Void, Result>() {
             @Override
             protected Result doInBackground(Void... voids) {
                 if (response != null && shouldCache()) {
@@ -191,12 +192,12 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
                     onResponse(httpResponse);
                 }
             }
-        }.execute();
+        });
     }
 
     @Override
     public void onFailure(final int statusCode, final Header[] headers, final String responseBody, final Throwable e) {
-        new AsyncTask<Void, Void, Result>() {
+        ExecutionUtils.execute(new AsyncTask<Void, Void, Result>() {
             @Override
             protected Result doInBackground(Void... voids) {
                 Result cachedResponse = null;
@@ -237,7 +238,7 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
                 }
             }
 
-        }.execute();
+        });
     }
 
     public CacheInfo getCacheInfo() {

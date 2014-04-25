@@ -27,6 +27,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
 import ly.apps.android.rest.client.Callback;
+import ly.apps.android.rest.utils.ExecutionUtils;
 import ly.apps.android.rest.utils.Logger;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -164,7 +165,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                 }
 
             };
-            task.execute();
+            ExecutionUtils.execute(task);
         }
 
         return new RequestHandle(null);
