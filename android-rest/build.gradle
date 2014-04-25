@@ -39,10 +39,10 @@ dependencies {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://${System.env.HOME}/.m2/repository/")
-//            repository(url: 'http://clinker.47deg.com/nexus/content/repositories/snapshots/') {
-//                authentication(userName: mavenDeployer, password: mavenDeployerPassword)
-//            }
+            //repository(url: "file://${System.env.HOME}/.m2/repository/")
+            repository(url: 'http://clinker.47deg.com/nexus/content/repositories/snapshots/') {
+                authentication(userName: mavenDeployer, password: mavenDeployerPassword)
+            }
 
             pom.project {
                 packaging POM_PACKAGING
