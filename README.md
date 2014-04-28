@@ -84,7 +84,7 @@ Appsly Android REST official releases will be made available at Clinker and Mave
 maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
 
 dependencies {
-    compile ('ly.apps:android-rest:1.2-SNAPSHOT@aar') {
+    compile ('ly.apps:android-rest:1.2.1-SNAPSHOT@aar') {
         transitive = true
         changing = true
     }
