@@ -61,6 +61,11 @@ public class ContextPersistentCacheManager implements CacheManager {
         objectCache.put(StringUtils.md5(key), new CacheEntry(object, new Date().getTime()));
     }
 
+    @Override
+    public boolean invalidate(String key) throws IOException {
+        return objectCache.invalidate(StringUtils.md5(key));
+    }
+
     /**
      * Gets and deserializes an object from a file into its memory original representation
      *

@@ -22,12 +22,12 @@ package ly.apps.android.rest.cache;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Pair;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
 import ly.apps.android.rest.client.Callback;
-import ly.apps.android.rest.utils.ExecutionUtils;
 import ly.apps.android.rest.utils.Logger;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -155,8 +155,21 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                         Logger.d("CacheAwareHttpClient.sendRequest.onPostExecute proceeding with cache: " + result);
                         callback.getCacheInfo().setLoadedFromCache(true);
                         callback.onSuccess(HttpStatus.SC_OK, null, null, result.first);
-                        if (result.second != null && result.second) { //retry request if necessary even if loaded fron cache such as in NETWORK_ENABLED
-                            CacheAwareHttpClient.super.sendRequest(client, httpContext, uriRequest, contentType, responseHandler, context);
+                        if (result.second != null && result.second) { //retry request if necessary even if loaded from cache such as in NETWORK_ENABLED
+                            if (Callback.class.isAssignableFrom(responseHandler.getClass())) {
+                                Callback<Object> callback = (Callback<Object>) responseHandler;
+                                CacheInfo secondCacheInfo = callback.getCacheInfo();
+                                secondCacheInfo.setPolicy(CachePolicy.ENABLED);
+                                secondCacheInfo.setLoadedFromCache(false);
+                                try {
+                                    boolean invalidated = cacheManager.invalidate(secondCacheInfo.getKey());
+                                    Logger.d(String.format("Key: '%s' invalidated as result of second call: %s", secondCacheInfo.getKey(), invalidated));
+                                } catch (IOException e) {
+                                    Logger.e("cache error", e);
+                                }
+                                Logger.d("Sending second cache filling call for " + uriRequest);
+                                CacheAwareHttpClient.super.sendRequest(client, httpContext, uriRequest, contentType, responseHandler, context);
+                            }
                         }
                     } else {
                         Logger.d("CacheAwareHttpClient.sendRequest.onPostExecute proceeding uncached");
@@ -165,7 +178,7 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
                 }
 
             };
-            ExecutionUtils.execute(task);
+            task.execute();
         }
 
         return new RequestHandle(null);

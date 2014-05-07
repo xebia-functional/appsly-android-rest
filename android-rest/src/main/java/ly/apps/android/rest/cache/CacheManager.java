@@ -41,6 +41,13 @@ public interface CacheManager {
     <T> T get(String key, CacheInfo cacheInfo) throws IOException, ClassNotFoundException;
 
     /**
+     * Invalidates a key from the cache
+     * @param key the key
+     * @throws IOException
+     */
+    <T> boolean invalidate(String key) throws IOException;
+
+    /**
      * Removes all entries from the cache
      */
     void invalidateAll() throws IOException;

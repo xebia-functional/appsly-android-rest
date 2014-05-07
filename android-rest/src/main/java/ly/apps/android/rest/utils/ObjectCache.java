@@ -143,4 +143,7 @@ public class ObjectCache {
         return mDiskCache != null;
     }
 
+    public boolean invalidate(String key) throws IOException {
+        return mDiskCache.remove(key);
+    }
 }
