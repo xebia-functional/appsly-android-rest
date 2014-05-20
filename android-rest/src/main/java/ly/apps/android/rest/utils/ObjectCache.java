@@ -22,13 +22,13 @@ package ly.apps.android.rest.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Environment;
-import com.jakewharton.DiskLruCache;
+import ly.apps.android.rest.cache.disklrucache.DiskLruCache;
 
 import java.io.*;
 
 /**
- * Uses DiskLruCache to provide a easy api to serialize and unserialize objects
+ * Uses an embedded version of DiskLruCache to avoid collisions by different versions required by the http response cache
+ * and async http client
  */
 public class ObjectCache {
 
@@ -139,11 +139,8 @@ public class ObjectCache {
         }
     }
 
-    public boolean isCacheAvailable() {
-        return mDiskCache != null;
-    }
-
     public boolean invalidate(String key) throws IOException {
         return mDiskCache.remove(key);
     }
+
 }
