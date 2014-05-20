@@ -22,17 +22,17 @@ package ly.apps.android.rest.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import ly.apps.android.rest.cache.disklrucache.DiskLruCache;
+import ly.apps.android.rest.cache.disklrucache.DiskCache;
 
 import java.io.*;
 
 /**
- * Uses an embedded version of DiskLruCache to avoid collisions by different versions required by the http response cache
+ * Uses an embedded version of DiskCache to avoid collisions by different versions required by the http response cache
  * and async http client
  */
 public class ObjectCache {
 
-    private DiskLruCache mDiskCache;
+    private DiskCache mDiskCache;
     private static final int APP_VERSION = 1;
     private static final int VALUE_COUNT = 1;
 
@@ -42,7 +42,7 @@ public class ObjectCache {
             PackageManager packageManager = context.getPackageManager();
             if (packageManager != null) {
                 PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-                mDiskCache = DiskLruCache.open(diskCacheDir, packageInfo.versionCode, VALUE_COUNT, diskCacheSize);
+                mDiskCache = DiskCache.open(diskCacheDir, packageInfo.versionCode, VALUE_COUNT, diskCacheSize);
             }
             if (mDiskCache == null) {
                 Logger.w("Could not initialize diskCache");
@@ -52,7 +52,7 @@ public class ObjectCache {
         }
     }
 
-    private boolean writeObjectToFile(Object object, DiskLruCache.Editor editor)
+    private boolean writeObjectToFile(Object object, DiskCache.Editor editor)
             throws IOException {
         ObjectOutputStream out = null;
         try {
@@ -73,7 +73,7 @@ public class ObjectCache {
 
     public void put(String key, Object data) {
 
-        DiskLruCache.Editor editor = null;
+        DiskCache.Editor editor = null;
         try {
             editor = mDiskCache.edit(key);
             if (editor == null) {
@@ -103,7 +103,7 @@ public class ObjectCache {
     public Object getObject(String key) {
 
         Object object = null;
-        DiskLruCache.Snapshot snapshot = null;
+        DiskCache.Snapshot snapshot = null;
         try {
 
             snapshot = mDiskCache.get(key);
