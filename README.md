@@ -54,10 +54,10 @@ OpenWeatherAPI api = RestServiceFactory.getService(baseUrl, OpenWeatherAPI.class
 ```java
 // somewhere else in your code
 
-api.getForecast(47.663267, -122.384187, new Callback<WeatherResponse>() {
+api.getForecast(47.663267, -122.384187, new Callback<ForecastResponse>() {
 
     @Override
-    public void onResponse(Response<WeatherResponse> response) {
+    public void onResponse(Response<ForecastResponse> response) {
         // This will be invoke in the UI thread after serialization with your objects ready to use
     }
 
