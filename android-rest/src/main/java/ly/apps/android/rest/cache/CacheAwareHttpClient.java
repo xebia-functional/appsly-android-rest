@@ -81,13 +81,6 @@ public class CacheAwareHttpClient extends AsyncHttpClient {
 
         Logger.d("CacheAwareHttpClient.sendRequest");
 
-        if (contentType != null && !uriRequest.containsHeader("Content-Type")) {
-            uriRequest.addHeader("Content-Type", contentType);
-        }
-
-        responseHandler.setRequestHeaders(uriRequest.getAllHeaders());
-        responseHandler.setRequestURI(uriRequest.getURI());
-
         AsyncTask<Void, Void, Pair<Object, Boolean>> task;
 
         if (Callback.class.isAssignableFrom(responseHandler.getClass())) {
