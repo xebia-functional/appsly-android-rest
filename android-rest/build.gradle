@@ -28,7 +28,6 @@ android {
 
 dependencies {
     compile 'com.loopj.android:android-async-http:1.4.4'
-    compile 'com.google.code.gson:gson:2.2.4'
     compile 'commons-io:commons-io:2.1'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'com.integralblue:httpresponsecache:1.3'
