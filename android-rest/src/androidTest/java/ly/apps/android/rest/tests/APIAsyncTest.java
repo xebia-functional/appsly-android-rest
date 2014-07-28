@@ -20,6 +20,7 @@
 package ly.apps.android.rest.tests;
 
 import android.util.Log;
+import ly.apps.android.rest.utils.ObjectCache;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -44,14 +45,14 @@ public abstract class APIAsyncTest implements Runnable {
     private CountDownLatch signal = new CountDownLatch(1);
 
     public void complete() {
-        Log.d(getClass().getName(), "complete()");
+        Log.d(((Object) this).getClass().getName(), "complete()");
         signal.countDown();
     }
 
     public abstract void execute() throws Throwable;
 
     public void run() {
-        Log.d(getClass().getName(), "run()");
+        Log.d(((Object) this).getClass().getName(), "run()");
         try {
             execute();
             signal.await(timeout, unit);
