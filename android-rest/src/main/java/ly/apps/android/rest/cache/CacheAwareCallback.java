@@ -56,6 +56,19 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
 
     private Class<? extends Collection> collectionType;
 
+    private Context context;
+
+    private CacheInfo cacheInfo;
+
+    private CacheManager cacheManager;
+
+    protected CacheAwareCallback() {
+    }
+
+    protected CacheAwareCallback(Context context) {
+        this.context = context;
+    }
+
     protected CacheAwareCallback(CacheInfo cacheInfo) {
         this.cacheInfo = cacheInfo;
     }
@@ -121,35 +134,6 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
         this.collectionType = collectionType;
     }
 
-    @Override
-    public void onFailure(int statusCode, Header[] headers, Throwable e, String rawData, Result errorResponse) {
-        Logger.d("onFailure: status" + statusCode + " rawResponse: " + rawData);
-        Response<Result> httpResponse = new Response<Result>(statusCode, headers, rawData, errorResponse, e, getCacheInfo());
-        if (proceedWithResponse()) {
-            timesProcessed++;
-            onResponse(httpResponse);
-        }
-    }
-
-    @Override
-    protected Result parseResponse(String responseBody) throws Throwable {
-        Logger.d("parsingResponse: intoTargetClass: " + targetClass + "responseBody: " + responseBody);
-        return bodyConverter.fromResponseBody(targetClass, HeaderUtils.CONTENT_TYPE_JSON, new StringEntity(responseBody, "UTF-8"), this);
-    }
-
-    private Context context;
-
-    private CacheInfo cacheInfo;
-
-    private CacheManager cacheManager;
-
-    protected CacheAwareCallback() {
-    }
-
-    protected CacheAwareCallback(Context context) {
-        this.context = context;
-    }
-
     protected boolean proceedWithResponse() {
         boolean proceed = true;
         if (context != null && context instanceof RequestAwareContext) {
@@ -158,15 +142,16 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
         return proceed;
     }
 
+    private boolean shouldCache() {
+        return !cacheInfo.isLoadedFromCache() && cacheInfo != CacheInfo.NONE;
+    }
+
     public Context getContext() {
         return context;
     }
 
     public abstract void onResponse(Response<Result> response);
 
-    private boolean shouldCache() {
-        return !cacheInfo.isLoadedFromCache() && cacheInfo != CacheInfo.NONE;
-    }
 
     @Override
     public void onSuccess(final int statusCode, final Header[] headers, final String rawResponse, final Result response) {
@@ -196,7 +181,9 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
     }
 
     @Override
-    public void onFailure(final int statusCode, final Header[] headers, final String responseBody, final Throwable e) {
+    public void onFailure(final int statusCode, final Header[] headers, final Throwable e, final String responseBody, final Result errorResponse) {
+        Logger.d("onFailure: status" + statusCode + " rawResponse: " + responseBody);
+
         ExecutionUtils.execute(new AsyncTask<Void, Void, Result>() {
             @Override
             protected Result doInBackground(Void... voids) {
@@ -229,16 +216,26 @@ public abstract class CacheAwareCallback<Result> extends BaseJsonHttpResponseHan
 
             @Override
             public void onPostExecute(Result result) {
-                Logger.d("CacheAwareCallback. Loading from cache after response error: " + e.getLocalizedMessage() + " result with cached result: " + result);
                 if (result != null) {
+                    String errorMsg = e != null ? e.getLocalizedMessage() : "n/a";
+                    Logger.d("CacheAwareCallback. Loading from cache after response error: " + errorMsg + " result with cached result: " + result);
                     cacheInfo.setLoadedFromCache(true);
-                    onSuccess(statusCode, headers, responseBody, result);
-                } else {
-                    CacheAwareCallback.super.onFailure(statusCode, headers, responseBody, e);
+                }
+
+                Response<Result> httpResponse = new Response<Result>(statusCode, headers, responseBody, errorResponse, e, getCacheInfo());
+                if (proceedWithResponse()) {
+                    timesProcessed++;
+                    onResponse(httpResponse);
                 }
             }
 
         });
+    }
+
+    @Override
+    protected Result parseResponse(String responseBody, boolean isFailure) throws Throwable {
+        Logger.d("parsingResponse: intoTargetClass: " + targetClass + "responseBody: " + responseBody);
+        return bodyConverter.fromResponseBody(targetClass, HeaderUtils.CONTENT_TYPE_JSON, new StringEntity(responseBody, "UTF-8"), this);
     }
 
     public CacheInfo getCacheInfo() {

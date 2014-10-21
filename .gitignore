@@ -15,6 +15,7 @@ atlassian-ide-plugin.xml
 target/
 
 # gradle
+build/
 .gradle/
 */build/**
 
