@@ -60,7 +60,8 @@ public class JacksonBodyConverter implements BodyConverter {
         try {
             String json = mapper.writeValueAsString(object);
             Logger.d("JacksonHttpFormValuesConverter.toRequestBody: json: " + json);
-            HttpEntity result = new StringEntity(json, "UTF-8");
+            StringEntity result = new StringEntity(json, "UTF-8");
+            result.setContentType(contentType);
             Logger.d("JacksonBodyConverter.toRequestBody: result: " + result);
             return result;
         } catch (UnsupportedEncodingException e) {
